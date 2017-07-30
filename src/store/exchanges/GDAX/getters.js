@@ -1,3 +1,9 @@
+// Orders
+export default {
+  orders: (state) => state.orders
+}
+
+
 
 // Stations
 export const currentStation = (state, getters, rootState) => {

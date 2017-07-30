@@ -11,27 +11,27 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+
     }
   },
   mounted(){
     console.log("mounted")
-    let exampleSocket = new WebSocket()
+    let exampleSocket = new WebSocket("wss://ws-feed.gdax.com")
 
     exampleSocket.onopen = function (event) {
       console.log(event)
-      // let sub  = {
-      //   type: "subscribe",
-      //   product_ids: [
-      //     "LTC-USD"
-      //   ]
-      // }
+      let sub  = {
+        type: "subscribe",
+        product_ids: [
+          "LTC-USD"
+        ]
+      }
 
-      // exampleSocket.send(JSON.stringify(sub));
+      exampleSocket.send(JSON.stringify(sub));
     };
 
     exampleSocket.onmessage = function (event) {
-      log(event)
+      // log(event)
       let order = JSON.parse(event.data)
       let point =  {
 				x: moment(order.time).format(timeFormat),
@@ -99,6 +99,9 @@ export default {
         title:{
           text: "Chart.js Time Scale"
         },
+        legend: {
+          display: false
+        },
 				scales: {
 					xAxes: [{
 						type: "time",
@@ -108,13 +111,13 @@ export default {
 							tooltipFormat: 'll HH:mm:ss'
 						},
 						scaleLabel: {
-							display: true,
+							display: false,
 							labelString: 'Date'
 						}
 					}, ],
 					yAxes: [{
 						scaleLabel: {
-							display: true,
+							display: false,
 							labelString: 'value'
 						}
 					}]
