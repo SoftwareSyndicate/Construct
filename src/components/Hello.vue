@@ -35,10 +35,10 @@ export default {
       let order = JSON.parse(event.data)
       let point =  {
 				x: moment(order.time).format(timeFormat),
-				y: order.price,
+				y: order.size * order.price,
 			}
 
-      if(order.type == "match"){
+      if(order.size  && order.type == "match"){
         console.log(order)
         
         if(order.side == 'buy'){
@@ -79,6 +79,7 @@ export default {
 				],
 				datasets: [
           {
+            steppedLine: true,
 					  label: "Buy Orders",
 					  backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
 					  borderColor: window.chartColors.green,
@@ -87,6 +88,7 @@ export default {
 				  },
 
           {
+            steppedLine: true,
 					  label: "Sell Orders",
 					  backgroundColor: "rgba(255, 51, 51, .7)",
 					  borderColor: "rgba(255, 51, 51, .7)",
@@ -95,6 +97,7 @@ export default {
 				  }
         ]
 			},
+
 			options: {
         title:{
           text: "Chart.js Time Scale"
