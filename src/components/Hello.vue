@@ -52,22 +52,17 @@ export default {
   // },
 
   mounted(){
-    console.log("mounted")
-    // this.collect_orders(["LTC-USD"])
 
-
-    
+    // console.log(this.$style)
     let exampleSocket = new WebSocket("wss://ws-feed.gdax.com")
 
     exampleSocket.onopen = function (event) {
-      console.log(event)
       let sub  = {
         type: "subscribe",
         product_ids: [
           "LTC-USD"
         ]
       }
-
       exampleSocket.send(JSON.stringify(sub));
     };
 
@@ -120,8 +115,8 @@ export default {
           {
             steppedLine: true,
 					  label: "Buy Orders",
-					  backgroundColor: "rgba(51, 255, 51, .5)",
-					  borderColor: "rgba(51, 255, 51, .8)",
+					  backgroundColor: this.$style.green,
+					  borderColor: this.$style.green,
 					  fill: false,
 					  data: [],
 				  },
@@ -129,8 +124,8 @@ export default {
           {
             steppedLine: true,
 					  label: "Sell Orders",
-					  backgroundColor: "rgba(255, 51, 51, .5)",
-					  borderColor: "rgba(255, 51, 51, .7)",
+					  backgroundColor: this.$style.red,
+					  borderColor: this.$style.red,
 					  fill: false,
 					  data: [],
 				  }
@@ -138,9 +133,6 @@ export default {
 			},
 
 			options: {
-        title:{
-          text: "Chart.js Time Scale"
-        },
         legend: {
           display: false
         },
@@ -149,7 +141,6 @@ export default {
 						type: "time",
 						time: {
 							format: timeFormat,
-							// round: 'day'
 							tooltipFormat: 'll HH:mm:ss'
 						},
 						scaleLabel: {
@@ -175,7 +166,7 @@ export default {
 </script>
 
 
-<style scoped lang="stylus">
- 
+<style lang="stylus" module>
+@import "../styles/main.styl"
   
 </style>

@@ -6,11 +6,16 @@ div#app
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  mounted(){
+
+  }
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" module>
+@import "./styles/main.styl"
+  
 body 
   margin 0px
 
