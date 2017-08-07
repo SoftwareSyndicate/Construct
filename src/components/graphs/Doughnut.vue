@@ -13,7 +13,9 @@ import { mapActions } from 'vuex'
 export default {
   name: 'DoughnutChart',
   props: {
-    
+    title: {
+      default: "Default Title"
+    }
   },
   data () {
     return {
@@ -44,11 +46,8 @@ export default {
             3
           ],
           backgroundColor: [
-            window.chartColors.red,
-            window.chartColors.orange,
-            window.chartColors.yellow,
-            window.chartColors.green,
-            window.chartColors.blue,
+            this.$style.green,
+            this.$style.red,
           ],
           label: 'Dataset 1'
         }],
@@ -66,8 +65,8 @@ export default {
           position: 'top',
         },
         title: {
-          display: true,
-          text: 'Chart.js Doughnut Chart'
+          display: false,
+          text: this.title
         },
         animation: {
           animateScale: true,
@@ -75,18 +74,12 @@ export default {
         }
       }
     };
-
-    // this.collect_orders(["LTC-USD"])
-
-		// var ctx = document.getElementById("canvas").getContext("2d");
-		// window.myLine = new Chart(ctx, this.config);
-
   }
 }
   </script>
 
 
-<style scoped lang="stylus">
-  
+<style scoped lang="stylus" module>
+@import "../../styles/main.styl"  
   
 </style>

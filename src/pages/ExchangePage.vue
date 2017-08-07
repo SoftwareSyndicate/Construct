@@ -2,6 +2,7 @@
 div#exchange-page
   p exchange page
   // doughnut()
+  i.cc.BTC
   
 </template>
 
