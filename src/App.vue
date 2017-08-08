@@ -1,11 +1,19 @@
 <template lang="pug">
 div#app
-  router-view
+  div.navbar-container
+    navbar
+  div.router-view-container
+    router-view
 
 </template>
 
 <script>
+import Navbar from "@/components/Navbar"
+  
 export default {
+  components: {
+    'navbar': Navbar
+  },
   name: 'app',
   mounted(){
 
@@ -13,14 +21,18 @@ export default {
 }
 </script>
 
-<style lang="stylus" module>
+<style lang="stylus">
 @import "./styles/main.styl"
   
 #app 
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  .navbar-container
+    display flex
+  .router-view-container
+    display flex
+
+    .page
+       display flex
+       flex-basis 100%
+   
 
 </style>

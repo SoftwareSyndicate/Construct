@@ -16,6 +16,20 @@ sync(store, router)
 Vue.use(SyndicateUI)
 Vue.config.productionTip = false
 
+// Put these somewhere else?
+window.log = console.log
+window.moment = moment
+
+// TODO put into charts config
+Chart.defaults.global.defaultFontColor = 'white';
+Chart.defaults.global.defaultColor = 'white';
+Chart.defaults.global.defaultFontFamily = 'RTRaleway'
+Chart.defaults.global.defaultFontStyle = 'bold'
+
+console.log(Chart.defaults.global)
+
+
+
 new Vue({
   el: '#app',
   router,
@@ -25,7 +39,4 @@ new Vue({
 })
 
 
-// Put these somewhere else?
-window.log = console.log
-window.moment = moment
 

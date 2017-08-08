@@ -1,5 +1,5 @@
 <template lang="pug">
-div.hello
+div.hello.page
   div(style="width:100%;")
     canvas#canvas
 
@@ -143,6 +143,10 @@ export default {
 							format: timeFormat,
 							tooltipFormat: 'll HH:mm:ss'
 						},
+            gridLines: {
+              display: true,
+              color: "#FFFFFF"
+            },
 						scaleLabel: {
 							display: false,
 							labelString: 'Date'
@@ -152,7 +156,12 @@ export default {
 						scaleLabel: {
 							display: false,
 							labelString: 'value'
-						}
+						},
+            gridLines: {
+              display: true,
+              color: "#FFFFFF"
+            },
+
 					}]
 				},
 			}
