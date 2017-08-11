@@ -1,10 +1,8 @@
 <template lang="pug">
-div#exchange-page
-  p exchange rhpage
+div#coin-page
+  p coin page
   // doughnut()
-  span.coins-ADC-alt
-  p RSCHESRCH
-
+  i.cc.BTC
   
 </template>
 
@@ -15,7 +13,7 @@ import { mapActions } from 'vuex'
 import Doughnut from '@/components/graphs/Doughnut'
 
 export default {
-  name: 'ExchangePage',
+  name: 'CoinPage',
   components: {
     Doughnut,
   },
@@ -37,7 +35,7 @@ export default {
   },
 
   mounted(){
-    console.log("mounted")
+
   }
 }
 </script>

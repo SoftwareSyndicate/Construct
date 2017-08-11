@@ -16,19 +16,33 @@ export default {
   },
   name: 'app',
   mounted(){
+// GET /someUrl
+  // this.$http.get('/someUrl').then(response => {
 
+  //   // get body data
+  //   this.someData = response.body;
+
+  // }, response => {
+  //   // error callback
+  // });
   }
 }
 </script>
 
 <style lang="stylus">
 @import "./styles/main.styl"
+@import "./fonts/coins/style.css"
   
 #app 
   .navbar-container
     display flex
+    width 100%
+    position fixed
+    background #fdfdfd
+    
   .router-view-container
     display flex
+    padding-top 64px
 
     .page
        display flex

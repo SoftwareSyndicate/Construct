@@ -2,11 +2,11 @@
   
 div#navbar
   div.left
-    p help
+    // p coins
   div.center
-    p help
+    p.brand Construct
   div.right
-    p help
+    // p exchanges
   
 </template>
 
@@ -41,29 +41,31 @@ export default {
 
 
 <style lang="stylus">
-@import "../styles/main.styl"
-
-$nav-height = 4em
 
 #navbar
   display flex
   flex-basis 100%
   padding 0px 2em
   height 4em
-  background-color $colors['blue']
-
-
+  justify-content space-between
+  box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
+  
+  
   .left
     display flex
+    align-items center
     
   .center
     display flex
-    margin-left auto
-    margin-right auto
+    align-items center
+
+    .brand
+      font-family 'Cinzel', serif
+      font-size 24px
+    
     
   .right
     display flex
-    margin-left auto
     align-items center
     
 </style>
