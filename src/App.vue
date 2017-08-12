@@ -16,15 +16,7 @@ export default {
   },
   name: 'app',
   mounted(){
-// GET /someUrl
-  // this.$http.get('/someUrl').then(response => {
-
-  //   // get body data
-  //   this.someData = response.body;
-
-  // }, response => {
-  //   // error callback
-  // });
+    
   }
 }
 </script>
@@ -32,8 +24,10 @@ export default {
 <style lang="stylus">
 @import "./styles/main.styl"
 @import "./fonts/coins/style.css"
+
   
-#app 
+#app
+
   .navbar-container
     display flex
     width 100%
@@ -47,6 +41,7 @@ export default {
     .page
        display flex
        flex-basis 100%
-   
+
+       
 
 </style>

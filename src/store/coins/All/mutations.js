@@ -45,4 +45,6 @@ GDAX  index.js
 All  index.js
 ~/repos/construct/src/store/coins $ cd All/
 actions.js  api.js  getters.js  index.js  mutation-types.js  mutations.js
+~/repos/construct/src/store/coins/All $ ls
+actions.js  api.js  getters.js  index.js  mutation-types.js  mutations.js
 ~/repos/construct/src/store/coins/All $ 
