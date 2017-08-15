@@ -8,6 +8,7 @@ import moment from 'moment'
 // import SyndicateUI from 'syndicate-ui'
 import VueResource from 'vue-resource'
 
+
 // Sync the store with the router
 import { sync } from 'vuex-router-sync'
 sync(store, router)

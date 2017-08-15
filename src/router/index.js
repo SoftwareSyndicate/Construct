@@ -5,6 +5,7 @@ import Pages from '@/pages'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {path: '/', name: 'home', component: Pages.HomePage},
     {path: '/currencies/:id', name: 'currency', component: Pages.CurrencyPage},

@@ -31,7 +31,7 @@ export default {
     width 100%
     position fixed
     background #fefefe
-    
+        
   .router-view-container
     display flex
     padding-top 64px
