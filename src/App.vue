@@ -16,7 +16,7 @@ export default {
   },
   name: 'app',
   mounted(){
-    
+    console.log("Welcome to the Construct")
   }
 }
 </script>
