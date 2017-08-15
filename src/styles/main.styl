@@ -17,21 +17,21 @@
   unicode-range U+30-39, U+24, U+25
 }
 
-/* latin-ext */
-// @font-face {
-//   font-family: 'Roboto';
-//   font-style: normal;
-//   font-weight: 400;
-//   src: local('Roboto'), local('Roboto-Regular'), local('sans-serif'), url(https://fonts.gstatic.com/s/roboto/v16/Ks_cVxiCiwUWVsFWFA3Bjn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-//   unicode-range U+30-39, U+24, U+25
-// }
-// /* latin */
-// @font-face 
-//   font-family: 'Roboto';
-//   font-style: normal;
-//   font-weight: 400;
-//   src: local('Roboto'), local('Roboto-Regular'), local('sans-serif'), url(https://fonts.gstatic.com/s/roboto/v16/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
-//   unicode-range U+30-39, U+24, U+25
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'), local('sans-serif'), url(https://fonts.gstatic.com/s/roboto/v16/Ks_cVxiCiwUWVsFWFA3Bjn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+  unicode-range U+30-39, U+24, U+25
+}
+/* latin */
+@font-face 
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'), local('sans-serif'), url(https://fonts.gstatic.com/s/roboto/v16/oMMgfZMQthOryQo9n22dcuvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
+  unicode-range U+30-39, U+24, U+25
 
 
 $colors = {
@@ -50,13 +50,13 @@ $orange = #ff7a38
 $blue = #4dccff
 $purple = #6e66ff
 
-:export 
-  green: $colors.green
-  red: $colors.red
-  yellow: $colors.yellow
-  orange: $colors.orange
-  blue: $colors.blue
-  purple: $colors.purple
+// :export 
+//   green: $colors.green
+//   red: $colors.red
+//   yellow: $colors.yellow
+//   orange: $colors.orange
+//   blue: $colors.blue
+//   purple: $colors.purple
   
 html
   height 100%
@@ -67,7 +67,7 @@ body
   line-height 1em !important
   font-family: 'Roboto', 'Raleway', sans-serif;
   color #292f33
-  font-weight 500
+  font-weight 300
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: linear-gradient(0deg, #f9fafd 0%, #f9fafd 100%);

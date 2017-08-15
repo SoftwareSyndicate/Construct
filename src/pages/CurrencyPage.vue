@@ -1,8 +1,6 @@
 <template lang="pug">
-div#coin-page
-  p coin page
-  // doughnut()
-  i.cc.BTC
+div#currency-page
+  p Currency Page
   
 </template>
 
@@ -10,12 +8,11 @@ div#coin-page
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
-import Doughnut from '@/components/graphs/Doughnut'
 
 export default {
-  name: 'CoinPage',
+  name: 'CurrencyPage',
   components: {
-    Doughnut,
+
   },
   props: {
     

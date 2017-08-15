@@ -79,7 +79,7 @@ export default {
   </script>
 
 
-<style scoped lang="stylus" module>
-@import "../../styles/main.styl"  
+<style scoped lang="stylus">
+
   
 </style>

@@ -1,16 +1,17 @@
 <template lang="pug">
-div.currency-list-item(:class="{'updating': updating}")
-  // div.left
-  //   span.rank {{currency.rank}}
+router-link(:to="{name: 'currency', params: {id: currency.id}}" tag="div")
+  div.currency-list-item(:class="{'updating': updating}")
+    // div.left
+    //   span.rank {{currency.rank}}
 
-  div.center
-    img.icon(:src="'https://files.coinmarketcap.com/static/img/coins/32x32/' + currency.id + '.png'")
-    // span.icon(:class="'coins-' + currency.symbol")
-    p.name {{currency.name}}
+    div.center
+      img.icon(:src="'https://files.coinmarketcap.com/static/img/coins/32x32/' + currency.id + '.png'")
+      // span.icon(:class="'coins-' + currency.symbol")
+      p.name {{currency.name}}
 
-  div.right
-    p.price(:class="") ${{currency.price_usd}}
-    p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%
+    div.right
+      p.price(:class="") ${{currency.price_usd}}
+      p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%
   
 </template>
 
@@ -75,7 +76,7 @@ export default {
 
     .icon
       font-size 30px
-      margin-right .5em
+      margin-right .8em
       min-width 30px
 
     .name
@@ -89,6 +90,7 @@ export default {
      margin-right 20px
 
     .percent-change
+      font-weight 400
       &.up
         color $green
       &.down

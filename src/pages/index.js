@@ -1,9 +1,9 @@
 import HomePage from './HomePage'
 import ExchangePage from './ExchangePage'
-import CoinPage from './CoinPage'
+import CurrencyPage from './CurrencyPage'
 
 export default {
   HomePage,
   ExchangePage,
-  CoinPage,
+  CurrencyPage,
 }

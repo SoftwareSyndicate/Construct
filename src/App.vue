@@ -23,8 +23,6 @@ export default {
 
 <style lang="stylus">
 @import "./styles/main.styl"
-@import "./fonts/coins/style.css"
-
   
 #app
 
@@ -32,7 +30,7 @@ export default {
     display flex
     width 100%
     position fixed
-    background #fdfdfd
+    background #fefefe
     
   .router-view-container
     display flex
