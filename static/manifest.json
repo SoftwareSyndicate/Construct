@@ -1,7 +1,7 @@
 {
   "name": "Construct",
   "short_name": "Construct",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#fff",
   "description": "Crypto Analysis.",
   "icons": [{
