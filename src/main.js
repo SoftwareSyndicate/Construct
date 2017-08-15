@@ -5,8 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import moment from 'moment'
-import Charts from 'Chart.js'
-import SyndicateUI from 'syndicate-ui'
+// import SyndicateUI from 'syndicate-ui'
 import VueResource from 'vue-resource'
 
 // Sync the store with the router
@@ -17,7 +16,7 @@ sync(store, router)
 Vue.use(VueResource);
 
 //Install SyndicateUI
-Vue.use(SyndicateUI)
+// Vue.use(SyndicateUI)
 Vue.config.productionTip = false
 
 // Put these somewhere else?
