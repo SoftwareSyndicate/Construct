@@ -2,15 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import { sync } from 'vuex-router-sync'
 import router from './router'
 import store from './store'
 import moment from 'moment'
 // import SyndicateUI from 'syndicate-ui'
 import VueResource from 'vue-resource'
 
-
 // Sync the store with the router
-import { sync } from 'vuex-router-sync'
 sync(store, router)
 
 // Install VueResource

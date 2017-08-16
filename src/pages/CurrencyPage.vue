@@ -1,6 +1,7 @@
 <template lang="pug">
-div#currency-page
-  p Currency Page
+div#currency-page.page
+  div.header
+    
   
 </template>
 
@@ -28,18 +29,21 @@ export default {
   },
 
   computed: {
-    
+    ...mapGetters([
+      'currency'
+    ])
   },
-
   mounted(){
     
-  }
+  },
 }
 </script>
 
 
-<style scoped lang="stylus">
-
+<style lang="stylus">
+#currency-page
+  display flex
   
+
   
 </style>

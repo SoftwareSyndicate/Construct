@@ -5,7 +5,7 @@ import mutations from './mutations'
 const state = {
   currencies: [],
   sorted_currencies: [],
-  currency: null,
+  currency: {},
 }
 
 export default  {

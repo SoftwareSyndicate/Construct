@@ -4,7 +4,7 @@ div#navbar
   div.left
     i.material-icons menu
   div.center
-    p.brand(v-if="!searching") Construct
+    p.brand(v-if="!searching") {{brand}}
     input(v-else v-model="search")
   div.right(@click="searching = !searching")
     i.material-icons search
@@ -30,9 +30,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-
-    }),
+    ...mapGetters([
+      'brand'
+    ]),
   },
 
   mounted(){

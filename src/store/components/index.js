@@ -1,10 +1,5 @@
-
-import leftNav from './leftNav'
-import rightNav from './rightNav'
-import modal from './modal'
+import Navbar from './Navbar'
 
 export default {
-  leftNav,
-  rightNav,
-  modal
+  Navbar,
 }

@@ -7,9 +7,14 @@ export const sorted_currencies = (state) => {
   })
 }
 
-// export const buy_orders = (state) => {
-//   return state.orders.filter(order => order.side == "buy")
-// }
+export const currency = (state, commit, rootState) => {
+  let id = rootState.route.params.id
+  if(id && state.currencies.length > 0){
+    return state.currencies.filter(c => c.id == id)[0]
+  } else {
+    return {}
+  }
+}
 
 // export const matched_orders = (state) => {
 //   return state.orders.filter(order => order.type == "match")
