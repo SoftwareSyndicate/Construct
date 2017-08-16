@@ -1,7 +1,7 @@
 <template lang="pug">
 div#home-page
   div.coin-list-container
-    currency-list(:currencies="sortedCurrencies")
+    currency-list(:currencies="sorted_currencies")
 
 </template>
 
@@ -22,7 +22,7 @@ export default {
   },
   data () {
     return {
-      currencies: []
+
     }
   },
   methods: {
@@ -30,26 +30,14 @@ export default {
   },
 
   computed: {
-    sortedCurrencies(){
-      return this.currencies.sort(function(a, b){
-        return a.rank - b.rank
-      })
-    }
+    ...mapGetters([
+      'currencies',
+      'sorted_currencies',
+    ])
   },
 
   mounted(){
-    setInterval(()=> {
-      this.$http.get('https://api.coinmarketcap.com/v1/ticker/?limit=100').then(response => {
-        this.currencies = response.body
-      }, error => {
-        
-      });
-    }, 5000)
-    this.$http.get('https://api.coinmarketcap.com/v1/ticker/?limit=100').then(response => {
-      this.currencies = response.body
-    }, error => {
-
-    });
+    
   }
 }
 </script>

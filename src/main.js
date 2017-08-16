@@ -24,6 +24,9 @@ Vue.config.productionTip = false
 window.log = console.log
 window.moment = moment
 
+// Move to App?
+store.dispatch("fetch_currencies")
+
 new Vue({
   el: '#app',
   router,

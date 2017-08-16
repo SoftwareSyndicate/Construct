@@ -20,7 +20,7 @@ export default {
   },
   data () {
     return {
-
+      
     }
   },
   methods: {
@@ -32,7 +32,7 @@ export default {
   },
 
   mounted(){
-
+    
   }
 }
 </script>

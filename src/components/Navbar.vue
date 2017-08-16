@@ -2,11 +2,12 @@
   
 div#navbar
   div.left
-    // p coins
+    i.material-icons menu
   div.center
-    p.brand Construct
-  div.right
-    // p exchanges
+    p.brand(v-if="!searching") Construct
+    input(v-else v-model="search")
+  div.right(@click="searching = !searching")
+    i.material-icons search
   
 </template>
 
@@ -18,7 +19,8 @@ export default {
   name: 'Navbar',
   data () {
     return {
-      config: {}
+      searching: false,
+      search: ""
     }
   },
   methods: {
@@ -54,11 +56,14 @@ export default {
   .left
     display flex
     align-items center
+    flex-grow 1
     
   .center
     display flex
     align-items center
-
+    justify-content center
+    flex-grow 1
+    
     .brand
       font-family 'Cinzel', serif
       font-size 24px
@@ -67,5 +72,7 @@ export default {
   .right
     display flex
     align-items center
+    justify-content flex-end
+    flex-grow 1
     
 </style>
