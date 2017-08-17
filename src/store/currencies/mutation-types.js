@@ -1,2 +1,6 @@
+// Coin Market Cap
 export const RECIEVE_CURRENCIES = 'RECIEVE_CURRENCIES'
+
+// ShapeShift
+export const RECIEVE_SHAPESHIFT_RATES = 'RECIEVE_SHAPESHIFT_RATES'
 

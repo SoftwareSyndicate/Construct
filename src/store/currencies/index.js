@@ -6,6 +6,8 @@ const state = {
   currencies: [],
   sorted_currencies: [],
   currency: {},
+  shapeshift_rates: [],
+  filtered_shapeshift_rates: [],
 }
 
 export default  {

@@ -25,6 +25,7 @@ window.moment = moment
 
 // Move to App?
 store.dispatch("fetch_currencies")
+store.dispatch("fetch_shapeshift_market_info")
 
 new Vue({
   el: '#app',
