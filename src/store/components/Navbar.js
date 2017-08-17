@@ -21,8 +21,14 @@ var getters = {
 
 // Mutations
 var mutations = {
-  ["SET_BRAND"] (state, brand) {
+  ["set_brand"] (state, brand) {
     state.brand = brand
+  },
+  ["set_searching"] (state, searching) {
+    state.searching = searching
+  },
+  ["set_search"] (state, search) {
+    state.search = search
   },
 }
 

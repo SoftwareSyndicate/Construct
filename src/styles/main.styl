@@ -90,3 +90,16 @@ input
   flex-grow 1
   height 30px
   border 1px solid rgba(0, 0, 0, .1)
+  font-family 'Roboto', 'Raleway', sans-serif
+  letter-spacing .5px
+  border-radius 2px
+
+  &:focus
+    outline none
+    border 1px solid $blue
+
+.fade-enter-active, .fade-leave-active 
+  transition opacity .1s
+
+.fade-enter, .fade-leave-to 
+  opacity 0

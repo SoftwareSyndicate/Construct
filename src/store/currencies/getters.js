@@ -1,10 +1,15 @@
 // Orders
 export const currencies = (state) => state.currencies
 
-export const sorted_currencies = (state) => {
-  return state.currencies.sort(function(a, b){
+export const sorted_currencies = (state, commit, rootState) => {
+  let sorted = state.currencies.sort(function(a, b){
     return a.rank - b.rank
   })
+
+  if(rootState.navbar.search.length > 0){
+    sorted = sorted.filter(c => c.id.includes(rootState.navbar.search))
+  }
+  return sorted
 }
 
 export const currency = (state, commit, rootState) => {

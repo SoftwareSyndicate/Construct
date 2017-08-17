@@ -4,9 +4,11 @@ div#navbar
   div.left
     i.material-icons menu
   div.center
-    p.brand(v-if="!searching") {{brand}}
-    input(v-else v-model="search")
-  div.right(@click="searching = !searching")
+    transition(name="fade" v-if="!searching" mode="out-in")
+      p.brand {{brand}}
+    transition(name="fade" v-else mode="out-in")
+      input(:value="search" @input="updateSearch" ref="search")
+  div.right(@click="set_searching(!searching)")
     i.material-icons search
   
 </template>
@@ -14,25 +16,45 @@ div#navbar
 <script>
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Navbar',
   data () {
     return {
-      searching: false,
-      search: ""
+      
     }
   },
   methods: {
     ...mapActions({
-
+      
     }),
+    ...mapMutations([
+      'set_brand',
+      'set_searching',
+      'set_search'
+    ]),
+    updateSearch(e){
+      this.set_search(e.target.value)
+    }
   },
 
   computed: {
     ...mapGetters([
-      'brand'
+      'brand',
+      'searching',
+      'search',
     ]),
+  },
+
+  watch: {
+    searching: function(){
+      if(this.searching){
+        setTimeout(()=>{
+          this.$refs.search.focus()
+        }, 300)
+      } 
+    }
   },
 
   mounted(){

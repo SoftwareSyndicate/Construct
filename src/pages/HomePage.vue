@@ -1,6 +1,6 @@
 <template lang="pug">
 div#home-page
-  div.coin-list-container
+  div.currency-list-container
     currency-list(:currencies="sorted_currencies")
 
 </template>
@@ -8,6 +8,7 @@ div#home-page
 <script>
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 
 import CurrencyList from '@/components/CurrencyList'
 
@@ -26,7 +27,10 @@ export default {
     }
   },
   methods: {
-
+    ...mapMutations([
+      'set_searching',
+      'set_search'
+    ]),
   },
 
   computed: {
@@ -34,6 +38,11 @@ export default {
       'currencies',
       'sorted_currencies',
     ])
+  },
+
+  beforeDestroy(){
+    this.set_searching(false)
+    this.set_search("")
   },
 
   mounted(){
