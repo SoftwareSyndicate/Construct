@@ -6,6 +6,8 @@ import { sync } from 'vuex-router-sync'
 import router from './router'
 import store from './store'
 import moment from 'moment'
+import * as d3 from "d3"
+
 // import SyndicateUI from 'syndicate-ui'
 import VueResource from 'vue-resource'
 
@@ -34,6 +36,4 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
-
-
 

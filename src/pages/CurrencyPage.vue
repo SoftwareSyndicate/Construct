@@ -1,7 +1,17 @@
 <template lang="pug">
 div#currency-page
   div.top
-    div.tab
+    div.tab(v-if="currency_page_tab == 'charts'")
+      div.charts
+        h3 Price
+        line-graph(:data="currency_history.price")
+        h3 Market Cap
+        line-graph(:data="currency_history.market_cap")
+        h3 Volume
+        line-graph(:data="currency_history.volume")
+
+
+    div.tab(v-if="currency_page_tab == 'shapeshift'")
       div.shapeshift-rates
         h2 ShapeShift 
         div.quote(v-for="quote in filtered_shapeshift_rates")
@@ -21,14 +31,17 @@ div#currency-page
 </template>
 
 <script>
+import TimeSeries from '@/components/graphs/TimeSeries'
+import LineGraph from '@/components/graphs/Line'
+
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
-
 
 export default {
   name: 'CurrencyPage',
   components: {
-
+    TimeSeries,
+    LineGraph
   },
   props: {
     
@@ -36,21 +49,33 @@ export default {
   },
   data () {
     return {
-      
+      currency_page_tab: "charts",
     }
   },
   methods: {
-
+    ...mapActions([
+      'fetch_currency_history',
+    ]),
   },
 
   computed: {
     ...mapGetters([
       'currency',
+      'currency_history',
       'filtered_shapeshift_rates',
     ])
   },
   mounted(){
-    
+    this.unwatch = this.$watch('currency', ()=>{
+      if(this.currency.id){
+        _fetch_currency_history(this.currency)
+      }
+    })
+
+    let _fetch_currency_history = function(currency){
+      this.fetch_currency_history(this.currency)
+      this.unwatch()
+    }.bind(this)
   },
 }
 </script>
@@ -74,7 +99,7 @@ export default {
     .tab
       flex-basis 100%
 
-    h2
+    h3
       margin-bottom 1em
 
     .quote

@@ -1,5 +1,6 @@
 // Orders
 export const currencies = (state) => state.currencies
+export const currency_history = (state) => state.currency_history
 
 export const sorted_currencies = (state, commit, rootState) => {
   let sorted = state.currencies.sort(function(a, b){
