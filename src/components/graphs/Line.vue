@@ -46,10 +46,39 @@ export default {
         d.close = +d[1]
       });
 
+      function make_x_gridlines() {		
+        return d3.axisBottom(x)
+          .ticks(10)
+      }
+
+      // gridlines in y axis function
+      function make_y_gridlines() {		
+        return d3.axisLeft(y)
+          .ticks(10)
+      }
+
       // Scale the range of the data
       x.domain(d3.extent(data, function(d) { return d.date; }));
       y.domain([d3.min(data, function(d) { return d.close; }), d3.max(data, function(d) { return d.close; })]);
 
+
+      // add the X gridlines
+      svg.append("g")			
+        .attr("class", "grid")
+        .attr("transform", "translate(0," + height + ")")
+        .call(make_x_gridlines()
+              .tickSize(-height)
+              .tickFormat("")
+             )
+
+      // add the Y gridlines
+      svg.append("g")			
+        .attr("class", "grid")
+        .call(make_y_gridlines()
+              .tickSize(-width)
+              .tickFormat("")
+             )
+      
       // Add the valueline path.
       svg.append("path")
         .data([data])
@@ -87,5 +116,14 @@ export default {
     fill none
     stroke darken($blue, 30%)
     stroke-width: 2px
+
+  .grid line 
+    stroke: lightgrey;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+
+  .grid path 
+    stroke-width: 0;
+    
   
 </style>
