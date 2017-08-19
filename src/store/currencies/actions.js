@@ -38,3 +38,16 @@ export const fetch_shapeshift_market_info = ({commit, state}) => {
     commit(types.RECIEVE_SHAPESHIFT_RATES, {rates})
   })
 }
+
+
+export const load_currencies = ({ commit, state }) => {
+  let currencies = localStorage.getItem("currencies");
+  if(currencies){
+    commit("LOAD_CURRENCIES", JSON.parse(currencies))
+  }
+}
+
+export const save_currencies = ({ commit, state }) => {
+  let currencies = JSON.stringify(state)
+  localStorage.setItem("currencies", currencies)
+}

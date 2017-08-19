@@ -11,5 +11,12 @@ export default {
   [types.RECIEVE_SHAPESHIFT_RATES] (state, {rates}) {
     state.shapeshift_rates = rates
   },
+  [types.LOAD_CURRENCIES] (state, oldState) {
+    state.currencies = oldState.currencies
+    state.sorted_currencies = oldState.sorted_currencies
+    state.currency = oldState.currency
+    state.shapeshift_rates = oldState.shapeshift_rates
+    state.filtered_shapeshift_rates = oldState.filtered_shapeshift_rates
+  },
 
 }

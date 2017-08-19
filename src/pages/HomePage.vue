@@ -46,7 +46,8 @@ export default {
   },
 
   mounted(){
-    
+    log(this.currencies)
+    log(this.$store)
   }
 }
 </script>
