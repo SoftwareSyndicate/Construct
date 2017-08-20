@@ -55,6 +55,7 @@ export default {
   methods: {
     ...mapActions([
       'fetch_currency_history',
+      'set_brand',
     ]),
   },
 
@@ -68,9 +69,11 @@ export default {
   mounted(){
     if(this.$route.params.name){
       this.fetch_currency_history(this.$route.params.name)
+      this.set_brand(this.$route.params.id)
     } else {
       this.unwatch = this.$watch('currency', ()=>{
         if(this.currency.id){
+          this.set_brand(this.$route.params.id)
           _fetch_currency_history()
         }
       })

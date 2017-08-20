@@ -27,9 +27,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'set_left_nav'
-    ]),
-    ...mapMutations([
+      'set_left_nav',
       'set_brand',
       'set_searching',
       'set_search'

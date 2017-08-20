@@ -10,6 +10,8 @@ export default new Router({
   routes: [
     {path: '/', name: 'home', component: Pages.HomePage},
     {path: '/currencies/:id', name: 'currency', component: Pages.CurrencyPage},
-    {path: '/exchanges/:id', name: 'exchange', component: Pages.ExchangePage}
+    {path: '/exchanges/:id', name: 'exchange', component: Pages.ExchangePage},
+    {path: '/portfolios', name: 'portfolios', component: Pages.Portfolios},
+    {path: '/portfolios/:id', name: 'portfolio', component: Pages.Portfolio},
   ]
 })

@@ -7,27 +7,20 @@ const state = {
 
 // Getters
 var getters = {
-  brand: (state, commit, rootState) => {
-    let id = rootState.route.params.id
-    if(id && rootState.currencies.currencies.length > 0){
-      return rootState.currencies.currencies.filter(c => c.id == id)[0].id
-    } else {
-      return "Construct"
-    }
-  },
+  brand: state => state.brand,
   searching: state =>  state.searching,
   search: state =>  state.search,
 }
 
 // Mutations
 var mutations = {
-  ["set_brand"] (state, brand) {
+  ["SET_BRAND"] (state, brand) {
     state.brand = brand
   },
-  ["set_searching"] (state, searching) {
+  ["SET_SEARCHING"] (state, searching) {
     state.searching = searching
   },
-  ["set_search"] (state, search) {
+  ["SET_SEARCH"] (state, search) {
     state.search = search
   },
 }
@@ -36,6 +29,12 @@ var mutations = {
 var actions = {
   set_brand: ({ commit, state }, brand) => {
     commit("SET_BRAND", brand)
+  },
+  set_search: ({ commit, state }, search) => {
+    commit("SET_SEARCH", search)
+  },
+  set_searching: ({ commit, state }, searching) => {
+    commit("SET_SEARCHING", searching)
   }
 }
 

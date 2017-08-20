@@ -27,12 +27,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'set_searching',
-      'set_search'
-    ]),
     ...mapActions([
       'fetch_currency_history',
+      'set_brand',
+      'set_search',
+      'set_searching',
     ]),
   },
 
@@ -49,7 +48,7 @@ export default {
   },
 
   mounted(){
-
+    this.set_brand("Construct")
   }
 }
 </script>
