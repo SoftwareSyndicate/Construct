@@ -19,12 +19,22 @@ export const fetch_currencies = ({commit, state}) => {
     }, error => {
 
     });
-  }, 5000)
+  }, 10000)
 }
 
 export const fetch_currency_history = ({commit, state}, currency) => {
   log(currency)
   Vue.http.get("https://www.coincap.io/history/1day/" + currency).then(response => {
+    let data = response.body
+    commit(types.RECIEVE_CURRENCY_HISTORY, data)
+  }, error => {
+
+  });
+}
+
+export const fetch_currency_calendar = ({commit, state}, currency) => {
+  log(currency)
+  Vue.http.get("https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&e=CCCAGG&allData=true").then(response => {
     let data = response.body
     commit(types.RECIEVE_CURRENCY_HISTORY, data)
   }, error => {
