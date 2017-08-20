@@ -1,7 +1,7 @@
 <template lang="pug">
 div#left-nav(:class="{'open': left_nav.open}")
   div.top
-    p LEFT NAV
+
   div.bottom
   
 </template>
@@ -45,8 +45,6 @@ export default {
 #left-nav
   flex-basis 100%
   height 100%
-  border-right 1px solid rgba(0, 0, 0, .1)
-  box-shadow 1px 0px 1px 1px rgba(0, 0, 0, .1)
   display none
   z-index 2
   

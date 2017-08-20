@@ -125,5 +125,4 @@ export default {
   .grid path 
     stroke-width: 0;
     
-  
 </style>
