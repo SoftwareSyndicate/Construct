@@ -1,7 +1,7 @@
 <template lang="pug">
   
 div#navbar
-  div.left
+  div.left(@click="set_left_nav({'open':true})")
     i.material-icons menu
   div.center
     transition(name="fade" v-if="!searching" mode="out-in")
@@ -26,9 +26,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      
-    }),
+    ...mapActions([
+      'set_left_nav'
+    ]),
     ...mapMutations([
       'set_brand',
       'set_searching',
@@ -73,7 +73,7 @@ export default {
   height 4em
   justify-content space-between
   box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
-  
+  z-index 3
   
   .left
     display flex

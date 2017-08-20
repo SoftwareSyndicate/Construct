@@ -10,9 +10,10 @@ import user from './users'
 
 const store = new Vuex.Store({
   modules: {
+    navbar: components.Navbar,
+    left_nav: components.LeftNav,
     gdax: exchanges.GDAX,
     currencies: currencies,
-    navbar: components.Navbar,
     user: user,
     // modal: components.modal,
     // leftNav: components.leftNav,

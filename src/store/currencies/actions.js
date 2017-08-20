@@ -24,7 +24,7 @@ export const fetch_currencies = ({commit, state}) => {
 
 export const fetch_currency_history = ({commit, state}, currency) => {
   log(currency.symbol)
-  Vue.http.get("http://www.coincap.io/history/1day/" + currency.symbol).then(response => {
+  Vue.http.get("https://www.coincap.io/history/1day/" + currency.symbol).then(response => {
     let data = response.body
     commit(types.RECIEVE_CURRENCY_HISTORY, data)
   }, error => {
