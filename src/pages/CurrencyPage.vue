@@ -66,16 +66,19 @@ export default {
     ])
   },
   mounted(){
-    this.unwatch = this.$watch('currency', ()=>{
-      if(this.currency.id){
-        _fetch_currency_history(this.currency)
-      }
-    })
-
-    let _fetch_currency_history = function(currency){
-      this.fetch_currency_history(this.currency)
-      this.unwatch()
-    }.bind(this)
+    if(this.$route.params.name){
+      this.fetch_currency_history(this.$route.params.name)
+    } else {
+      this.unwatch = this.$watch('currency', ()=>{
+        if(this.currency.id){
+          _fetch_currency_history()
+        }
+      })
+      let _fetch_currency_history = function(){
+        this.fetch_currency_history(this.currency.symbol)
+        this.unwatch()
+      }.bind(this)
+    }
   },
 }
 </script>

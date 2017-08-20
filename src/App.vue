@@ -5,8 +5,10 @@ div#app
   transition(name="slide")
     div.left-nav-container(v-if="left_nav.open")
       left-nav
-  div.router-view-container(@click="routerClick($event)")
-    router-view
+  
+    div.router-view-container(@click="routerClick($event)")
+      transition(name="slide" mode='out-in')      
+        router-view
 
 </template>
 

@@ -31,6 +31,9 @@ export default {
       'set_searching',
       'set_search'
     ]),
+    ...mapActions([
+      'fetch_currency_history',
+    ]),
   },
 
   computed: {
@@ -46,8 +49,7 @@ export default {
   },
 
   mounted(){
-    log(this.currencies)
-    log(this.$store)
+
   }
 }
 </script>

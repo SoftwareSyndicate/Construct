@@ -1,5 +1,5 @@
 <template lang="pug">
-router-link(:to="{name: 'currency', params: {id: currency.id}}" tag="div")
+router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.symbol}}" tag="div")
   div.currency-list-item(:class="{'updating': updating}")
     // div.left
     //   span.rank {{currency.rank}}
