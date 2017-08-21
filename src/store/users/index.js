@@ -2,26 +2,16 @@
 const state = {
   first_name: "",
   last_name: "",
-  portfolios: [],
-  portfolio: null
 }
 
 // Getters
 var getters = {
   first_name: state =>  state.first_name,
   last_name: state =>  state.last_name,
-  portfolios: state =>  state.portfolios,
-  portfolio:  state =>  state.portfolio
 }
 
 // Mutations
 var mutations = {
-  ["SET_PORTFOLIO"] (state, portfolio) {
-    state.portfolio = portfolio
-  },
-  ["SET_PORTFOLIOS"] (state, portfolios) {
-    state.portfolios = portfolios
-  },
   ["SET_FIRST_NAME"] (state, first_name) {
     state.first_name = first_name
   },
@@ -31,8 +21,6 @@ var mutations = {
   ["LOAD_USER"] (state, oldState) {
     state.first_name = oldState.first_name
     state.last_name = oldState.last_name
-    state.portfolios = oldState.portfolios
-    state.portfolio = oldState.portfolio
   },
 }
 

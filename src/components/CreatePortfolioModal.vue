@@ -1,18 +1,7 @@
 <template lang="pug">
   
-div#navbar
-  div.left(@click="set_left_nav({'open':true})")
-    i.material-icons menu
-  div.center
-    transition(name="fade" v-if="!searching" mode="out-in")
-      p.brand {{brand}}
-    transition(name="fade" v-else mode="out-in")
-      input(:value="search" @input="updateSearch" ref="search")
-  div.right
-    div.search(@click="set_searching(!searching)" v-if="$route.name == 'home'")
-      i.material-icons search
-    div.search(@click="set_open(true)"  v-if="$route.name == 'portfolios'")
-      i.material-icons playlist_add
+div#create-portfolio-modal
+  p ima modal
   
 </template>
 
@@ -29,14 +18,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'set_open'
-    ]),
     ...mapActions([
-      'set_left_nav',
-      'set_brand',
-      'set_searching',
-      'set_search',
+      'set_open',
     ]),
     updateSearch(e){
       this.set_search(e.target.value)

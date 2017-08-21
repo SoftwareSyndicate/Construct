@@ -1,8 +1,5 @@
 <template lang="pug">
 div#portfolios-page
-  p portfolios
-  p portfolios
-  p portfolios 
   
 </template>
 
@@ -31,6 +28,7 @@ export default {
   methods: {
     ...mapActions([
       'fetch_currency_history',
+      'set_brand',
     ]),
   },
 
@@ -42,7 +40,7 @@ export default {
     ])
   },
   mounted(){
-    log("ok")
+    this.set_brand("Portfolios")
   },
 }
 </script>

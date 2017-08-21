@@ -7,16 +7,18 @@ import components from './components'
 import exchanges from './exchanges'
 import currencies from './currencies'
 import user from './users'
+import portfolios from './portfolios'
 
 const store = new Vuex.Store({
   modules: {
-    navbar: components.Navbar,
-    left_nav: components.LeftNav,
     gdax: exchanges.GDAX,
     currencies: currencies,
     user: user,
-    // modal: components.modal,
-    // leftNav: components.leftNav,
+    portfolios: portfolios,
+    // Components
+    navbar: components.Navbar,
+    left_nav: components.LeftNav,
+    create_portfolio_modal: components.CreatePortfolioModal,
   }
 })
 
