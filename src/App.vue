@@ -73,15 +73,4 @@ export default {
        display flex
        flex-basis 100%
 
-.slide-enter-active 
-  transition: all .3s ease;
-
-.slide-leave-active 
-  transition: all .3s ease;
-
-.slide-enter, .slide-leave-to
-  transform: translateX(-400px);
-  opacity: 0;
-
-
 </style>

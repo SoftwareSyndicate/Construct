@@ -94,6 +94,7 @@ export default {
   display flex
   flex-wrap wrap
   flex-basis 100%
+  height 100%
   
   .top
     height calc(100vh - 160px)
@@ -120,7 +121,7 @@ export default {
     display flex
     flex-basis 100%
     width 100%
-    position absolute
+    position fixed
     bottom 0px
     height 50px
     align-items center

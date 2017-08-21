@@ -8,10 +8,11 @@ export default new Router({
   mode: 'history',
   base: '/Construct/',
   routes: [
-    {path: '/', name: 'home', component: Pages.HomePage},
+    {path: '*', redirect: '/currencies'},
+    {path: '/currencies', name: 'home', component: Pages.HomePage},
     {path: '/currencies/:id', name: 'currency', component: Pages.CurrencyPage},
     {path: '/exchanges/:id', name: 'exchange', component: Pages.ExchangePage},
-    {path: '/portfolios', name: 'portfolios', component: Pages.Portfolios},
-    {path: '/portfolios/:id', name: 'portfolio', component: Pages.Portfolio},
+    {path: '/portfolios', name: 'portfolios', component: Pages.PortfoliosPage},
+    {path: '/portfolios/:id', name: 'portfolio', component: Pages.PortfolioPage},
   ]
 })
