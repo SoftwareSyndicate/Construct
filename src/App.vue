@@ -10,18 +10,22 @@ div#app
     transition(name="slide" mode='out-in')      
       router-view
 
+  // Modals 
+  create-portfolio-modal
 </template>
 
 <script>
 import Navbar from "@/components/Navbar"
 import LeftNav from "@/components/LeftNav"
+import CreatePortfolioModal from "@/components/CreatePortfolioModal"
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
   
 export default {
   components: {
     Navbar,
-    LeftNav
+    LeftNav,
+    CreatePortfolioModal,
   },
   name: 'app',
   methods:{

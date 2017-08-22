@@ -1,8 +1,18 @@
 <template lang="pug">
-  
-div#create-portfolio-modal
-  p ima modal
-  
+div#create-portfolio-modal(v-if="open")
+  div.container
+    div.header
+      h3 New Portfolio
+    div.body
+      div.field
+        input(placeholder='name')
+      div.field
+        input(placeholder='symbol')
+        input(placeholder='amount' type="number")
+
+    div.footer
+      div.button(@click="add_portfolio(portfolio)") create
+        
 </template>
 
 <script>
@@ -14,12 +24,17 @@ export default {
   name: 'Navbar',
   data () {
     return {
-      
+      open: false,                // TODO
+      portfolio: {
+        name: "",
+        currencies: []
+      }
     }
   },
   methods: {
     ...mapActions([
       'set_open',
+      'create_portfolio'
     ]),
     updateSearch(e){
       this.set_search(e.target.value)
@@ -53,35 +68,37 @@ export default {
 
 <style lang="stylus">
 
-#navbar
-  display flex
-  flex-basis 100%
-  padding 0px 2em
-  height 4em
-  justify-content space-between
-  box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
-  z-index 3
-  
-  .left
+#create-portfolio-modal
     display flex
-    align-items center
-    flex-grow 1
-    
-  .center
-    display flex
-    align-items center
+    position fixed
     justify-content center
-    flex-grow 1
-    
-    .brand
-      font-family 'Cinzel', serif
-      font-size 24px
-    
-    
-  .right
-    display flex
     align-items center
-    justify-content flex-end
-    flex-grow 1
-    
+    top 15vh
+    width 100vw
+
+  .container
+    background white
+    border 1px solid rgba(0, 0, 0, .1)
+    box-shadow 1px 2px 3px 1px rgba(0,0,0,.25)    
+    padding 2em
+    width 60vw
+
+    .header
+      margin-bottom 1.5em
+    .body
+      display flex
+      flex-wrap wrap
+      margin-bottom 1.5em
+      
+      .field
+        display flex
+        flex-basis 100%
+        margin-bottom .5em
+        align-items center
+    .footer
+      display flex
+      align-items center
+      justify-content flex-end
+      
+
 </style>

@@ -1,8 +1,7 @@
 <template lang="pug">
 div.doughnut-chart
-  div.chart-container
-    canvas(ref="canvas")
-
+  div.chart-container(ref="chart_container")
+    svg.graph(height="100%" width="100%" ref="graph")
   
 </template>
 
@@ -15,6 +14,9 @@ export default {
   props: {
     title: {
       default: "Default Title"
+    },
+    data: {
+      default: ()=>[]
     }
   },
   data () {
@@ -33,47 +35,7 @@ export default {
   },
 
   mounted(){
-    console.log("mounted")
-    this.ctx = this.$refs.canvas.getContext("2d")
 
-
-    var config = {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [
-            5,
-            3
-          ],
-          backgroundColor: [
-            this.$style.green,
-            this.$style.red,
-          ],
-          label: 'Dataset 1'
-        }],
-        labels: [
-          "Red",
-          "Orange",
-          "Yellow",
-          "Green",
-          "Blue"
-        ]
-      },
-      options: {
-        responsive: true,
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: false,
-          text: this.title
-        },
-        animation: {
-          animateScale: true,
-          animateRotate: true
-        }
-      }
-    };
   }
 }
   </script>

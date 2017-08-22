@@ -1,6 +1,34 @@
 // State
 const state = {
-  portfolios: [],
+  portfolios: [
+    {
+      name: "Main",
+      currencies: [
+        {
+          symbol: "ETH",
+          volume: 30.5
+        },
+        {
+          symbol: "LTC",
+          volume: 3.5
+        },
+        {
+          symbol: "OMG",
+          volume: 333
+        },
+      ],
+      value_history: [
+        {
+          date: new Date(),
+          value: 11115.11
+        },
+        {
+          date: new Date(),
+          value: 31115.11
+        }
+      ]
+    }
+  ],
   portfolio: null
 }
 
@@ -28,7 +56,9 @@ var mutations = {
 
 // Actions
 var actions = {
-  
+  add_portfolio: ({ commit, state }, portfolio) => {
+    commit("add_portfolio", portfolio)
+  },
 }
 
 export default {
