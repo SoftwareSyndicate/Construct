@@ -1,5 +1,5 @@
 <template lang="pug">
-div#home-page
+div#currencies-page
   div.currency-list-container
     currency-list(:currencies="sorted_currencies")
 
@@ -13,7 +13,7 @@ import { mapMutations } from 'vuex'
 import CurrencyList from '@/components/CurrencyList'
 
 export default {
-  name: 'HomePage',
+  name: 'CurrenciesPage',
   components: {
     CurrencyList,
   },
@@ -49,13 +49,14 @@ export default {
 
   mounted(){
     this.set_brand("Construct")
+    this.$store.dispatch("fetch_currencies")    
   }
 }
 </script>
 
 
 <style lang="stylus">
-#home-page
+#currencies-page
   display flex
   flex-basis 100%
   

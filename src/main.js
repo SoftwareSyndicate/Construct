@@ -26,7 +26,6 @@ window.log = console.log
 window.moment = moment
 
 // Move to Service Worker?
-store.dispatch("fetch_currencies")
 store.dispatch("fetch_shapeshift_market_info")
 store.dispatch("load_user")
 store.dispatch("load_currencies")

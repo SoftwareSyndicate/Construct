@@ -9,7 +9,7 @@ export default new Router({
   base: '/Construct/',
   routes: [
     {path: '*', redirect: '/currencies'},
-    {path: '/currencies', name: 'home', component: Pages.HomePage},
+    {path: '/currencies', name: 'currencies', component: Pages.CurrenciesPage},
     {path: '/currencies/:id', name: 'currency', component: Pages.CurrencyPage},
     {path: '/exchanges/:id', name: 'exchange', component: Pages.ExchangePage},
     {path: '/portfolios', name: 'portfolios', component: Pages.PortfoliosPage},

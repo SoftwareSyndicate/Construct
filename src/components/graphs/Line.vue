@@ -97,7 +97,9 @@ export default {
   },
   mounted(){
     this.unwatch = this.$watch('data', ()=>{
+      console.log(this.data)
       if(this.data.length > 0){
+
         this.draw()
       }
     })

@@ -59,6 +59,7 @@ export default {
     width 100%
     position fixed
     background #fefefe
+    z-index 3
 
   .left-nav-container
     width 75%

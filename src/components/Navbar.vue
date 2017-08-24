@@ -9,7 +9,7 @@ div#navbar
     transition(name="fade" v-else mode="out-in")
       input(:value="search" @input="updateSearch" ref="search")
   div.right
-    div.search(@click="set_searching(!searching)" v-if="$route.name == 'home'")
+    div.search(@click="set_searching(!searching)" v-if="$route.name == 'currencies'")
       i.material-icons search
     div.search(@click="set_open(true)"  v-if="$route.name == 'portfolios'")
       i.material-icons playlist_add
@@ -77,7 +77,6 @@ export default {
   height 4em
   justify-content space-between
   box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
-  z-index 3
   
   .left
     display flex
