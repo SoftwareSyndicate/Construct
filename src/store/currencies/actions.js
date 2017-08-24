@@ -9,7 +9,7 @@ export const fetch_currencies = ({commit, state}) => {
     commit(types.RECIEVE_CURRENCIES, {currencies})
 
     currencies.forEach(currency => {
-      Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + currency.symbol + "&tsym=USD&limit=60&aggregate=3&e=CCCAGG").then(response => {
+      Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + currency.symbol + "&tsym=USD&limit=20&aggregate=1&e=CCCAGG").then(response => {
         currency.history = response.body.Data
         // commit(types.RECIEVE_CURRENCY_HISTORY, response.body.Data)
 
