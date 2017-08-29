@@ -6,7 +6,7 @@ router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.sym
         list-item-line(:data="currency.history")
     div.front
       div.center
-        img.icon(:src="'https://files.coinmarketcap.com/static/img/coins/32x32/' + currency.id + '.png'")
+        img.icon.mobile(:src="'https://files.coinmarketcap.com/static/img/coins/32x32/' + currency.id + '.png'")
         // span.icon(:class="'coins-' + currency.symbol")
         p.name {{currency.name}}
 
@@ -65,6 +65,9 @@ export default {
   transition all .3s ease
   position relative
 
+  @media screen and (min-width: 600px)  
+    height 100px
+  
   .back
     padding-top .3em
     position absolute
@@ -107,7 +110,10 @@ export default {
       min-width 30px
 
     .name
-      font-size 20px
+      font-size 1.3em
+      
+      @media screen and (min-width: 600px)  
+        font-size 2em
 
   .right
     display flex
@@ -122,5 +128,7 @@ export default {
         color $green
       &.down
         color $red
-    
+
+
+
 </style>

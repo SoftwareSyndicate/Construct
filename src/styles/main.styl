@@ -84,7 +84,13 @@ h1, h2, h3
   margin 0px
   padding 0px
 
-
+.desktop
+  @media screen and (max-width: 599px)  
+    display none
+.mobile
+  @media screen and (min-width: 600px)  
+    display none
+    
 .page
    padding 1em
 
@@ -122,3 +128,5 @@ input
 .slide-enter, .slide-leave-to
   transform: translateX(-400px);
   opacity: 0;
+
+
