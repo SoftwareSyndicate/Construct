@@ -3,11 +3,11 @@ router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.sym
   div.currency-list-item(:class="{'updating': updating}")
     div.back
       div.line-container
-        list-item-line(:data="currency.history")
+        list-item-line(:graph_data="currency.history")
     div.front
       div.center
-        img.icon.mobile(:src="'https://files.coinmarketcap.com/static/img/coins/32x32/' + currency.id + '.png'")
-        // span.icon(:class="'coins-' + currency.symbol")
+        img.icon.mobile(:src="'https://files.coinmarketcap.com/static/img/coins/64x64/' + currency.id + '.png'")
+        img.icon.desktop(:src="'https://files.coinmarketcap.com/static/img/coins/128x128/' + currency.id + '.png'")        
         p.name {{currency.name}}
 
       div.right
@@ -109,6 +109,13 @@ export default {
       margin-right .8em
       min-width 30px
 
+      &.mobile
+        height 32px
+        width 32px
+      &.desktop
+        height 64px
+        width 64px
+
     .name
       font-size 1.3em
       
@@ -118,6 +125,8 @@ export default {
   .right
     display flex
     margin-left auto
+    @media screen and (min-width: 600px)  
+      font-size 1.2em
 
     .price
      margin-right 20px

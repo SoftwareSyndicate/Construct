@@ -11,12 +11,14 @@ import * as d3 from "d3"
 export default {
   name: 'ListItemLine',
   props: {
-    data: {
+    graph_data: {
       default: ()=>[]
     },
   },
   methods: {
     draw(data){
+      log("DRAWING")
+      log(data)
       let el = this.$refs.chart_container
       var margin = {top: 0, right: 0, bottom: 0, left: 0},
           width = el.clientWidth - margin.left - margin.right,
@@ -71,12 +73,11 @@ export default {
   watch: {
     data: {
       handler: function(oldVal, newVal){
-        if(newVal){
-          setTimeout(()=> {
-            this.draw(newVal)            
-            this.updating = false
-          }, 30)
-        }
+        setTimeout(()=> {
+          if(this.graph_data.length > 0){
+            this.draw(this.graph_data)            
+          }
+        }, 30)
       },
       deep: true,
       immediate: true,

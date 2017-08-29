@@ -5,7 +5,7 @@ div#left-nav(:class="{'open': left_nav.open}")
   div.bottom
     div.links
       div.link(@click="set_left_nav({'open': false})")
-        router-link(:to="{name: 'home'}" tag="div") Currencies
+        router-link(:to="{name: 'currencies'}" tag="div") Currencies
       div.link(@click="set_left_nav({'open': false})")
         router-link(:to="{name: 'portfolios'}" tag="div") Portfolios
     
