@@ -3,20 +3,25 @@ import Vue from 'vue'
 import APIs from '../apis'
 
 export const fetch_currencies = ({commit, state}) => {
-  let limit = 5
+  let limit = 50
   Vue.http.get('https://api.coinmarketcap.com/v1/ticker/?limit=' + limit).then(response => {
     let currencies = response.body
     commit(types.RECIEVE_CURRENCIES, {currencies})
 
+    let promises = []
     currencies.forEach(currency => {
-      Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + currency.symbol + "&tsym=USD&limit=20&aggregate=1&e=CCCAGG").then(response => {
+      promises.push(Vue.http.get("https://min-api.cryptocompare.com/data/histohour?fsym=" + currency.symbol + "&tsym=USD&limit=200&aggregate=5&e=CCCAGG").then(response => {
         currency.history = response.body.Data
         // commit(types.RECIEVE_CURRENCY_HISTORY, response.body.Data)
 
-        commit(types.RECIEVE_CURRENCIES, {currencies})
+
       }, error => {
 
-      });      
+      }))
+    })
+
+    Promise.all(promises).then(results => {
+      commit(types.RECIEVE_CURRENCIES, {currencies})      
     })
 
   }, error => {
@@ -44,7 +49,7 @@ export const fetch_currencies = ({commit, state}) => {
 
     });
     
-  }, 10000)
+  }, 60000)
 }
 
 export const fetch_currency_history = ({commit, state}, currency) => {
