@@ -129,6 +129,7 @@ export default {
     height 50px
     align-items center
     justify-content space-evenly
+    background-color white
 
     .icon
       cursor pointer
@@ -144,12 +145,12 @@ export default {
         border-right none
 
       &:hover
-        background $orange
+        background rgba(0, 0, 0, .2)
         i
           color white
 
       &:active
-        background $orange
+        background rgba(0, 0, 0, .2)
         i
           color white
         

@@ -2,7 +2,8 @@
   "name": "Construct",
   "short_name": "Construct",
   "display": "standalone",
-  "background_color": "#fff",
+  "start_url": "./Construct"
+  "background_color": "white",
   "description": "Crypto Analysis.",
   "background_color": "white",
   "theme_color": "white",
