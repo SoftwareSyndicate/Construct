@@ -6,7 +6,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: '/Construct/',
+  base: '/',
   routes: [
     {path: '*', redirect: '/currencies'},
     {path: '/currencies', name: 'currencies', component: Pages.CurrenciesPage},
