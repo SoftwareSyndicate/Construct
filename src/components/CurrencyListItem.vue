@@ -87,7 +87,7 @@ export default {
     flex-basis 100%
     display flex
     align-items center    
-
+    z-index 3
   &.updating
     background rgba(0, 0, 0, .05)
 

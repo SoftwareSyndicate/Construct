@@ -3,6 +3,8 @@ div#currency-page
   div.top
     div.tab(v-if="currency_page_tab == 'charts'")
       div.charts
+        h3 OHLC
+        ohlc(:data="currency_history")
         h3 Price
         line-graph(:data="currency_history.price")
         h3 Market Cap
@@ -33,6 +35,7 @@ div#currency-page
 <script>
 import TimeSeries from '@/components/graphs/TimeSeries'
 import LineGraph from '@/components/graphs/Line'
+import OHLCGraph from '@/components/graphs/OHLC'
 
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -41,7 +44,8 @@ export default {
   name: 'CurrencyPage',
   components: {
     TimeSeries,
-    LineGraph
+    LineGraph,
+    'ohlc': OHLCGraph,
   },
   props: {
     
@@ -69,6 +73,7 @@ export default {
   },
   mounted(){
     if(this.$route.params.name){
+
       this.fetch_currency_history(this.$route.params.name)
       // this.fetch_currency_history_better(this.currency.id)
       this.set_brand(this.$route.params.id)

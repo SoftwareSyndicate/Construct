@@ -2,6 +2,7 @@
   "name": "Construct",
   "short_name": "Construct",
   "display": "standalone",
+  "start_url": "/Construct/currencies"
   "background_color": "white",
   "description": "Crypto Analysis.",
   "background_color": "white",

@@ -71,7 +71,7 @@ export default {
     }
   },
   watch: {
-    data: {
+    graph_data: {
       handler: function(oldVal, newVal){
         setTimeout(()=> {
           if(this.graph_data.length > 0){
@@ -85,7 +85,9 @@ export default {
   },
   
   mounted(){
-    
+    if(this.graph_data.length > 0){
+      this.draw(this.graph_data)            
+    }
   }
 }
   </script>

@@ -10,11 +10,8 @@ export const fetch_currencies = ({commit, state}) => {
 
     let promises = []
     currencies.forEach(currency => {
-      promises.push(Vue.http.get("https://min-api.cryptocompare.com/data/histohour?fsym=" + currency.symbol + "&tsym=USD&limit=200&aggregate=5&e=CCCAGG").then(response => {
+      promises.push(Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + currency.symbol + "&tsym=USD&limit=60&aggregate=1&e=CCCAGG").then(response => {
         currency.history = response.body.Data
-        // commit(types.RECIEVE_CURRENCY_HISTORY, response.body.Data)
-
-
       }, error => {
 
       }))
@@ -34,17 +31,18 @@ export const fetch_currencies = ({commit, state}) => {
       let currencies = response.body
       commit(types.RECIEVE_CURRENCIES, {currencies})
 
+      let promises = []
       currencies.forEach(currency => {
-        Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + currency.symbol + "&tsym=USD&limit=60&aggregate=3&e=CCCAGG").then(response => {
+        promises.push(Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + currency.symbol + "&tsym=USD&limit=60&aggregate=1&e=CCCAGG").then(response => {
           currency.history = response.body.Data
-          // commit(types.RECIEVE_CURRENCY_HISTORY, response.body.Data)
-
-          commit(types.RECIEVE_CURRENCIES, {currencies})
         }, error => {
 
-        });      
+        }))
       })
 
+      Promise.all(promises).then(results => {
+        commit(types.RECIEVE_CURRENCIES, {currencies})      
+      })
     }, error => {
 
     });
@@ -52,25 +50,25 @@ export const fetch_currencies = ({commit, state}) => {
   }, 60000)
 }
 
-export const fetch_currency_history = ({commit, state}, currency) => {
-  Vue.http.get("https://www.coincap.io/history/1day/" + currency).then(response => {
-    let data = response.body
-    commit(types.RECIEVE_CURRENCY_HISTORY, data)
-  }, error => {
-
-  });
-}
-
-// TODO THROW INTO API
-// export const fetch_currency_history = ({commit, state}, symbol) => {
-//   log(symbol)
-//   return Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + symbol + "&tsym=USD&limit=600&aggregate=3&e=CCCAGG").then(response => {
-//     return response.body.Data
-//     // commit(types.RECIEVE_CURRENCY_HISTORY, response.body.Data)
+// export const fetch_currency_history = ({commit, state}, currency) => {
+//   Vue.http.get("https://www.coincap.io/history/1day/" + currency).then(response => {
+//     let data = response.body
+//     commit(types.RECIEVE_CURRENCY_HISTORY, data)
 //   }, error => {
 
 //   });
 // }
+
+// TODO THROW INTO API
+export const fetch_currency_history = ({commit, state}, symbol) => {
+  log(symbol)
+  return Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + symbol + "&tsym=USD&limit=60&aggregate=1&e=CCCAGG").then(response => {
+    commit(types.RECIEVE_CURRENCY_HISTORY, response.body.Data)    
+    return response.body.Data
+  }, error => {
+
+  });
+}
 
 
 export const fetch_currency_calendar = ({commit, state}, currency) => {
