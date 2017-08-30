@@ -5,7 +5,6 @@ import Pages from '@/pages'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   base: '/Construct/',
   routes: [
     {path: '*', redirect: '/currencies'},

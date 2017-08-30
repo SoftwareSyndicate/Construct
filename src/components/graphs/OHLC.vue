@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     draw(data){
-      log(data)
       let el = this.$refs.chart_container
       var margin = {top: 0, right: 20, bottom: 30, left: 80},
           width = el.clientWidth - margin.left - margin.right,
@@ -44,15 +43,18 @@ export default {
                 "translate(" + margin.left + "," + margin.top + ")");
       data = data.map(d => {
         return {
-          date: parseDate(d.Date),
-          open: +d.Open,
-          high: +d.High,
-          low: +d.Low,
-          close: +d.Close,
-          volume: +d.Volume
+          date: new Date(d.time * 1000),
+          open: +d.open,
+          high: +d.high,
+          low: +d.low,
+          close: +d.close,
         }
       })
 
+      log(data)
+
+      var accessor = ohlc.accessor();
+      
       x.domain(data.map(accessor.d));
       y.domain(techan.scale.plot.ohlc(data, accessor).domain());
 
@@ -71,12 +73,17 @@ export default {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .text("Price ($)");
+
+      x.domain(data.map(ohlc.accessor().d));
+      y.domain(techan.scale.plot.ohlc(data, ohlc.accessor()).domain());
+
+      svg.selectAll("g.ohlc").datum(data).call(ohlc);
+      svg.selectAll("g.x.axis").call(xAxis);
+      svg.selectAll("g.y.axis").call(yAxis);
     }
   },
   mounted(){
-    log("SCHSCRH")
     this.unwatch = this.$watch('data', ()=>{
-      console.log(this.data)
       if(this.data.length > 0){
         this.draw(this.data)
       }
@@ -86,7 +93,7 @@ export default {
   </script>
 
 
-<style lang="stylus" scoped>
+<style lang="stylus">
   
 .ohlc-graph
   .chart-container
@@ -95,11 +102,11 @@ export default {
   path.ohlc 
     stroke #000000
     stroke-width 1
+    
+    &.up
+      stroke #00AA00
 
-  path.ohlc.up 
-    stroke #00AA00
-
-  path.ohlc.down 
-    stroke #FF0000
+    &.down
+      stroke #FF0000
 
 </style>
