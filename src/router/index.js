@@ -5,7 +5,7 @@ import Pages from '@/pages'
 Vue.use(Router)
 
 export default new Router({
-  base: '/Construct/',
+  // base: '/Construct/',
   routes: [
     {path: '*', redirect: '/currencies'},
     {path: '/currencies', name: 'currencies', component: Pages.CurrenciesPage},

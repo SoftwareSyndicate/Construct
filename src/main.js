@@ -6,15 +6,18 @@ import { sync } from 'vuex-router-sync'
 import router from './router'
 import store from './store'
 import moment from 'moment'
-import * as d3 from "d3"
+// import * as d3 from "d3"
+
+
 
 // import SyndicateUI from 'syndicate-ui'
-import VueResource from 'vue-resource'
+
 
 // Sync the store with the router
 sync(store, router)
 
 // Install VueResource
+import VueResource from 'vue-resource'
 Vue.use(VueResource);
 
 //Install SyndicateUI

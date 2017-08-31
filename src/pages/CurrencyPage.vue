@@ -4,13 +4,20 @@ div#currency-page
     div.tab(v-if="currency_page_tab == 'charts'")
       div.charts
         h3 OHLC
-        ohlc(:data="currency_history")
-        h3 Price
-        line-graph(:data="currency_history.price")
-        h3 Market Cap
-        line-graph(:data="currency_history.market_cap")
-        h3 Volume
-        line-graph(:data="currency_history.volume")
+        ohlc-graph(:data="currency_history")
+        // h3 Ichimoku
+        // ichimoku-graph(:data="currency_history")
+        h3 Hekin-Ashi
+        hekin-ashi-graph(:data="currency_history")
+        h3 Williams
+        williams-graph(:data="currency_history")
+            
+        // h3 Price
+        // line-graph(:data="currency_history")
+        // h3 Market Cap
+        // line-graph(:data="currency_history")
+        // h3 Volume
+        // line-graph(:data="currency_history")
 
 
     div.tab(v-if="currency_page_tab == 'shapeshift'")
@@ -36,6 +43,9 @@ div#currency-page
 import TimeSeries from '@/components/graphs/TimeSeries'
 import LineGraph from '@/components/graphs/Line'
 import OHLCGraph from '@/components/graphs/OHLC'
+import IchimokuGraph from '@/components/graphs/Ichimoku'
+import HekinAshiGraph from '@/components/graphs/Heikin-Ashi'
+import WilliamsGraph from '@/components/graphs/Williams'
 
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -45,7 +55,10 @@ export default {
   components: {
     TimeSeries,
     LineGraph,
-    'ohlc': OHLCGraph,
+    'ohlc-graph': OHLCGraph,
+    IchimokuGraph,
+    HekinAshiGraph,
+    WilliamsGraph,
   },
   props: {
     

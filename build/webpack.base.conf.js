@@ -1,3 +1,4 @@
+var webpack = require('webpack')
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
@@ -18,6 +19,12 @@ module.exports = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      'window.d3': 'd3',
+      'd3': 'd3'
+    }),
+  ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
@@ -27,6 +34,10 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: require.resolve("techan"),
+        use: "imports-loader?this=>null"
+      },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
