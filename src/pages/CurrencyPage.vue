@@ -5,7 +5,7 @@ div#currency-page
       div.charts
         h3 Multi
         div.container
-          multi-graph(:graph_data="currency_history" :config="multiChartConfig")
+          multi-graph(:graph_data="currency_history")
 
         // h3 OHLC
         // ohlc-graph(:data="currency_history")

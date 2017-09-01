@@ -14,10 +14,13 @@ export default {
       default: ()=>[],
     },
     config: {
-      default: {
-        crosshair: true,
-        close: true,
-        heikinashi: false,
+      default: ()=>{
+        return {
+          crosshair: true,
+          close: true,
+          heikinashi: true,
+          williams: true,
+        }
       }
     }
   },
@@ -39,6 +42,9 @@ export default {
       }
       if(this.config.heikinashi){
         this.drawHeikinashi(data)
+      }
+      if(this.config.williams){
+        this.drawWilliams(data)
       }
 
       // Draw Axis
@@ -84,11 +90,37 @@ export default {
     },
     drawHeikinashi(data){
       let heikinashiData = this.heikinashiIndicator(data);
-      this.x.domain(data.map(this.heikinashi.accessor().d));
-      this.y.domain(techan.scale.plot.ohlc(heikinashiData, this.heikinashi.accessor()).domain());
+      this.x.domain(data.map(this.heikinashiAccessor.d));
+      this.y.domain(techan.scale.plot.ohlc(heikinashiData, this.heikinashiAccessor).domain());
 
       this.svg.selectAll("g.heikinashi").datum(heikinashiData).call(this.heikinashi);
+    },
+    initWilliams(){
+      this.svg.append("g")
+        .attr("class", "williams");
+      
+      this.williams = techan.plot.williams()
+        .xScale(this.x)
+        .yScale(this.y)
+      this.williamsAccessor = this.williams.accessor()
+      this.williamsIndicator = techan.indicator.williams()
+    },
+    drawWilliams(data){
+      // let williamsData = this.williamsIndicator(data)
+      // this.x.domain(data.map(this.williamsAccessor.d))
+      // this.y.domain(techan.scale.plot.ohlc(williamsData, this.williamsAccessor).domain())
+
+
+      // this.svg.selectAll("g.williams").datum(williamsData).call(this.williams)
+
+      var williamsData = techan.indicator.williams()(data);
+      this.x.domain(williamsData.map(this.williams.accessor().d));
+      this.y.domain(techan.scale.plot.williams().domain());
+
+      this.svg.selectAll("g.williams").datum(williamsData).call(this.williams);
+
     }
+    
   },
   watch: {
     graph_data: {
@@ -125,7 +157,8 @@ export default {
     // Init plots
     this.initClose()
     this.initHeikinashi()
-
+    this.initWilliams()
+    
     // Axis
     this.svg.append("g")
       .attr("class", "x axis")
@@ -195,5 +228,13 @@ export default {
         
     .crosshair .axisannotation path 
       fill: #DDDDDD;
+
+    .williams path 
+      fill: none;
+      stroke-width: 1;
+
+    .williams.up 
+      stroke: orange
+      stroke-width: 1;
         
 </style>
