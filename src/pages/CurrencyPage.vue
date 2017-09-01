@@ -3,14 +3,18 @@ div#currency-page
   div.top
     div.tab(v-if="currency_page_tab == 'charts'")
       div.charts
-        h3 OHLC
-        ohlc-graph(:data="currency_history")
-        // h3 Ichimoku
-        // ichimoku-graph(:data="currency_history")
-        h3 Hekin-Ashi
-        hekin-ashi-graph(:data="currency_history")
-        h3 Williams
-        williams-graph(:data="currency_history")
+        h3 Multi
+        div.container
+          multi-graph(:graph_data="currency_history" :config="multiChartConfig")
+
+        // h3 OHLC
+        // ohlc-graph(:data="currency_history")
+        // // h3 Ichimoku
+        // // ichimoku-graph(:data="currency_history")
+        // h3 Hekin-Ashi
+        // hekin-ashi-graph(:data="currency_history")
+        // h3 Williams
+        // williams-graph(:data="currency_history")
             
         // h3 Price
         // line-graph(:data="currency_history")
@@ -28,13 +32,13 @@ div#currency-page
           p.rate {{quote.rate}}
       
     
-  div.bottom
-    div.icon
-      i.material-icons insert_chart
-    div.icon
-      i.material-icons dialpad
-    div.icon
-      i.material-icons compare_arrows
+  // div.bottom
+  //   div.icon
+  //     i.material-icons insert_chart
+  //   div.icon
+  //     i.material-icons dialpad
+  //   div.icon
+  //     i.material-icons compare_arrows
     
   
 </template>
@@ -46,6 +50,7 @@ import OHLCGraph from '@/components/graphs/OHLC'
 import IchimokuGraph from '@/components/graphs/Ichimoku'
 import HekinAshiGraph from '@/components/graphs/Heikin-Ashi'
 import WilliamsGraph from '@/components/graphs/Williams'
+import MultiGraph from '@/components/graphs/Multi'
 
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -59,6 +64,7 @@ export default {
     IchimokuGraph,
     HekinAshiGraph,
     WilliamsGraph,
+    MultiGraph,
   },
   props: {
     
@@ -67,6 +73,11 @@ export default {
   data () {
     return {
       currency_page_tab: "charts",
+      multiChartConfig: {
+        crosshair: true,
+        close: true,
+        heikinashi: true,
+      }
     }
   },
   methods: {
@@ -116,6 +127,19 @@ export default {
   flex-wrap wrap
   flex-basis 100%
   height 100%
+
+  .charts
+    display flex
+    flex-basis 100%
+    flex-wrap wrap  
+  .container
+    background white
+    display flex
+
+    flex-basis 100%
+    padding 1em
+    border 1px solid rgba(0, 0, 0, .1)
+
   
   .top
     height calc(100vh - 160px)

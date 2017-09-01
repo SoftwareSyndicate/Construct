@@ -61,13 +61,17 @@ export const fetch_currencies = ({commit, state}) => {
 
 // TODO THROW INTO API
 export const fetch_currency_history = ({commit, state}, symbol) => {
-  log(symbol)
   return Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + symbol + "&tsym=USD&limit=60&aggregate=1&e=CCCAGG").then(response => {
     commit(types.RECIEVE_CURRENCY_HISTORY, response.body.Data)    
     return response.body.Data
-  }, error => {
-
-  });
+  })
+  
+  setInterval(()=> {
+    return Vue.http.get("https://min-api.cryptocompare.com/data/histominute?fsym=" + symbol + "&tsym=USD&limit=60&aggregate=1&e=CCCAGG").then(response => {
+      commit(types.RECIEVE_CURRENCY_HISTORY, response.body.Data)    
+      return response.body.Data
+    })
+  }, 5000)
 }
 
 
