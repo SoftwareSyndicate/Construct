@@ -17,77 +17,82 @@ export default {
   },
   methods: {
     draw(data){
-      log("DRAWING")
-      log(data)
-      let el = this.$refs.chart_container
-      var margin = {top: 0, right: 0, bottom: 0, left: 0},
-          width = el.clientWidth - margin.left - margin.right,
-          height = el.clientHeight - margin.top - margin.bottom;
-
+      
       // format the data
       data.forEach(function(d) {
         d.date = new Date(d.time)
         d.close = +d.close
       });
 
-      // set the ranges
-      var x = d3.scaleTime().range([0, width]);
-      var y = d3.scaleLinear().range([height, 0]);
-
       // define the line
-      var valueline = d3.line()
-          .x(function(d) { return x(d.date); })
-          .y(function(d) { return y(d.close); });
+      this.valueline = d3.line()
+          .x((d) => { return this.x(d.date); })
+          .y((d) => { return this.y(d.close); });
 
-      var area = d3.area()
-          .x(function(d) { return x(d.date); })
-          .y0(height)
-          .y1(function(d) { return y(d.close); });
+      this.area = d3.area()
+          .x((d) => { return this.x(d.date); })
+          .y0(this.height)
+          .y1((d) => { return this.y(d.close); });
       
-      var svg = d3.select(this.$refs.graph)
-          .append("g")
-          .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
 
       // Scale the range of the data
-      x.domain(d3.extent(data, function(d) { return d.date; }));
-      y.domain([d3.min(data, function(d) { return d.close; }), d3.max(data, function(d) { return d.close; })]);
+      this.x.domain(d3.extent(data, function(d) { return d.date; }));
+      this.y.domain([d3.min(data, function(d) { return d.close; }), d3.max(data, function(d) { return d.close; })]);
 
-      // Add the valueline path.
-      svg.append("path")
-        .data([data])
-        .attr("class", "line")
-        .attr("d", valueline);
+      if(!this.hasDrawn){
+        this.hasDrawn = true;
+        // Add the valueline path.
+        this.svg.append("path")
+          .data([data])
+          .attr("class", "line")
+          .attr("d", this.valueline);
 
-      svg.append("path")
-       .data([data])
-       .attr("class", "area")
-       .attr("d", area);
-      
+        this.svg.append("path")
+          .data([data])
+          .attr("class", "area")
+          .attr("d", this.area);
+      } else {
+        this.svg = d3.select(this.$refs.graph).transition()
+        this.svg.select(".line") 
+          .duration(1000)
+          .attr("d", this.valueline(data));
+        this.svg.select(".area") 
+          .duration(1000)
+          .attr("d", this.area(data));
+      }
     },
-
-    update(){
-      
-    }
   },
+  
   watch: {
     graph_data: {
-      handler: function(oldVal, newVal){
-        setTimeout(()=> {
-          if(this.graph_data.length > 0){
-            this.draw(this.graph_data)            
-          }
-        }, 30)
+      handler: function(newVal, oldVal){
+        if(this.graph_data.length > 0){
+          this.draw(this.graph_data)            
+        }
       },
-      deep: true,
-      immediate: true,
     }
   },
   
   mounted(){
+    // Init Dom
+    this.el = this.$refs.chart_container
+    this.margin = {top: 0, right: 0, bottom: 0, left: 0}
+    this.width = this.el.clientWidth
+    this.height = this.el.clientHeight
+
+    // set the ranges
+    this.x = d3.scaleTime().range([0, this.width]);
+    this.y = d3.scaleLinear().range([this.height, 0]);
+    
+    this.svg = d3.select(this.$refs.graph)
+      .append("g")
+      .attr("transform",
+            "translate(" + this.margin.left + "," + this.margin.top + ")");
+
     if(this.graph_data.length > 0){
       this.draw(this.graph_data)            
     }
+
   }
 }
   </script>

@@ -40,11 +40,11 @@ export default {
       if(this.config.close){
         this.drawClose(data)
       }
-      if(this.config.heikinashi){
-        this.drawHeikinashi(data)
-      }
       if(this.config.williams){
         this.drawWilliams(data)
+      }
+      if(this.config.heikinashi){
+        this.drawHeikinashi(data)
       }
 
       // Draw Axis
@@ -130,7 +130,8 @@ export default {
         if(this.graph_data.length > 0){
           this.draw(this.graph_data)
         }
-      }
+      },
+      immediate: true,
     }
   },
   mounted(){

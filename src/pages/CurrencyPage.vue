@@ -6,6 +6,7 @@ div#currency-page
         h3 Multi
         div.container
           multi-graph(:graph_data="currency_history")
+          i.material-icons(@click="maximize($event)") open_with
 
         // h3 OHLC
         // ohlc-graph(:data="currency_history")
@@ -135,11 +136,16 @@ export default {
   .container
     background white
     display flex
-
     flex-basis 100%
     padding 1em
     border 1px solid rgba(0, 0, 0, .1)
-
+    position relative
+    
+    i
+      position absolute
+      font-size 36px
+      bottom 10px
+      cursor pointer
   
   .top
     height calc(100vh - 160px)
