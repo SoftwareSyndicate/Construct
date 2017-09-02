@@ -54,7 +54,7 @@ export default {
       } else {
         this.svg = d3.select(this.$refs.graph).transition()
         this.svg.select(".line") 
-          .duration(1000)
+          .duration(100)
           .attr("d", this.valueline(data));
         this.svg.select(".area") 
           .duration(1000)

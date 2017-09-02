@@ -26,6 +26,7 @@ export default {
   },
   methods: {
     draw(data){
+      log("drawing")
       data = data.map(d => {
         return {
           date: new Date(d.time * 1000),
@@ -51,6 +52,10 @@ export default {
       this.svg.selectAll("g.x.axis").call(this.xAxis);
       this.svg.selectAll("g.y.axis").call(this.yAxis);      
       
+    },
+    onResize(){
+
+
     },
     initCrosshair(){
       this.crosshair = techan.plot.crosshair()
@@ -106,28 +111,22 @@ export default {
       this.williamsIndicator = techan.indicator.williams()
     },
     drawWilliams(data){
-      // let williamsData = this.williamsIndicator(data)
-      // this.x.domain(data.map(this.williamsAccessor.d))
-      // this.y.domain(techan.scale.plot.ohlc(williamsData, this.williamsAccessor).domain())
-
-
-      // this.svg.selectAll("g.williams").datum(williamsData).call(this.williams)
-
       var williamsData = techan.indicator.williams()(data);
       this.x.domain(williamsData.map(this.williams.accessor().d));
       this.y.domain(techan.scale.plot.williams().domain());
 
       this.svg.selectAll("g.williams").datum(williamsData).call(this.williams);
+    },
+
+    initGraph(){
+
 
     }
-    
   },
   watch: {
     graph_data: {
       handler: function(newData, oldData) {
-        log(newData)
-        log(this.graph_data)
-        if(this.graph_data.length > 0){
+        if(this.graph_data.length > 0 && this.x){
           this.draw(this.graph_data)
         }
       },
@@ -181,7 +180,12 @@ export default {
       .attr("class", "y axis")
       .attr("transform", "translate(" + this.width + ",0)")
       .call(this.yRightAxis);
+
+    window.addEventListener('resize', this.onResize)
     
+  },
+  beforeDestroy(){
+    window.removeEventListener('resize', this.onResize)
   }
 }
 </script>
