@@ -87,6 +87,9 @@ export default {
       'fetch_currency_history_better',
       'set_brand',
     ]),
+    maximize(event){
+      log(event.target.parentElement)
+    }
   },
 
   computed: {

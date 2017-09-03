@@ -10,7 +10,7 @@ div#navbar
       input(:value="search" @input="updateSearch" ref="search")
   div.right
     div.search(@click="set_searching(!searching)" v-if="$route.name == 'currencies'")
-      i.material-icons search
+      i.material-icons filter_list
     div.search(@click="set_open(true)"  v-if="$route.name == 'portfolios'")
       i.material-icons playlist_add
   
