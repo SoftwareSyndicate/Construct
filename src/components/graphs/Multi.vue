@@ -222,7 +222,7 @@ export default {
       path.line 
         fill none
         stroke steelblue
-        stroke-width 1
+        stroke-width 2
 
     .crosshair 
       cursor crosshair
@@ -236,10 +236,10 @@ export default {
 
     .williams path 
       fill: none;
-      stroke-width: 1;
+      stroke-width: 2;
 
     .williams.up 
       stroke: orange
-      stroke-width: 1;
+      stroke-width: 2;
         
 </style>
