@@ -4,6 +4,7 @@ div#currency-page
     div.tab(v-if="currency_page_tab == 'chart'")
       div.chart-container
         multi-graph(:graph_data="currency_history")
+        // calendar-graph(:graph_data="currency_history")
 
     div.tab(v-if="currency_page_tab == 'shapeshift'")
       div.shapeshift-rates
@@ -26,7 +27,7 @@ div#currency-page
 
 <script>
 import MultiGraph from '@/components/graphs/Multi'
-
+import CalendarGraph from '@/components/graphs/Calendar'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
@@ -34,6 +35,7 @@ export default {
   name: 'CurrencyPage',
   components: {
     MultiGraph,
+    CalendarGraph,
   },
   props: {
     
