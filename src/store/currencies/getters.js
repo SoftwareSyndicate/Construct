@@ -3,8 +3,9 @@ export const currencies = (state) => state.currencies
 export const currency_history = (state) => state.currency_history
 
 export const sorted_currencies = (state, commit, rootState) => {
+  // Order By
   let sorted = state.currencies.sort(function(a, b){
-    return a.rank - b.rank
+    return b[state.filters.order_by] - a[state.filters.order_by]
   })
 
   if(rootState.navbar.search.length > 0){
