@@ -54,7 +54,7 @@ export default {
       
     },
     onResize(){
-
+      this.draw(this.graph_data)
 
     },
     initCrosshair(){
@@ -135,7 +135,7 @@ export default {
   },
   mounted(){
     this.el = this.$refs.chart_container
-    this.margin = {top: 0, right: 20, bottom: 40, left: 40}
+    this.margin = {top: 20, right: 40, bottom: 20, left: 40}
     this.width = this.el.clientWidth - this.margin.left - this.margin.right
     this.height = this.el.clientHeight - this.margin.top - this.margin.bottom
     this.svg = d3.select(this.$refs.graph)
@@ -173,7 +173,7 @@ export default {
       .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
-      .attr("dy", ".71em")
+      .attr("dy", ".75em")
       .style("text-anchor", "end")
     
     this.svg.append("g")
@@ -200,7 +200,7 @@ export default {
   .chart-container
     display flex
     flex-basis 100%
-    height 400px
+    height 100%
 
     .heikinashi    
       path.candle

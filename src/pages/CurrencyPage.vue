@@ -1,29 +1,9 @@
 <template lang="pug">
 div#currency-page
   div.top
-    div.tab(v-if="currency_page_tab == 'charts'")
-      div.charts
-        h3 Multi
-        div.container
-          multi-graph(:graph_data="currency_history")
-          i.material-icons(@click="maximize($event)") open_with
-
-        // h3 OHLC
-        // ohlc-graph(:data="currency_history")
-        // // h3 Ichimoku
-        // // ichimoku-graph(:data="currency_history")
-        // h3 Hekin-Ashi
-        // hekin-ashi-graph(:data="currency_history")
-        // h3 Williams
-        // williams-graph(:data="currency_history")
-            
-        // h3 Price
-        // line-graph(:data="currency_history")
-        // h3 Market Cap
-        // line-graph(:data="currency_history")
-        // h3 Volume
-        // line-graph(:data="currency_history")
-
+    div.tab(v-if="currency_page_tab == 'chart'")
+      div.chart-container
+        multi-graph(:graph_data="currency_history")
 
     div.tab(v-if="currency_page_tab == 'shapeshift'")
       div.shapeshift-rates
@@ -45,12 +25,6 @@ div#currency-page
 </template>
 
 <script>
-import TimeSeries from '@/components/graphs/TimeSeries'
-import LineGraph from '@/components/graphs/Line'
-import OHLCGraph from '@/components/graphs/OHLC'
-import IchimokuGraph from '@/components/graphs/Ichimoku'
-import HekinAshiGraph from '@/components/graphs/Heikin-Ashi'
-import WilliamsGraph from '@/components/graphs/Williams'
 import MultiGraph from '@/components/graphs/Multi'
 
 import { mapGetters } from 'vuex'
@@ -59,12 +33,6 @@ import { mapActions } from 'vuex'
 export default {
   name: 'CurrencyPage',
   components: {
-    TimeSeries,
-    LineGraph,
-    'ohlc-graph': OHLCGraph,
-    IchimokuGraph,
-    HekinAshiGraph,
-    WilliamsGraph,
     MultiGraph,
   },
   props: {
@@ -73,7 +41,7 @@ export default {
   },
   data () {
     return {
-      currency_page_tab: "charts",
+      currency_page_tab: "chart",
       multiChartConfig: {
         crosshair: true,
         close: true,
@@ -87,9 +55,6 @@ export default {
       'fetch_currency_history_better',
       'set_brand',
     ]),
-    maximize(event){
-      log(event.target.parentElement)
-    }
   },
 
   computed: {
@@ -123,7 +88,7 @@ export default {
 </script>
 
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 @import "../styles/main.styl"
 
 #currency-page
@@ -132,23 +97,15 @@ export default {
   flex-basis 100%
   height 100%
 
-  .charts
+  .chart-container
     display flex
     flex-basis 100%
-    flex-wrap wrap  
-  .container
     background white
     display flex
     flex-basis 100%
-    padding 1em
     border 1px solid rgba(0, 0, 0, .1)
-    position relative
-    
-    i
-      position absolute
-      font-size 36px
-      bottom 10px
-      cursor pointer
+    padding 1em
+    height 100%
   
   .top
     height calc(100vh - 160px)
