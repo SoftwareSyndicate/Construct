@@ -71,7 +71,7 @@ export default {
     
     
   .router-view-container
-    height 100%
+    height calc(100vh - 64px)
     padding-top 64px
 
     .page

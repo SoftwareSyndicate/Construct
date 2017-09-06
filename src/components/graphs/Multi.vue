@@ -50,7 +50,8 @@ export default {
 
       // Draw Axis
       this.svg.selectAll("g.x.axis").call(this.xAxis);
-      this.svg.selectAll("g.y.axis").call(this.yAxis);      
+      this.svg.selectAll("g.y.axis").call(this.yAxis);
+      this.zoomableInit = this.x.zoomable().clamp(false).copy();
       
     },
     onResize(){
@@ -118,9 +119,99 @@ export default {
       this.svg.selectAll("g.williams").datum(williamsData).call(this.williams);
     },
 
+    initZoom(){
+      this.zoom = d3.zoom()
+            .on("zoom", this.zoomed)
+      this.zoomableInit = null
+
+      this.svg.append("clipPath")
+        .attr("id", "clip")
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", this.y(1))
+        .attr("width", this.width)
+        .attr("height", this.y(0) - this.y(1));
+
+      this.svg.append("rect")
+        .attr("class", "pane")
+        .attr("width", this.width)
+        .attr("height", this.height)
+        .call(this.zoom);      
+    },
+    zoomed(){
+      log("zoomed")
+      this.rescaledY = d3.event.transform.rescaleY(this.y);
+      this.yAxis.scale(this.rescaledY);
+
+
+
+      if(this.config.close){
+        this.close.yScale(this.rescaledY)
+      }
+      if(this.config.williams){
+        this.williams.yScale(this.rescaledY)
+      }
+      if(this.config.heikinashi){
+        this.heikinashi.yScale(this.rescaledY)
+      }
+      
+
+      // Emulates D3 behaviour, required for financetime due to secondary zoomable scale
+      log(this.zoomableInit())
+      this.x.zoomable().domain(d3.event.transform.rescaleX(this.zoomableInit).domain());
+      
+      this.draw(this.graph_data);
+    },
     initGraph(){
+      this.el = this.$refs.chart_container
+      this.margin = {top: 20, right: 40, bottom: 20, left: 40}
+      this.width = this.el.clientWidth - this.margin.left - this.margin.right
+      this.height = this.el.clientHeight - this.margin.top - this.margin.bottom
+      this.svg = d3.select(this.$refs.graph)
+        .append("g")
+        .attr("transform",
+              "translate(" + this.margin.left + "," + this.margin.top + ")")
+
+      this.x = techan.scale.financetime()
+        .range([0, this.width])
+      this.y = d3.scaleLinear()
+        .range([this.height, 0])
+
+      this.xAxis = d3.axisBottom(this.x)
+      this.xTopAxis = d3.axisTop(this.x)
+      this.yAxis = d3.axisLeft(this.y)
+      this.yRightAxis = d3.axisRight(this.y);
 
 
+      // Init plots
+      this.initClose()
+      this.initHeikinashi()
+      this.initWilliams()
+      
+      // Axis
+      this.svg.append("g")
+        .attr("class", "x axis")
+        .call(this.xTopAxis)
+      
+      this.svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + this.height + ")")
+      
+      this.svg.append("g")
+        .attr("class", "y axis")
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".75em")
+        .style("text-anchor", "end")
+      
+      this.svg.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + this.width + ",0)")
+        .call(this.yRightAxis);
+
+      // Zoom
+      this.initZoom()
     }
   },
   watch: {
@@ -134,53 +225,7 @@ export default {
     }
   },
   mounted(){
-    this.el = this.$refs.chart_container
-    this.margin = {top: 20, right: 40, bottom: 20, left: 40}
-    this.width = this.el.clientWidth - this.margin.left - this.margin.right
-    this.height = this.el.clientHeight - this.margin.top - this.margin.bottom
-    this.svg = d3.select(this.$refs.graph)
-        .append("g")
-        .attr("transform",
-              "translate(" + this.margin.left + "," + this.margin.top + ")")
-
-    this.x = techan.scale.financetime()
-      .range([0, this.width])
-    this.y = d3.scaleLinear()
-      .range([this.height, 0])
-
-    this.xAxis = d3.axisBottom(this.x)
-    this.xTopAxis = d3.axisTop(this.x)
-    this.yAxis = d3.axisLeft(this.y)
-    this.yRightAxis = d3.axisRight(this.y);
-
-
-    // Init plots
-    this.initClose()
-    this.initHeikinashi()
-    this.initWilliams()
-    
-    // Axis
-    this.svg.append("g")
-      .attr("class", "x axis")
-      .call(this.xTopAxis)
-    
-    this.svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + this.height + ")")
-    
-    this.svg.append("g")
-      .attr("class", "y axis")
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".75em")
-      .style("text-anchor", "end")
-    
-    this.svg.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + this.width + ",0)")
-      .call(this.yRightAxis);
-
+    this.initGraph()
     window.addEventListener('resize', this.onResize)
     
   },
@@ -241,5 +286,10 @@ export default {
     .williams.up 
       stroke: orange
       stroke-width: 2;
+        
+  rect.pane 
+    cursor move
+    fill none
+    pointer-events all
         
 </style>

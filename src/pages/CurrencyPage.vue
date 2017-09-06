@@ -96,6 +96,7 @@ export default {
   flex-wrap wrap
   flex-basis 100%
   height 100%
+  overflow hidden
 
   .chart-container
     display flex
@@ -111,7 +112,6 @@ export default {
     height calc(100vh - 160px)
     display flex
     flex-basis 100%
-    overflow scroll
     padding 1em
 
     .tab
