@@ -13,7 +13,6 @@ sync(store, router)
 
 // Install VueResource
 import VueResource from 'vue-resource'
-import 'vue-material/dist/vue-material.css'
 
 Vue.use(VueResource);
 

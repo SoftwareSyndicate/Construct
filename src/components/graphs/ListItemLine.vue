@@ -112,7 +112,7 @@ export default {
     align-items center
     height 100%
   svg
-    height 100%       
+    height 100% !important       
   .line 
     fill none
     stroke steelblue

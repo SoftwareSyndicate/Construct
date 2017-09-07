@@ -23,6 +23,7 @@ import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { mapMutations } from 'vuex'
 import { mapState } from 'vuex'
+import 'vue-material/dist/components/mdSidenav/index.css'
 
 export default {
   name: 'LeftNav',
