@@ -20,7 +20,7 @@ div#app
 <script>
 import Navbar from "@/components/Navbar"
 import LeftNav from "@/components/LeftNav"
-import RightNav from "@/components/RightNav/RightNav"
+import RightNav from "@/components/Right_Nav/RightNav"
 import CreatePortfolioModal from "@/components/CreatePortfolioModal"
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
