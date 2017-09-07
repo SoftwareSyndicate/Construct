@@ -1,7 +1,7 @@
 <template lang="pug">
   
 div#navbar
-  div.left(@click="set_left_nav({'open':true})")
+  div.left(@click="LEFT_NAV_OPEN()")
     i.material-icons menu
   div.center
     transition(name="fade" v-if="!searching" mode="out-in")
@@ -17,6 +17,7 @@ div#navbar
 </template>
 
 <script>
+import { mapState } from 'vuex'  
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { mapMutations } from 'vuex'
@@ -30,7 +31,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'set_open'
+      'LEFT_NAV_OPEN'
     ]),
     ...mapActions([
       'set_left_nav',
@@ -49,6 +50,9 @@ export default {
       'searching',
       'search',
     ]),
+    ...mapState({
+      'left_nav_open': state => state.left_nav.open
+    })
   },
 
   watch: {
@@ -74,7 +78,7 @@ export default {
   display flex
   flex-basis 100%
   padding 0px 2em
-  height 4em
+  height 100%
   justify-content space-between
   box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
   

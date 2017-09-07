@@ -2,9 +2,9 @@
 div#app
   div.navbar-container
     navbar
-  transition(name="slide")
-    div.left-nav-container(v-if="left_nav.open")
-      left-nav
+
+  div.left-nav-container
+    left-nav
   
   div.router-view-container(@click="routerClick($event)")
     transition(name="slide" mode='out-in')      
@@ -50,7 +50,8 @@ export default {
 
 <style lang="stylus">
 @import "./styles/main.styl"
-  
+
+navbar-height = 60px
 #app
   height 100%
   
@@ -60,19 +61,20 @@ export default {
     position fixed
     background #fefefe
     z-index 10
+    height navbar-height
 
-  .left-nav-container
-    width 75%
-    height 100%
-    position fixed
-    z-index 4
-    border-right 1px solid rgba(0, 0, 0, .1)
-    box-shadow 1px 0px 1px 1px rgba(0, 0, 0, .1)
+  // .left-nav-container
+  //   width 75%
+  //   height 100%
+  //   position fixed
+  //   z-index 4
+  //   border-right 1px solid rgba(0, 0, 0, .1)
+  //   box-shadow 1px 0px 1px 1px rgba(0, 0, 0, .1)
     
     
   .router-view-container
-    height calc(100vh - 64px)
-    padding-top 64px
+    height calc(100vh - navbar-height)
+    padding-top navbar-height
 
     .page
        display flex

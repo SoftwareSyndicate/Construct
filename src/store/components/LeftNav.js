@@ -1,27 +1,26 @@
 // State
 const state = {
-  left_nav: {
-    open: false
-  }
+  open: false
 }
 
 // Getters
 var getters = {
-  left_nav: state =>  state.left_nav,
+
 }
 
 // Mutations
 var mutations = {
-  ["LEFT_NAV_SET"] (state, left_nav) {
-    state.left_nav = left_nav
+  ["LEFT_NAV_OPEN"] (state) {
+    state.open = true
   },
+  ["LEFT_NAV_CLOSE"] (state) {
+    state.open = false
+  },  
 }
 
 // Actions
 var actions = {
-  set_left_nav: ({ commit, state }, left_nav) => {
-    commit("LEFT_NAV_SET", left_nav)
-  }
+
 }
 
 export default {

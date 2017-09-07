@@ -8,17 +8,19 @@ import store from './store'
 import moment from 'moment'
 // import * as d3 from "d3"
 
-
-
-// import SyndicateUI from 'syndicate-ui'
-
-
 // Sync the store with the router
 sync(store, router)
 
 // Install VueResource
 import VueResource from 'vue-resource'
+import 'vue-material/dist/vue-material.css'
+
 Vue.use(VueResource);
+
+// Install VueMaterial
+import VueMaterial from 'vue-material'
+Vue.use(VueMaterial)
+
 
 //Install SyndicateUI
 // Vue.use(SyndicateUI)

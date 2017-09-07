@@ -237,7 +237,8 @@ export default {
 
 
 <style lang="stylus">
-  
+@import "../../styles/graphs.styl"  
+
 .multi-graph
   display flex
   flex-basis 100%

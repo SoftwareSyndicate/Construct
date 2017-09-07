@@ -110,7 +110,9 @@ export default {
     flex-basis 100%
     display flex
     align-items center
-    height 100%        
+    height 100%
+  svg
+    height 100%       
   .line 
     fill none
     stroke steelblue

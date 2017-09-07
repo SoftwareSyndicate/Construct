@@ -15,6 +15,7 @@ const store = new Vuex.Store({
     currencies: currencies,
     user: user,
     portfolios: portfolios,
+    
     // Components
     navbar: components.Navbar,
     left_nav: components.LeftNav,
