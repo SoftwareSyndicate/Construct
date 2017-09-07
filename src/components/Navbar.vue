@@ -9,7 +9,7 @@ div#navbar
     transition(name="fade" v-else mode="out-in")
       input(:value="search" @input="updateSearch" ref="search")
   div.right
-    div.search(@click="set_searching(!searching)" v-if="$route.name == 'currencies'")
+    div.search(@click="RIGHT_NAV_OPEN()" v-if="$route.name == 'currencies'")
       i.material-icons filter_list
     div.search(@click="set_open(true)"  v-if="$route.name == 'portfolios'")
       i.material-icons playlist_add
@@ -31,10 +31,10 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'LEFT_NAV_OPEN'
+      'LEFT_NAV_OPEN',
+      'RIGHT_NAV_OPEN',
     ]),
     ...mapActions([
-      'set_left_nav',
       'set_brand',
       'set_searching',
       'set_search',

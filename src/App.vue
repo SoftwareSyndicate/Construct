@@ -5,7 +5,10 @@ div#app
 
   div.left-nav-container
     left-nav
-  
+    
+  div.right-nav-container
+    right-nav
+
   div.router-view-container(@click="routerClick($event)")
     transition(name="slide" mode='out-in')      
       router-view
@@ -17,6 +20,7 @@ div#app
 <script>
 import Navbar from "@/components/Navbar"
 import LeftNav from "@/components/LeftNav"
+import RightNav from "@/components/RightNav/RightNav"
 import CreatePortfolioModal from "@/components/CreatePortfolioModal"
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -25,6 +29,7 @@ export default {
   components: {
     Navbar,
     LeftNav,
+    RightNav,
     CreatePortfolioModal,
   },
   name: 'app',
@@ -40,9 +45,7 @@ export default {
     console.log("Welcome to the Construct")
   },
   computed: {
-    ...mapGetters([
-      'left_nav',
-    ]),
+    
   },
 
 }
@@ -63,15 +66,6 @@ navbar-height = 60px
     z-index 10
     height navbar-height
 
-  // .left-nav-container
-  //   width 75%
-  //   height 100%
-  //   position fixed
-  //   z-index 4
-  //   border-right 1px solid rgba(0, 0, 0, .1)
-  //   box-shadow 1px 0px 1px 1px rgba(0, 0, 0, .1)
-    
-    
   .router-view-container
     height calc(100vh - navbar-height)
     padding-top navbar-height

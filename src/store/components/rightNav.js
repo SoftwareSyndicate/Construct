@@ -1,29 +1,27 @@
 // State
 const state = {
-  rightNav: {
-    open: false,
-    currentForm: null,
-    currentAction: null
-  }
+  open: false,
+  title: "Filter"
 }
 
 // Getters
 var getters = {
-  rightNav: state =>  state.rightNav
+  
 }
 
 // Mutations
 var mutations = {
-  ["UPDATE_RIGHT_NAV"] (state, updates) {
-    state.rightNav = Object.assign(state.rightNav, updates);
+  ["RIGHT_NAV_OPEN"] (state) {
+    state.open = true
   },
+  ["RIGHT_NAV_CLOSE"] (state) {
+    state.open = false
+  },  
 }
 
 // Actions
 var actions = {
-  updateRightNav: ({ commit, state }, updates) => {
-    commit("UPDATE_RIGHT_NAV", updates)
-  }
+
 }
 
 export default {
