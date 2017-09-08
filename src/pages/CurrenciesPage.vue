@@ -37,7 +37,6 @@ export default {
 
   computed: {
     ...mapGetters([
-      'currencies',
       'sorted_currencies',
     ])
   },

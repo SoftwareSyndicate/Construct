@@ -3,7 +3,7 @@ import Vue from 'vue'
 import APIs from '../apis'
 
 export const fetch_currencies = ({commit, state}) => {
-  let limit = 10
+  let limit = 50
   Vue.http.get('https://api.coinmarketcap.com/v1/ticker/?limit=' + limit).then(response => {
     let currencies = response.body
     commit(types.RECIEVE_CURRENCIES, {currencies})

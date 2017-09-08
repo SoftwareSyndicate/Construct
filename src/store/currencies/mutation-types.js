@@ -1,5 +1,6 @@
 // ALL
 export const LOAD_CURRENCIES = 'LOAD_CURRENCIES'
+export const UPDATE_FILTERS = 'UPDATE_FILTERS'
 
 // Coin Market Cap
 export const RECIEVE_CURRENCIES = 'RECIEVE_CURRENCIES'
