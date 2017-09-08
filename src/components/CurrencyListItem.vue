@@ -106,7 +106,7 @@ export default {
 
     .icon
       font-size 30px
-      margin-right .8em
+      margin-right .6em
       min-width 30px
 
       &.mobile
@@ -117,7 +117,7 @@ export default {
         width 64px
 
     .name
-      font-size 1.3em
+      font-size 1.5em
       
       @media screen and (min-width: 600px)  
         font-size 2em

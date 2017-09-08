@@ -1,10 +1,7 @@
 <template lang="pug">
-md-sidenav.right-nav.md-right(ref="nav" @open="openNav()" @close="closeNav()" :md-swipeable="true" :md-swipe-threshold="50" :md-swipe-distance="100")
-  md-toolbar.md-large
-    div.md-toolbar-container
-      h3.md-title {{title}}
-      
-  
+ul#right-nav.side-nav
+  currency-filter(v-if="true")
+    
     
 </template>
 
@@ -13,9 +10,13 @@ import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { mapMutations } from 'vuex'
 import { mapState } from 'vuex'
+import CurrencyFilter from "@/components/CurrencyFilter"
 
 export default {
-  name: 'taco',
+  name: 'RightNav',
+  components: {
+    CurrencyFilter
+  },
   data () {
     return {
 
@@ -31,9 +32,9 @@ export default {
     open: {
       handler: function(newData, oldData) {
         if(this.open){
-          this.$refs.nav.open();
+          // TODO
         } else {
-          this.$refs.nav.close();
+          // TODO
         }
       },
     },
@@ -46,22 +47,22 @@ export default {
   },
 
   mounted(){
-    
+    $('#right-nav-button').sideNav({
+      menuWidth: 300, 
+      edge: 'right', 
+      closeOnClick: true, 
+      draggable: true,
+      onOpen: (el) => { this.openNav() }, 
+      onClose: (el) => { this.closeNav() },
+    })
   }
 }
 </script>
 
 
 <style lang="stylus">
-.right-nav
-  .md-toolbar
-    min-height 40px
-    height 40px    
-    background orange
-    display flex
-    align-items center
+// #right-nav
+//   .container
 
-    .md-toolbar-container
-      height 40px    
 
 </style>

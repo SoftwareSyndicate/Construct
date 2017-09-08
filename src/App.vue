@@ -6,8 +6,8 @@ div#app
   div.left-nav-container
     left-nav
     
-  // div.right-nav-container
-  //   right-nav
+  div.right-nav-container
+    right-nav
 
   div.router-view-container(@click="routerClick($event)")
     transition(name="slide" mode='out-in')      
@@ -20,7 +20,7 @@ div#app
 <script>
 import Navbar from "@/components/Navbar"
 import LeftNav from "@/components/LeftNav"
-// import RightNav from "@/components/RightNav/RightNav"
+import RightNav from "@/components/RightNav"
 import CreatePortfolioModal from "@/components/CreatePortfolioModal"
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -29,7 +29,7 @@ export default {
   components: {
     Navbar,
     LeftNav,
-    // RightNav,
+    RightNav,
     CreatePortfolioModal,
   },
   name: 'app',
@@ -62,7 +62,7 @@ navbar-height = 60px
     display flex
     width 100%
     position fixed
-    background #fefefe
+    background #fff
     z-index 10
     height navbar-height
 

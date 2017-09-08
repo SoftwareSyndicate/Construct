@@ -1,15 +1,17 @@
 <template lang="pug">
   
 div#navbar
-  div.left(@click="LEFT_NAV_OPEN()")
+  div#left-nav-button.left(@click="LEFT_NAV_OPEN()" data-activates='left-nav')
     i.material-icons menu
+    
   div.center
     transition(name="fade" v-if="!searching" mode="out-in")
       p.brand {{brand}}
     transition(name="fade" v-else mode="out-in")
       input(:value="search" @input="updateSearch" ref="search")
-  div.right
-    div.search(@click="RIGHT_NAV_OPEN()" v-if="$route.name == 'currencies'")
+
+  div#right-nav-button.right(data-activates='right-nav')
+    div.search( v-if="$route.name == 'currencies'")
       i.material-icons filter_list
     div.search(@click="set_open(true)"  v-if="$route.name == 'portfolios'")
       i.material-icons playlist_add

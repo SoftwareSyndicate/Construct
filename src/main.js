@@ -16,9 +16,8 @@ import VueResource from 'vue-resource'
 
 Vue.use(VueResource);
 
-// Install VueMaterial
-import VueMaterial from 'vue-material'
-Vue.use(VueMaterial)
+import materialize from 'materialize-css'
+import css from 'materialize-css/dist/css/materialize.css'
 
 
 //Install SyndicateUI
