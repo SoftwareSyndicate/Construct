@@ -17,6 +17,11 @@ export const sorted_currencies = (state, commit, rootState) => {
     }
   })
 
+  // Reverse
+  if(state.filters.reverse){
+    sorted = sorted.reverse()
+  }
+
   // if(rootState.navbar.search.length > 0){
   //   sorted = sorted.filter(c => c.id.includes(rootState.navbar.search.toLowerCase()))
   // }

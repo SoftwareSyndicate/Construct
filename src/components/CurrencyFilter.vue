@@ -2,11 +2,18 @@
 div#currency-filter
   div.header
     span Filters
-  div.order-by-container
+  div.row
     span Order By
     div.input-field
       select#order-by-select(:value="filters.order_by") 
         option(v-for="type in order_by_types" :value="type.value") {{type.name}}
+  div.row
+    span Reverse
+    div.switch
+      label
+        input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch")
+        span.lever
+
 
 </template>
 
@@ -58,9 +65,13 @@ export default {
       updateFilters: "UPDATE_FILTERS",
     }),
     updateOrderBy(e){
-      log("update order by")
       this.updateFilters({order_by: e.currentTarget.value})
+    },
+    updateReverse(e){
+      let reversed = $('#reverse-switch').prop('checked')
+      this.updateFilters({reverse: reversed})
     }
+    
   },
   computed: {
     ...mapState({
@@ -86,7 +97,7 @@ export default {
   .header
     display flex
     align-items center
-    background darken(orange, 5%)
+    background orange
     color white
     padding .5em
     font-size 2em
@@ -97,16 +108,13 @@ export default {
       margin-right .2em
     span
       line-height 1
-
-  .order-by-container
-    display flex
+  .row
     padding 0 1em
-    align-items center
     justify-content space-between
     
     >span
       font-size 1.2em
-      margin-right 2em
+      flex-basis 50%
       
     .input-field
       flex-grow 1
