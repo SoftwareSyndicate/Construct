@@ -26,7 +26,7 @@ import { mapMutations } from 'vuex'
 
 export default {
   name: 'Navbar',
-  data () {
+  data(){
     return {
       
     }

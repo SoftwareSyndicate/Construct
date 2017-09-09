@@ -1,7 +1,7 @@
 <template lang="pug">
 div#currency-filter
   div.header
-    span Filters
+    span Construct
   div.row
     span Name
     div.input-field
@@ -10,13 +10,13 @@ div#currency-filter
   div.row
     span Order By
     div.input-field
-      select#order-by-select(:value="filters.order_by") 
+      select#order-by-select(:value="filters.order_by" ref="orderBySelect") 
         option(v-for="type in order_by_types" :value="type.value") {{type.name}}
   div.row
     span Reverse
     div.switch
       label
-        input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch")
+        input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch" ref="reverseSwitch")
         span.lever
   // div.row
   //   span Price
@@ -75,14 +75,14 @@ export default {
       updateFilters: "UPDATE_FILTERS",
     }),
     updateOrderBy(e){
+      log(e)
       setTimeout(()=> {
         this.updateFilters({order_by: e.currentTarget.value})
       }, 200)
     },
     updateReverse(e){
       setTimeout(()=> {
-        let reversed = $('#reverse-switch').prop('checked')
-        this.updateFilters({reverse: reversed})
+        this.updateFilters({reverse: this.$refs.reverseSwitch.checked})
       }, 300)
     },
     updateSearch(e){
@@ -97,8 +97,8 @@ export default {
   },
 
   mounted(){
-    $('select').material_select()
-    $('#order-by-select').on('change', this.updateOrderBy)
+    $(this.$refs.orderBySelect).material_select()
+    $(this.$refs.orderBySelect).on('change', this.updateOrderBy)
     // var slider = document.getElementById('price-range');
     // noUiSlider.create(slider, {
     //   start: [0, 100],
@@ -126,18 +126,15 @@ export default {
   
 #currency-filter
   height 100%
-  background #f9fafd
   .header
     display flex
     align-items center
-    background $purple
-    color white
-    padding .5em
-    font-size 2em
-    font-weight 400
+    justify-content center
+    font-family 'Cinzel', serif
+    font-size 42px
+    height 100px
     margin-bottom 1em
     border-bottom 1px solid rgba(0, 0, 0, .1)
-    box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
     
     i
       color white

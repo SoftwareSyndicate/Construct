@@ -1,13 +1,19 @@
 <template lang="pug">
 div#app
-  div.navbar-container
+  div.navbar-container.mobile
     navbar
 
   div.left-nav-container
     left-nav
     
-  div.right-nav-container
+  div.right-nav-mobile-container.mobile
     right-nav
+    
+  div.right-nav-desktop-container.desktop
+    right-nav-desktop
+
+  // div.right-nav-container
+  //   right-nav-desktop
     
   div.router-view-container(@click="routerClick($event)")
     transition(name="slide" mode='out-in')      
@@ -21,6 +27,7 @@ div#app
 import Navbar from "@/components/Navbar"
 import LeftNav from "@/components/LeftNav"
 import RightNav from "@/components/RightNav"
+import RightNavDesktop from "@/components/RightNavDesktop"
 import CreatePortfolioModal from "@/components/CreatePortfolioModal"
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -30,6 +37,7 @@ export default {
     Navbar,
     LeftNav,
     RightNav,
+    RightNavDesktop,
     CreatePortfolioModal,
   },
   name: 'app',
@@ -59,7 +67,11 @@ desktop-navbar-height = 80px
 
 #app
   height 100%
+  display flex
   
+  @media screen and (min-width: 600px)
+    flex-direction row-reverse
+    
   .navbar-container
     display flex
     width 100%
@@ -71,15 +83,22 @@ desktop-navbar-height = 80px
     @media screen and (min-width: 600px)  
       height desktop-navbar-height
 
+  .right-nav-desktop-container
+    flex-basis 25%
+    background white
+    border-left 1px solid rgba(0, 0, 0, .1)
+    box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
+    
   .router-view-container
     height "calc(100vh - %s)" % mobile-navbar-height  
     padding-top mobile-navbar-height
     
-    @media screen and (min-width: 600px)  
-      height "calc(100vh - %s)" % desktop-navbar-height
-      padding-top desktop-navbar-height
-
-
+    @media screen and (min-width: 600px)
+      height 100vh
+      padding-top 0px
+      flex-basis 75%
+      overflow scroll
+      
     .page
        display flex
        flex-basis 100%
