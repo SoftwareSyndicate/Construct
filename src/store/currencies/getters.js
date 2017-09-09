@@ -4,11 +4,9 @@ export const currency_history = (state) => state.currency_history
 
 export const sorted_currencies = (state, commit, rootState) => {
   // Order By
-  log(state.filters.order_by)
   let orderBy = state.filters.order_by
   let sorted = state.currencies.sort((a, b) => {
     if(orderBy != "name"){
-
       return parseInt(b[orderBy]) - parseInt(a[orderBy])
     } else {
       if(a[orderBy] < b[orderBy]) return -1
@@ -22,10 +20,11 @@ export const sorted_currencies = (state, commit, rootState) => {
     sorted = sorted.reverse()
   }
 
-  // if(rootState.navbar.search.length > 0){
-  //   sorted = sorted.filter(c => c.id.includes(rootState.navbar.search.toLowerCase()))
-  // }
-  log(sorted)
+  // Name
+  if(state.filters.name.length > 0){
+    sorted = sorted.filter(c => c.id.includes(state.filters.name.toLowerCase()))
+  }
+  
   return sorted
 }
 

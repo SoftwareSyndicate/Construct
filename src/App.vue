@@ -8,7 +8,7 @@ div#app
     
   div.right-nav-container
     right-nav
-
+    
   div.router-view-container(@click="routerClick($event)")
     transition(name="slide" mode='out-in')      
       router-view
@@ -54,7 +54,9 @@ export default {
 <style lang="stylus">
 @import "./styles/main.styl"
 
-navbar-height = 60px
+mobile-navbar-height = 60px
+desktop-navbar-height = 80px
+
 #app
   height 100%
   
@@ -64,11 +66,19 @@ navbar-height = 60px
     position fixed
     background #fff
     z-index 10
-    height navbar-height
+    height mobile-navbar-height
+
+    @media screen and (min-width: 600px)  
+      height desktop-navbar-height
 
   .router-view-container
-    height calc(100vh - navbar-height)
-    padding-top navbar-height
+    height "calc(100vh - %s)" % mobile-navbar-height  
+    padding-top mobile-navbar-height
+    
+    @media screen and (min-width: 600px)  
+      height "calc(100vh - %s)" % desktop-navbar-height
+      padding-top desktop-navbar-height
+
 
     .page
        display flex

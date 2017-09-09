@@ -11,7 +11,8 @@ const state = {
     time_interval: 60 * 60 * 1000,
     time_interval_name: "1h",
     order_by: "market_cap_usd",
-    reverse: false
+    reverse: false,
+    name: ""
   },
   shapeshift_rates: [],
   filtered_shapeshift_rates: [],

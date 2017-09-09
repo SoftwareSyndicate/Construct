@@ -15,6 +15,7 @@
     "d3": "^4.10.0",
     "materialize-css": "^0.100.2",
     "moment": "^2.18.1",
+    "nouislider": "^10.1.0",
     "syndicate-ui": "github:softwaresyndicate/syndicate-ui",
     "techan": "^0.8.0",
     "vue": "^2.3.3",

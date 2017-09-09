@@ -10,7 +10,7 @@ div#navbar
     transition(name="fade" v-else mode="out-in")
       input(:value="search" @input="updateSearch" ref="search")
 
-  div#right-nav-button.right(data-activates='right-nav')
+  div#right-nav-button.right(data-activates='right-nav' )
     div.search( v-if="$route.name == 'currencies'")
       i.material-icons filter_list
     div.search(@click="set_open(true)"  v-if="$route.name == 'portfolios'")
@@ -98,8 +98,10 @@ export default {
     .brand
       font-family 'Cinzel', serif
       font-size 24px
-    
-    
+      
+      @media screen and (min-width: 600px)  
+        font-size 36px
+        
   .right
     display flex
     align-items center
