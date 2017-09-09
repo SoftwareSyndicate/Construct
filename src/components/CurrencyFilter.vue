@@ -18,9 +18,9 @@ div#currency-filter
       label
         input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch")
         span.lever
-  div.row
-    span Price
-    div#price-range
+  // div.row
+  //   span Price
+  //   div#price-range
 
 
 
@@ -99,20 +99,20 @@ export default {
   mounted(){
     $('select').material_select()
     $('#order-by-select').on('change', this.updateOrderBy)
-    var slider = document.getElementById('price-range');
-    noUiSlider.create(slider, {
-      start: [0, 100],
-      connect: true,
-      step: 1,
-      orientation: 'horizontal',
-      range: {
-        'min': 0,
-        'max': 100
-      },
-      format: wNumb({
-        decimals: 0
-      })
-    });
+    // var slider = document.getElementById('price-range');
+    // noUiSlider.create(slider, {
+    //   start: [0, 100],
+    //   connect: true,
+    //   step: 1,
+    //   orientation: 'horizontal',
+    //   range: {
+    //     'min': 0,
+    //     'max': 100
+    //   },
+    //   format: wNumb({
+    //     decimals: 0
+    //   })
+    // });
   },
   beforeDestroy(){
     $('select').material_select('destroy');
@@ -149,7 +149,7 @@ export default {
     justify-content space-between
     height 40px
     margin-bottom .5em
-
+    
     ul
       li
         span
