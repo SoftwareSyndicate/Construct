@@ -18,9 +18,9 @@ div#currency-filter
       label
         input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch" ref="reverseSwitch")
         span.lever
-  // div.row
-  //   span Price
-  //   div#price-range
+  div.row
+    span Price
+    div(ref="priceRange")
 
 
 
@@ -75,7 +75,6 @@ export default {
       updateFilters: "UPDATE_FILTERS",
     }),
     updateOrderBy(e){
-      log(e)
       setTimeout(()=> {
         this.updateFilters({order_by: e.currentTarget.value})
       }, 200)
@@ -87,8 +86,12 @@ export default {
     },
     updateSearch(e){
       this.updateFilters({name: e.target.value})
+    },
+    updatePriceRange(e){
+      let low = this.price_range.get()[0]
+      let high = this.price_range.get()[1]
+      this.updateFilters({price_range: {low: low, high: high}})
     }
-
   },
   computed: {
     ...mapState({
@@ -99,20 +102,29 @@ export default {
   mounted(){
     $(this.$refs.orderBySelect).material_select()
     $(this.$refs.orderBySelect).on('change', this.updateOrderBy)
-    // var slider = document.getElementById('price-range');
-    // noUiSlider.create(slider, {
-    //   start: [0, 100],
-    //   connect: true,
-    //   step: 1,
-    //   orientation: 'horizontal',
-    //   range: {
-    //     'min': 0,
-    //     'max': 100
-    //   },
-    //   format: wNumb({
-    //     decimals: 0
-    //   })
-    // });
+
+    // Price Range
+    this.price_range = noUiSlider.create(this.$refs.priceRange, {
+      start: [0, 5000],
+      connect: true,
+      // step: 1,
+      orientation: 'horizontal',
+      range: {
+        'min': 0,
+        '30%': [  1, 5 ],
+        '80%': [  500, 500 ],
+        'max': 5000
+      },
+      pips: {
+		    mode: 'range',
+		    density: 3
+	    },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+    
+    this.price_range.on('change', this.updatePriceRange)
   },
   beforeDestroy(){
     $('select').material_select('destroy');
@@ -133,7 +145,7 @@ export default {
     font-family 'Cinzel', serif
     font-size 42px
     height 100px
-    margin-bottom 1em
+    margin-bottom 20px
     border-bottom 1px solid rgba(0, 0, 0, .1)
     
     i
@@ -142,7 +154,7 @@ export default {
     span
       line-height 1
   .row
-    padding 0 1em
+    padding 0 2em
     justify-content space-between
     height 40px
     margin-bottom .5em
@@ -151,7 +163,12 @@ export default {
       li
         span
           color $purple !important
-    
+          
+    .noUi-target
+      width 100% !important
+    .noUi-value
+      top 20px
+      
     >span
       font-size 1.2em
       flex-basis 50%

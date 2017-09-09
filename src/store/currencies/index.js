@@ -12,7 +12,11 @@ const state = {
     time_interval_name: "1h",
     order_by: "market_cap_usd",
     reverse: false,
-    name: ""
+    name: "",
+    price_range: {
+      high: null,
+      low: null,
+    },
   },
   shapeshift_rates: [],
   filtered_shapeshift_rates: [],

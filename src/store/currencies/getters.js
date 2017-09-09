@@ -25,6 +25,19 @@ export const sorted_currencies = (state, commit, rootState) => {
     sorted = sorted.filter(c => c.id.includes(state.filters.name.toLowerCase()))
   }
   
+  // Price Range
+  if(state.filters.price_range.low){
+    let low = state.filters.price_range.low
+    let high = state.filters.price_range.high
+    sorted = sorted.filter(c => {
+      if(parseFloat(c.price_usd) > low && parseFloat(c.price_usd) < high){
+        return true
+      } else {
+        return false
+      }
+    })
+  }
+  
   return sorted
 }
 
