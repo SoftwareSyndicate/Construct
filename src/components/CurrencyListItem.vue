@@ -10,9 +10,13 @@ router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.sym
         img.icon.desktop(:src="'https://files.coinmarketcap.com/static/img/coins/128x128/' + currency.id + '.png'")        
         p.name {{currency.name}}
 
-      div.right
+      div.right.mobile
         p.price(:class="") ${{currency.price_usd}}
         p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%
+
+      div.right.desktop
+        p.price(:class="") ${{currency.price_usd}}
+        p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%        
   
 </template>
 
@@ -126,7 +130,7 @@ export default {
     display flex
     margin-left auto
     @media screen and (min-width: 600px)  
-      font-size 1.2em
+      font-size 1.5em
 
     .price
      margin-right 20px
