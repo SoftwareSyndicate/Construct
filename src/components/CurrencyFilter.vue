@@ -342,9 +342,7 @@ export default {
 
    .reset
      width 100%
-     position static
-     bottom 20px
-
+     margin-top 2em
      .button
        flex-basis 100%
        
