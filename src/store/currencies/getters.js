@@ -7,7 +7,7 @@ export const sorted_currencies = (state, commit, rootState) => {
   let orderBy = state.filters.order_by
   let sorted = state.currencies.sort((a, b) => {
     if(orderBy != "name"){
-      return parseInt(b[orderBy]) - parseInt(a[orderBy])
+      return parseFloat(b[orderBy]) - parseFloat(a[orderBy])
     } else {
       if(a[orderBy] < b[orderBy]) return -1
       if(a[orderBy] > b[orderBy]) return 1

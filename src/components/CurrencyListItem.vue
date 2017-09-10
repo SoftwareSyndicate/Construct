@@ -16,7 +16,17 @@ router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.sym
 
       div.right.desktop
         p.price(:class="") ${{currency.price_usd}}
-        p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%        
+
+        div.percent-changes
+          div.change
+            span 1hr 
+            p.percent-change(:class="{'up': currency.percent_change_1h > 0, 'down': currency.percent_change_1h < 0}") {{currency.percent_change_1h}}%
+          div.change
+            span 24hr 
+            p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%                    
+          div.change
+            span 7day
+            p.percent-change(:class="{'up': currency.percent_change_7d > 0, 'down': currency.percent_change_7d < 0}") {{currency.percent_change_7d}}%                    
   
 </template>
 
@@ -127,13 +137,29 @@ export default {
         font-size 2em
 
   .right
+    align-items center
     display flex
     margin-left auto
     @media screen and (min-width: 600px)  
-      font-size 1.5em
+      font-size 1.2em
+      .price
+        font-size 1.6rem
+        
+      .percent-changes
+        .change
+          margin-bottom .5em
+          display flex
+          flex-basis 100%
+          justify-content flex-end
+          display flex
+          span
+            flex-basis 50%
+            margin-right .5em
 
+          &:last-child
+            margin-bottom 0px
     .price
-     margin-right 20px
+     margin-right 2em
 
     .percent-change
       font-weight 400
