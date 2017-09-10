@@ -18,12 +18,24 @@ div#currency-filter
       label
         input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch" ref="reverseSwitch")
         span.lever
-  div.row
+  div.row.range
     span Price
     div(ref="priceRange")
+  div.row.range.market-cap
+    span Mkt Cap
+    div(ref="marketCapRange")
+  div.row.range
+    span 1hr % Change
+    div(ref="percentChange1hrRange")
+  div.row.range
+    span 24hr % Change
+    div(ref="percentChange24hrRange")
+  div.row.range
+    span 7day % Change
+    div(ref="percentChange7dayRange")
 
-
-
+  div.row.reset(@click="resetFilters()")
+    div.button(@click="resetFilters()") Reset
 </template>
 
 <script>
@@ -91,6 +103,62 @@ export default {
       let low = this.price_range.get()[0]
       let high = this.price_range.get()[1]
       this.updateFilters({price_range: {low: low, high: high}})
+    },
+    updateMarketCapRange(e){
+      let low = this.market_cap_range.get()[0]
+      let high = this.market_cap_range.get()[1]
+      this.updateFilters({market_cap_range: {low: low, high: high}})
+    },
+    updatePercentChange1hrRange(e){
+      let low = this.percent_change_1hr_range.get()[0]
+      let high = this.percent_change_1hr_range.get()[1]
+      this.updateFilters({percent_change_1hr_range: {low: low, high: high}})
+    },
+    updatePercentChange24hrRange(e){
+      let low = this.percent_change_24hr_range.get()[0]
+      let high = this.percent_change_24hr_range.get()[1]
+      this.updateFilters({percent_change_24hr_range: {low: low, high: high}})
+    },
+    updatePercentChange7dayRange(e){
+      let low = this.percent_change_7day_range.get()[0]
+      let high = this.percent_change_7day_range.get()[1]
+      this.updateFilters({percent_change_7day_range: {low: low, high: high}})
+    },
+    resetFilters(){
+      this.updateFilters({
+        time_interval: 60 * 60 * 1000,
+        time_interval_name: "1h",
+        order_by: "market_cap_usd",
+        reverse: false,
+        name: "",
+        price_range: {
+          high: null,
+          low: null,
+        },
+        market_cap_range: {
+          high: null,
+          low: null,
+        },
+        percent_change_1hr_range: {
+          high: null,
+          low: null,
+        },
+        percent_change_24hr_range: {
+          high: null,
+          low: null,
+        },
+        percent_change_7day_range: {
+          high: null,
+          low: null,
+        }
+      })
+
+      $(this.$refs.orderBySelect).material_select()
+      this.price_range.reset()
+      this.market_cap_range.reset()
+      this.percent_change_1hr_range.reset()
+      this.percent_change_24hr_range.reset()
+      this.percent_change_7day_range.reset()      
     }
   },
   computed: {
@@ -125,6 +193,88 @@ export default {
     });
     
     this.price_range.on('change', this.updatePriceRange)
+
+    // Market Cap Range
+    this.market_cap_range = noUiSlider.create(this.$refs.marketCapRange, {
+      start: [0, 100000000000],
+      connect: true,
+      // step: 1,
+      orientation: 'horizontal',
+      range: {
+        'min': 0,
+        'max': 100000000000
+      },
+      pips: {
+		    mode: 'range',
+		    density: 3
+	    },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+    
+    this.market_cap_range.on('change', this.updateMarketCapRange)
+
+    // Percent Change 1hr Range
+    this.percent_change_1hr_range = noUiSlider.create(this.$refs.percentChange1hrRange, {
+      start: [-100, 100],
+      connect: true,
+      orientation: 'horizontal',
+      range: {
+        'min': -100,
+        'max': 100
+      },
+      pips: {
+		    mode: 'range',
+		    density: 3
+	    },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+    
+    this.percent_change_1hr_range.on('change', this.updatePercentChange1hrRange)
+    
+    // Percent Change 24hr Range
+    this.percent_change_24hr_range = noUiSlider.create(this.$refs.percentChange24hrRange, {
+      start: [-100, 100],
+      connect: true,
+      orientation: 'horizontal',
+      range: {
+        'min': -100,
+        'max': 100
+      },
+      pips: {
+		    mode: 'range',
+		    density: 3
+	    },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+    
+    this.percent_change_24hr_range.on('change', this.updatePercentChange24hrRange)
+
+    // Percent Change 7day Range
+    this.percent_change_7day_range = noUiSlider.create(this.$refs.percentChange7dayRange, {
+      start: [-100, 100],
+      connect: true,
+      orientation: 'horizontal',
+      range: {
+        'min': -100,
+        'max': 100
+      },
+      pips: {
+		    mode: 'range',
+		    density: 3
+	    },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+    
+    this.percent_change_7day_range.on('change', this.updatePercentChange7dayRange)
+    
   },
   beforeDestroy(){
     $('select').material_select('destroy');
@@ -147,7 +297,7 @@ export default {
     height 100px
     margin-bottom 20px
     border-bottom 1px solid rgba(0, 0, 0, .1)
-    
+    position relative
     i
       color white
       margin-right .2em
@@ -158,6 +308,13 @@ export default {
     justify-content space-between
     height 40px
     margin-bottom .5em
+
+    span
+      font-size 1.2em
+      flex-basis 50%
+    &.range
+      margin-bottom 1.5em
+
     
     ul
       li
@@ -168,17 +325,28 @@ export default {
       width 100% !important
     .noUi-value
       top 20px
+    .noUi-pips
+      height 0px
+
+  .market-cap
+    .noUi-value
+      left 80% !important
       
-    >span
+  .input-field
+    flex-grow 1
+    input
       font-size 1.2em
-      flex-basis 50%
-      
-    .input-field
-      flex-grow 1
-      input
-        font-size 1.2em
 
    input:focus
      padding-left .5em !important
+
+   .reset
+     width 100%
+     position static
+     bottom 20px
+
+     .button
+       flex-basis 100%
+       
 
 </style>

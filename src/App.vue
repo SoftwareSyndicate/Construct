@@ -68,6 +68,8 @@ desktop-navbar-height = 80px
 #app
   height 100%
   display flex
+  width 100vw
+  overflow scroll
   
   @media screen and (min-width: 600px)
     flex-direction row-reverse

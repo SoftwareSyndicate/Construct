@@ -17,6 +17,22 @@ const state = {
       high: null,
       low: null,
     },
+    market_cap_range: {
+      high: null,
+      low: null,
+    },
+    percent_change_1hr_range: {
+      high: null,
+      low: null,
+    },
+    percent_change_24hr_range: {
+      high: null,
+      low: null,
+    },
+    percent_change_7day_range: {
+      high: null,
+      low: null,
+    },
   },
   shapeshift_rates: [],
   filtered_shapeshift_rates: [],
