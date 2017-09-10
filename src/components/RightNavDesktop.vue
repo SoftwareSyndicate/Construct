@@ -1,7 +1,7 @@
 <template lang="pug">
 div#right-nav-desktop
   div.header
-    span Construct
+    span {{brand}}
   transition(name="slide-right" mode='out-in')          
     currency-filter(v-if="$route.name == 'currencies'")
     graph-builder(v-if="$route.name == 'currency'")
@@ -46,6 +46,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters([
+      "brand"
+    ]),
     ...mapState({
       "open": state => state.right_nav.open,
       "title": state => state.right_nav.title,
