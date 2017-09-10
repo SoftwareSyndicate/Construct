@@ -1,7 +1,5 @@
 <template lang="pug">
 div#currency-filter
-  div.header
-    span Construct
   div.row
     span Name
     div.input-field
@@ -45,7 +43,7 @@ import noUiSlider from 'materialize-css/extras/noUiSlider/nouislider.js'
 import noUiSliderCSS from 'materialize-css/extras/noUiSlider/nouislider.css'
 
 export default {
-  name: 'RightNav',
+  name: 'CurrencyFilter',
   data () {
     return {
       order_by_types: [
@@ -322,7 +320,7 @@ export default {
           color $purple !important
           
     .noUi-target
-      width 100% !important
+      width 50% !important
     .noUi-value
       top 20px
     .noUi-pips

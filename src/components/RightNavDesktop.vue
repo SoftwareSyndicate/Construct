@@ -1,6 +1,10 @@
 <template lang="pug">
 div#right-nav-desktop
-  currency-filter(v-if="true")
+  div.header
+    span Construct
+  transition(name="slide-right" mode='out-in')          
+    currency-filter(v-if="$route.name == 'currencies'")
+    graph-builder(v-if="$route.name == 'currency'")
     
     
 </template>
@@ -11,11 +15,13 @@ import { mapActions } from 'vuex'
 import { mapMutations } from 'vuex'
 import { mapState } from 'vuex'
 import CurrencyFilter from "@/components/CurrencyFilter"
+import GraphBuilder from "@/components/graphs/GraphBuilder"
 
 export default {
   name: 'RightNavDesktop',
   components: {
-    CurrencyFilter
+    CurrencyFilter,
+    GraphBuilder,
   },
   data () {
     return {
@@ -61,8 +67,23 @@ export default {
 
 
 <style lang="stylus">
-// #right-nav
-//   .container
+#right-nav-desktop
+  .header
+    display flex
+    align-items center
+    justify-content center
+    font-family 'Cinzel', serif
+    font-size 42px
+    height 100px
+    margin-bottom 20px
+    border-bottom 1px solid rgba(0, 0, 0, .1)
+    position relative
+    i
+      color white
+      margin-right .2em
+    span
+      line-height 1
+
 
 
 </style>

@@ -15,7 +15,7 @@ div#app
   // div.right-nav-container
   //   right-nav-desktop
     
-  div.router-view-container(@click="routerClick($event)")
+  div.router-view-container
     transition(name="slide" mode='out-in')      
       router-view
 
@@ -42,12 +42,7 @@ export default {
   },
   name: 'app',
   methods:{
-    ...mapActions([
-      'set_left_nav'
-    ]),
-    routerClick(e){
-      this.set_left_nav({'open': false})
-    }
+    
   },
   mounted(){
     console.log("Welcome to the Construct")
