@@ -87,6 +87,7 @@ desktop-navbar-height = 80px
     box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
     
   .router-view-container
+    flex-basis 100%
     height "calc(100vh - %s)" % mobile-navbar-height  
     padding-top mobile-navbar-height
     

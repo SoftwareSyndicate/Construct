@@ -115,20 +115,12 @@ export default {
     height 100% !important       
   .line 
     fill none
-    stroke steelblue
+    stroke darken($purple, 15%)
     stroke-opacity .1
     stroke-width: 2px
 
   .area 
-    fill lightsteelblue
+    fill $purple
     fill-opacity .1
 
-  .grid line 
-    stroke: lightgrey;
-    stroke-opacity: 0.7;
-    shape-rendering: crispEdges;
-
-  .grid path 
-    stroke-width: 0;
-    
 </style>

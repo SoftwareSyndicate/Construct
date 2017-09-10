@@ -2,9 +2,10 @@
 div#right-nav-desktop
   div.header
     span {{brand}}
-  transition(name="slide-right" mode='out-in')          
-    currency-filter(v-if="$route.name == 'currencies'")
-    graph-builder(v-if="$route.name == 'currency'")
+  div.content-container  
+    transition(name="slide-right" mode='out-in')          
+      currency-filter(v-if="$route.name == 'currencies'")
+      graph-builder(v-if="$route.name == 'currency'")
     
     
 </template>
@@ -71,6 +72,10 @@ export default {
 
 <style lang="stylus">
 #right-nav-desktop
+  height 100%
+  position relative
+  display flex
+  flex-wrap wrap
   .header
     display flex
     align-items center
@@ -81,12 +86,15 @@ export default {
     margin-bottom 20px
     border-bottom 1px solid rgba(0, 0, 0, .1)
     position relative
+    flex-basis 100%
+    
     i
       color white
       margin-right .2em
     span
       line-height 1
 
-
-
+  .content-container
+    height calc(100% - 120px)
+    flex-basis 100%
 </style>

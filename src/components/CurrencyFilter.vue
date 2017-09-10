@@ -286,6 +286,7 @@ export default {
   
 #currency-filter
   height 100%
+  position relative
   .header
     display flex
     align-items center
@@ -340,7 +341,8 @@ export default {
 
    .reset
      width 100%
-     margin-top 2em
+     position absolute
+     bottom 10px
      .button
        flex-basis 100%
        
