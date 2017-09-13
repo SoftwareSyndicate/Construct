@@ -8,13 +8,13 @@ div#currency-filter
   div.row
     span Order By
     div.input-field
-      select#order-by-select(:value="filters.order_by" ref="orderBySelect") 
+      select#order-by-select(:value="filters.order_by" ref="orderBySelect" v-model="filters.order_by") 
         option(v-for="type in order_by_types" :value="type.value") {{type.name}}
   div.row
     span Reverse
     div.switch
       label
-        input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch" ref="reverseSwitch")
+        input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch" ref="reverseSwitch" v-model="filters.reverse")
         span.lever
   div.row.range
     span Price
@@ -32,8 +32,8 @@ div#currency-filter
     span 7day % Change
     div(ref="percentChange7dayRange")
 
-  div.row.reset(@click="resetFilters()")
-    div.button(@click="resetFilters()") Reset
+  div.row.reset.desktop
+    div.button(@click="reset()") Reset
 </template>
 
 <script>
@@ -78,11 +78,19 @@ export default {
       ]
     }
   },
+  watch: {
+    filters: {
+      handler: function(newData, oldData) {
+        this.initFilters()
+      },
+    },
+  },
   methods: {
     ...mapMutations({
       openNav: 'RIGHT_NAV_OPEN',
       closeNav: 'RIGHT_NAV_CLOSE',
       updateFilters: "UPDATE_FILTERS",
+      resetFilters: "RESET_FILTERS",
     }),
     updateOrderBy(e){
       setTimeout(()=> {
@@ -122,41 +130,19 @@ export default {
       let high = this.percent_change_7day_range.get()[1]
       this.updateFilters({percent_change_7day_range: {low: low, high: high}})
     },
-    resetFilters(){
-      this.updateFilters({
-        time_interval: 60 * 60 * 1000,
-        time_interval_name: "1h",
-        order_by: "market_cap_usd",
-        reverse: false,
-        name: "",
-        price_range: {
-          high: null,
-          low: null,
-        },
-        market_cap_range: {
-          high: null,
-          low: null,
-        },
-        percent_change_1hr_range: {
-          high: null,
-          low: null,
-        },
-        percent_change_24hr_range: {
-          high: null,
-          low: null,
-        },
-        percent_change_7day_range: {
-          high: null,
-          low: null,
-        }
+    initFilters(){
+      this.$nextTick(()=>{
+        $(this.$refs.orderBySelect).material_select()
+        this.price_range.reset()
+        this.market_cap_range.reset()
+        this.percent_change_1hr_range.reset()
+        this.percent_change_24hr_range.reset()
+        this.percent_change_7day_range.reset()      
       })
-
-      $(this.$refs.orderBySelect).material_select()
-      this.price_range.reset()
-      this.market_cap_range.reset()
-      this.percent_change_1hr_range.reset()
-      this.percent_change_24hr_range.reset()
-      this.percent_change_7day_range.reset()      
+    },
+    reset(){
+      this.resetFilters()
+      this.initFilters()
     }
   },
   computed: {
@@ -312,9 +298,14 @@ export default {
       font-size 1.2em
       flex-basis 50%
     &.range
-      margin-bottom 1.5em
+      margin-bottom 2.5em
+      flex-wrap wrap
 
-    
+      .noUi-target
+        flex-basis 100%
+      @media screen and (min-width: 600px)  
+        flex-wrap no-wrap
+        margin-bottom 3.5em
     ul
       li
         span

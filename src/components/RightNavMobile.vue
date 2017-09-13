@@ -1,14 +1,15 @@
 <template lang="pug">
-div#right-nav-desktop
-  div.header
-    transition(name="fade" mode="out-in")
-      span {{brand}}
-  div.content-container  
-    transition(name="slide-right" mode='out-in')          
-      currency-filter(v-if="$route.name == 'currencies'")
-      graph-builder(v-if="$route.name == 'currency'")
-    
-    
+ul#right-nav-mobile.side-nav
+  div.currency-filter-container(v-if="$route.name == 'currencies'")
+    div.header
+      h3 Apply Filters
+      i.material-icons(@click="resetFilters()") refresh
+
+    currency-filter
+  div.graph-builder-container(v-if="$route.name == 'currency'")
+    graph-builder
+  
+  
 </template>
 
 <script>
@@ -20,7 +21,7 @@ import CurrencyFilter from "@/components/CurrencyFilter"
 import GraphBuilder from "@/components/graphs/GraphBuilder"
 
 export default {
-  name: 'RightNavDesktop',
+  name: 'RightNavMobile',
   components: {
     CurrencyFilter,
     GraphBuilder,
@@ -33,7 +34,8 @@ export default {
   methods: {
     ...mapMutations({
       openNav: 'RIGHT_NAV_OPEN',
-      closeNav: 'RIGHT_NAV_CLOSE'
+      closeNav: 'RIGHT_NAV_CLOSE',
+      resetFilters: 'RESET_FILTERS'
     }),
   },
   watch: {
@@ -48,9 +50,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
-      "brand"
-    ]),
     ...mapState({
       "open": state => state.right_nav.open,
       "title": state => state.right_nav.title,
@@ -62,7 +61,7 @@ export default {
       menuWidth: 300, 
       edge: 'right', 
       closeOnClick: true, 
-      draggable: true,
+      draggable: false,
       onOpen: (el) => { this.openNav() }, 
       onClose: (el) => { this.closeNav() },
     })
@@ -72,37 +71,33 @@ export default {
 
 
 <style lang="stylus">
-#right-nav-desktop
+  @import "../styles/main.styl"
+  
+#right-nav-mobile
   height 100%
-  position relative
-  display flex
-  flex-wrap wrap
-  .header
-    display flex
+  padding-bottom 0px
+  .currency-filter-container
+    height 100%
     align-items center
     justify-content center
-    font-family 'Cinzel', serif
-    font-size 42px
-    height 100px
-    margin-bottom 20px
-    border-bottom 1px solid rgba(0, 0, 0, .1)
-    position relative
-    flex-basis 100%
-    
-    i
-      color white
-      margin-right .2em
-    span
-      line-height 1
 
-  .content-container
-    height calc(100% - 120px)
-    flex-basis 100%
 
-.fade-enter-active, .fade-leave-active 
-  transition: opacity .5s
+    .header
+      display flex
+      align-items center
+      flex-basis 100%
+      background $blue
+      padding 1em
+      margin-bottom 10px
+      height 60px
+      h3 
+        color white
+        font-size 2em
+      i
+       margin-left auto
+       color white
 
-.fade-enter, .fade-leave-to 
-  opacity: 0
+    #currency-filter
+      height calc(100vh - 70px) 
 
 </style>

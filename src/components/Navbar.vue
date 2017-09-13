@@ -1,8 +1,8 @@
 <template lang="pug">
   
 div#navbar
-  div#left-nav-button.left(@click="LEFT_NAV_OPEN()" data-activates='left-nav')
-    i.material-icons menu
+  // div#left-nav-button.left(@click="LEFT_NAV_OPEN()" data-activates='left-nav')
+  //   i.material-icons menu
     
   div.center
     transition(name="fade" v-if="!searching" mode="out-in")
@@ -10,7 +10,7 @@ div#navbar
     transition(name="fade" v-else mode="out-in")
       input(:value="search" @input="updateSearch" ref="search")
 
-  div#right-nav-button.right(data-activates='right-nav' )
+  div#right-nav-button.right(data-activates='right-nav-mobile' )
     div.search( v-if="$route.name == 'currencies'")
       i.material-icons filter_list
     div.search(@click="set_open(true)"  v-if="$route.name == 'portfolios'")
@@ -81,7 +81,7 @@ export default {
   flex-basis 100%
   padding 0px 2em
   height 100%
-  justify-content space-between
+  justify-content space-around
   box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
   
   .left
@@ -92,12 +92,10 @@ export default {
   .center
     display flex
     align-items center
-    justify-content center
-    flex-grow 1
     
     .brand
       font-family 'Cinzel', serif
-      font-size 24px
+      font-size 28px
       
       @media screen and (min-width: 600px)  
         font-size 36px

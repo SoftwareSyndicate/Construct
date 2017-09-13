@@ -8,6 +8,35 @@ export default {
   [types.UPDATE_FILTERS] (state, filters) {
     state.filters = Object.assign(state.filters, filters)
   },
+  [types.RESET_FILTERS] (state) {
+    state.filters = {
+      time_interval: 60 * 60 * 1000,
+      time_interval_name: "1h",
+      order_by: "market_cap_usd",
+      reverse: false,
+      name: "",
+      price_range: {
+        high: null,
+        low: null,
+      },
+      market_cap_range: {
+        high: null,
+        low: null,
+      },
+      percent_change_1hr_range: {
+        high: null,
+        low: null,
+      },
+      percent_change_24hr_range: {
+        high: null,
+        low: null,
+      },
+      percent_change_7day_range: {
+        high: null,
+        low: null,
+      },
+    }
+  },  
   [types.RECIEVE_CURRENCY_HISTORY] (state, currency_history) {
     state.currency_history = currency_history
   },

@@ -3,18 +3,15 @@ div#app
   div.navbar-container.mobile
     navbar
 
-  div.left-nav-container
-    left-nav
+  // div.left-nav-container
+  //   left-nav
     
   div.right-nav-mobile-container.mobile
-    right-nav
+    right-nav-mobile
     
   div.right-nav-desktop-container.desktop
     right-nav-desktop
 
-  // div.right-nav-container
-  //   right-nav-desktop
-    
   div.router-view-container
     transition(name="slide" mode='out-in')      
       router-view
@@ -26,7 +23,7 @@ div#app
 <script>
 import Navbar from "@/components/Navbar"
 import LeftNav from "@/components/LeftNav"
-import RightNav from "@/components/RightNav"
+import RightNavMobile from "@/components/RightNavMobile"
 import RightNavDesktop from "@/components/RightNavDesktop"
 import CreatePortfolioModal from "@/components/CreatePortfolioModal"
 import { mapGetters } from 'vuex'
@@ -36,7 +33,7 @@ export default {
   components: {
     Navbar,
     LeftNav,
-    RightNav,
+    RightNavMobile,
     RightNavDesktop,
     CreatePortfolioModal,
   },
