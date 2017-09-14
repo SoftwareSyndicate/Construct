@@ -4,6 +4,7 @@ div#currency-page
     div.tab(v-if="currency_page_tab == 'chart'")
       div.chart-container
         multi-graph(:graph_data="currency_history")
+
         // calendar-graph(:graph_data="currency_history")
 
     div.tab(v-if="currency_page_tab == 'shapeshift'")
@@ -111,11 +112,14 @@ export default {
     height 100%
   
   .top
-    height calc(100vh - 160px)
+    height calc(100vh - 60px)
     display flex
     flex-basis 100%
     padding 1em
-
+    
+    @media screen and (min-width: 600px)
+      height calc(100vh)
+      
     .tab
       flex-basis 100%
 

@@ -1,7 +1,7 @@
 <template lang="pug">
 div#right-nav-desktop
   div.header
-    transition(name="fade" mode="out-in")
+    transition(name="fade" mode="out-in" appear)
       span {{brand}}
   div.content-container  
     transition(name="slide-right" mode='out-in')          

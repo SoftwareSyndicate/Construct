@@ -1,7 +1,7 @@
 <template lang="pug">
 div#graph-builder
   div.row
-    h1 graph builder
+    h1 graph builder coming soon
 </template>
 
 <script>

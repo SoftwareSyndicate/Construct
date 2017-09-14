@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     draw(data){
-      log("drawing")
       data = data.map(d => {
         return {
           date: new Date(d.time * 1000),
@@ -139,7 +138,6 @@ export default {
         .call(this.zoom);      
     },
     zoomed(){
-      log("zoomed")
       this.rescaledY = d3.event.transform.rescaleY(this.y);
       this.yAxis.scale(this.rescaledY);
 
@@ -157,7 +155,6 @@ export default {
       
 
       // Emulates D3 behaviour, required for financetime due to secondary zoomable scale
-      log(this.zoomableInit())
       this.x.zoomable().domain(d3.event.transform.rescaleX(this.zoomableInit).domain());
       
       this.draw(this.graph_data);
@@ -211,7 +208,7 @@ export default {
         .call(this.yRightAxis);
 
       // Zoom
-      this.initZoom()
+      // this.initZoom()
     }
   },
   watch: {
