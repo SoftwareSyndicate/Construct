@@ -5,17 +5,20 @@ router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.sym
       div.line-container
         list-item-line(:graph_data="currency.history")
     div.front
-      div.center
+      div.left
         img.icon.mobile(:src="'https://files.coinmarketcap.com/static/img/coins/64x64/' + currency.id + '.png'")
         img.icon.desktop(:src="'https://files.coinmarketcap.com/static/img/coins/128x128/' + currency.id + '.png'")        
         p.name {{currency.name}}
 
+      div.center.desktop
+        p.price(:class="") ${{currency.price_usd}}
+        
       div.right.mobile
         p.price(:class="") ${{currency.price_usd}}
         p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%
 
       div.right.desktop
-        p.price(:class="") ${{currency.price_usd}}
+        p.volume(:class="") ${{parseFloat(currency['24h_volume_usd']).toLocaleString()}}
 
         div.percent-changes
           div.change
@@ -106,17 +109,9 @@ export default {
     background rgba(0, 0, 0, .05)
 
   .left
-    flex-basis 10%
     display flex
     align-items center
-
-    .rank
-      font-size 24px
-
-
-  .center
-    display flex
-    align-items center
+    flex-basis 50%
 
     .icon
       font-size 30px
@@ -136,14 +131,20 @@ export default {
       @media screen and (min-width: 600px)  
         font-size 2em
 
+  .center
+    .price
+      font-size 1.4rem
+      
   .right
+    margin-left auto
+    font-size 1.2em
     align-items center
     display flex
-    margin-left auto
     @media screen and (min-width: 600px)  
       font-size 1.2em
-      .price
-        font-size 1.6rem
+      .volume
+        font-size 1.2rem
+        margin-right 2em
         
       .percent-changes
         .change
@@ -159,7 +160,7 @@ export default {
           &:last-child
             margin-bottom 0px
     .price
-     margin-right 2em
+     margin-right 1em
 
     .percent-change
       font-weight 400
