@@ -48,7 +48,7 @@ export default {
 
   mounted(){
     this.set_brand("Construct")
-    this.$store.dispatch("fetch_currencies")    
+    this.$store.dispatch("fetch_currencies")
   }
 }
 </script>

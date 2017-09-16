@@ -1,7 +1,10 @@
-// ALL
+// Currencies
 export const LOAD_CURRENCIES = 'LOAD_CURRENCIES'
 export const UPDATE_FILTERS = 'UPDATE_FILTERS'
 export const RESET_FILTERS = 'RESET_FILTERS'
+export const UPDATE_GRAPHS = 'UPDATE_GRAPHS'
+export const ADD_CURRENCY = 'ADD_CURRENCY'
+export const REMOVE_CURRENCY = 'REMOVE_CURRENCY'
 
 // Coin Market Cap
 export const RECIEVE_CURRENCIES = 'RECIEVE_CURRENCIES'

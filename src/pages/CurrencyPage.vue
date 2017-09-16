@@ -31,6 +31,7 @@ import MultiGraph from '@/components/graphs/Multi'
 import CalendarGraph from '@/components/graphs/Calendar'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'CurrencyPage',
@@ -58,6 +59,22 @@ export default {
       'fetch_currency_history_better',
       'set_brand',
     ]),
+    ...mapMutations({
+      'updateGraphs': 'UPDATE_GRAPHS'
+    }),
+    addGraph(){
+      this.updateGraphs([
+        {
+          name: "ETH-USD",
+          lines: [
+            {
+              type: 'price',
+              color: 'blue'
+            }
+          ]
+        },
+      ])
+    },
   },
 
   computed: {
@@ -73,10 +90,12 @@ export default {
       this.fetch_currency_history(this.$route.params.name)
       // this.fetch_currency_history_better(this.currency.id)
       this.set_brand(this.$route.params.id)
+      this.addGraph()
     } else {
       this.unwatch = this.$watch('currency', ()=>{
         if(this.currency.id){
           this.set_brand(this.$route.params.id)
+          this.addGraph()
           _fetch_currency_history()
         }
       })

@@ -37,6 +37,16 @@ export default {
       },
     }
   },  
+  [types.UPDATE_GRAPHS] (state, graphs) {
+    state.graphs = Object.assign(state.graphs, graphs)
+    log(state.graphs)
+  },
+  [types.ADD_CURRENCY] (state, currency) {
+    state.graphs.push(currency)
+  },
+  [types.REMOVE_CURRENCY] (state, currency) {
+    state.graphs = state.graphs.filter(c => c.name != currency.name)
+  },
   [types.RECIEVE_CURRENCY_HISTORY] (state, currency_history) {
     state.currency_history = currency_history
   },

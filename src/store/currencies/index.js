@@ -36,6 +36,27 @@ const state = {
   },
   shapeshift_rates: [],
   filtered_shapeshift_rates: [],
+  graphs: [
+    {
+      name: "ETH-USD",
+      lines: [
+        {
+          type: 'price',
+          color: 'blue'
+        }
+      ]
+    },
+    {
+      name: "LTC-USD",
+      lines: [
+        {
+          type: 'price',
+          color: 'green'
+        }
+      ]
+    }
+  ],
+  line_types: ['price', 'candlestick', 'williams']
 }
 
 export default  {
