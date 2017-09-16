@@ -42,8 +42,20 @@ const state = {
       lines: [
         {
           type: 'price',
-          color: 'blue'
-        }
+          color: 'blue',
+          active: true,
+        },
+        {
+          type: 'candlestick',
+          color: 'blue',
+          active: false,
+        },
+        {
+          type: 'williams',
+          color: 'blue',
+          active: false,
+        },
+        
       ]
     },
     {
@@ -51,10 +63,23 @@ const state = {
       lines: [
         {
           type: 'price',
-          color: 'green'
-        }
+          color: 'blue',
+          active: true,
+        },
+        {
+          type: 'candlestick',
+          color: 'blue',
+          active: false,
+        },
+        {
+          type: 'williams',
+          color: 'blue',
+          active: false,
+        },
+        
       ]
-    }
+    },
+    
   ],
   line_types: ['price', 'candlestick', 'williams']
 }

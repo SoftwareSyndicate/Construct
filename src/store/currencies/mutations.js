@@ -39,12 +39,29 @@ export default {
   },  
   [types.UPDATE_GRAPHS] (state, graphs) {
     state.graphs = Object.assign(state.graphs, graphs)
-    log(state.graphs)
   },
-  [types.ADD_CURRENCY] (state, currency) {
+  [types.UPDATE_GRAPH_CURRENCY] (state, currency) {
+    state.graphs.forEach(c => {
+      if(c.name == currency.name){
+        c = currency
+      }
+    })
+  },
+  [types.TOGGLE_GRAPH_LINE] (state, {currency, line}) {
+    state.graphs.forEach(c => {
+      if(c.name == currency.name){
+        c.lines.forEach(l => {
+          if(l.type == line.type){
+            l.active = !l.active
+          }
+        })
+      }
+    })
+  },
+  [types.ADD_GRAPH_CURRENCY] (state, currency) {
     state.graphs.push(currency)
   },
-  [types.REMOVE_CURRENCY] (state, currency) {
+  [types.REMOVE_GRAPH_CURRENCY] (state, currency) {
     state.graphs = state.graphs.filter(c => c.name != currency.name)
   },
   [types.RECIEVE_CURRENCY_HISTORY] (state, currency_history) {

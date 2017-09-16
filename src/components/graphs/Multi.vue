@@ -211,6 +211,12 @@ export default {
       // this.initZoom()
     }
   },
+  computed(){
+    ...mapState({
+      'graphs': state => state.currencies.graphs,
+      'lineTypes': state => state.currencies.line_types,
+    })
+  },
   watch: {
     graph_data: {
       handler: function(newData, oldData) {

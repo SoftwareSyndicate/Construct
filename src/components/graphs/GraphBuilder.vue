@@ -5,17 +5,17 @@ div#graph-builder
   div.row
     ul.collapsible(data-collapsible='expandable' ref="currencyList" )
       li(v-for="currency in graphs")
-        div.collapsible-header
+        div.collapsible-header.active
           i.material-icons.remove(@click="removeCurrency(currency)") remove_circle_outline
           | {{currency.name}}
           i.material-icons.open keyboard_arrow_down
           i.material-icons.close keyboard_arrow_up
         div.collapsible-body
           div.lines
-            div.line(v-for="line in lineTypes")
+            div.line(v-for="line in currency.lines")
               p
-                input(type="checkbox" :id="currency.name + '-' + line + '-line'") 
-                label(:for="currency.name + '-' + line + '-line'") {{line}}
+                input(type="checkbox" :id="currency.name + '-' + line.type" :checked="line.active")
+                label(:for="currency.name + '-' + line.type" @click="toggleLine({currency, line})") {{line.type}}
       
 </template>
 
@@ -23,8 +23,6 @@ div#graph-builder
 import { mapMutations } from 'vuex'
 import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
-import noUiSlider from 'materialize-css/extras/noUiSlider/nouislider.js'
-import noUiSliderCSS from 'materialize-css/extras/noUiSlider/nouislider.css'
 
 export default {
   name: 'GraphBuilder',
@@ -37,21 +35,22 @@ export default {
     ...mapMutations({
       openNav: 'RIGHT_NAV_OPEN',
       closeNav: 'RIGHT_NAV_CLOSE',
-      addCurrency: 'ADD_CURRENCY',
-      removeCurrency: 'REMOVE_CURRENCY'
+      addCurrency: 'ADD_GRAPH_CURRENCY',
+      updateCurrency: 'UPDATE_GRAPH_CURRENCY',
+      removeCurrency: 'REMOVE_GRAPH_CURRENCY',
+      toggleLine: 'TOGGLE_GRAPH_LINE',
     }),
   },
   computed: {
     ...mapState({
       'graphs': state => state.currencies.graphs,
-      'lineTypes': state => state.currencies.line_types,
-    })
+    }),
   },
 
   watch: {
     graphs: {
-      handler: ()=>{
-        log("fck!")
+      handler: function(){
+        // log("fck!")
         log(this.graphs)
       },
       deep: true 
@@ -59,8 +58,10 @@ export default {
   },
 
   mounted(){
-    $(this.$refs.currencyList).collapsible();
-    log(this.lineTypes)
+    this.$nextTick(()=>{
+      $(this.$refs.currencyList).collapsible();
+      $('.graph-line-select').material_select();
+    })
   },
   beforeDestroy(){
 
@@ -100,6 +101,7 @@ export default {
         
     .collapsible-body
       background-color #f9fafd
+      padding 1em
 
     .lines
       display flex
@@ -108,5 +110,15 @@ export default {
       .line
         display flex
         flex-basis 100%
+
+        label
+          color #292f33        
+
+    .graph-line-select
+      span
+        color $purple    
+      label
+        top -8px
+
   
 </style>

@@ -63,17 +63,17 @@ export default {
       'updateGraphs': 'UPDATE_GRAPHS'
     }),
     addGraph(){
-      this.updateGraphs([
-        {
-          name: "ETH-USD",
-          lines: [
-            {
-              type: 'price',
-              color: 'blue'
-            }
-          ]
-        },
-      ])
+      // this.updateGraphs([
+      //   {
+      //     name: "ETH-USD",
+      //     lines: [
+      //       {
+      //         type: 'price',
+      //         color: 'blue'
+      //       }
+      //     ]
+      //   },
+      // ])
     },
   },
 
