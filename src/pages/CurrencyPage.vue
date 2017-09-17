@@ -60,21 +60,9 @@ export default {
       'set_brand',
     ]),
     ...mapMutations({
-      'updateGraphs': 'UPDATE_GRAPHS'
+      addGraph: 'ADD_GRAPH',
+      removeAllGraphs: 'REMOVE_ALL_GRAPHS'
     }),
-    addGraph(){
-      // this.updateGraphs([
-      //   {
-      //     name: "ETH-USD",
-      //     lines: [
-      //       {
-      //         type: 'price',
-      //         color: 'blue'
-      //       }
-      //     ]
-      //   },
-      // ])
-    },
   },
 
   computed: {
@@ -86,25 +74,25 @@ export default {
   },
   mounted(){
     if(this.$route.params.name){
-
       this.fetch_currency_history(this.$route.params.name)
-      // this.fetch_currency_history_better(this.currency.id)
       this.set_brand(this.$route.params.id)
-      this.addGraph()
+      this.addGraph(this.$route.params.name)
     } else {
       this.unwatch = this.$watch('currency', ()=>{
         if(this.currency.id){
           this.set_brand(this.$route.params.id)
-          this.addGraph()
+          this.addGraph(this.currency.symbol)
           _fetch_currency_history()
         }
       })
       let _fetch_currency_history = function(){
         this.fetch_currency_history(this.currency.symbol)
-        // this.fetch_currency_history_better(this.currency.symbol)
         this.unwatch()
       }.bind(this)
     }
+  },
+  beforeDestroy(){
+    this.removeAllGraphs()
   },
 }
 </script>

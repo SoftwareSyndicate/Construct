@@ -1,11 +1,11 @@
 <template lang="pug">
 div#graph-builder
   div.row
-    div.button.add(@click="addCurrency()") Add Currency
+    div.button.add(@click="addGraph('LTC')") Add Currency
   div.row
-    ul.collapsible(data-collapsible='expandable' ref="currencyList" )
+    ul.collapsible(data-collapsible='expandable' ref="currencyList")
       li(v-for="currency in graphs")
-        div.collapsible-header.active
+        div.collapsible-header
           i.material-icons.remove(@click="removeCurrency(currency)") remove_circle_outline
           | {{currency.name}}
           i.material-icons.open keyboard_arrow_down
@@ -35,7 +35,7 @@ export default {
     ...mapMutations({
       openNav: 'RIGHT_NAV_OPEN',
       closeNav: 'RIGHT_NAV_CLOSE',
-      addCurrency: 'ADD_GRAPH_CURRENCY',
+      addGraph: 'ADD_GRAPH',
       updateCurrency: 'UPDATE_GRAPH_CURRENCY',
       removeCurrency: 'REMOVE_GRAPH_CURRENCY',
       toggleLine: 'TOGGLE_GRAPH_LINE',
@@ -50,17 +50,16 @@ export default {
   watch: {
     graphs: {
       handler: function(){
-        // log("fck!")
+        log("watch!")
+        $(this.$refs.currencyList).collapsible();
         // log(this.graphs)
       },
       deep: true 
     }
   },
-
   mounted(){
     this.$nextTick(()=>{
       $(this.$refs.currencyList).collapsible();
-      $('.graph-line-select').material_select();
     })
   },
   beforeDestroy(){

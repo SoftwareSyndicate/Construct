@@ -40,12 +40,6 @@ export default {
       'sorted_currencies',
     ])
   },
-
-  beforeDestroy(){
-    this.set_searching(false)
-    this.set_search("")
-  },
-
   mounted(){
     this.set_brand("Construct")
     this.$store.dispatch("fetch_currencies")

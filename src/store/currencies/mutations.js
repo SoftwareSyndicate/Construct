@@ -40,6 +40,31 @@ export default {
   [types.UPDATE_GRAPHS] (state, graphs) {
     state.graphs = Object.assign(state.graphs, graphs)
   },
+  [types.REMOVE_ALL_GRAPHS] (state) {
+    state.graphs = []
+  },
+  [types.ADD_GRAPH] (state, name) {
+    state.graphs.push({
+      name: name + "-USD",
+      lines: [
+        {
+          type: 'price',
+          color: 'blue',
+          active: true,
+        },
+        {
+          type: 'candlestick',
+          color: 'blue',
+          active: false,
+        },
+        {
+          type: 'williams',
+          color: 'blue',
+          active: false,
+        },
+      ]
+    })
+  },
   [types.UPDATE_GRAPH_CURRENCY] (state, currency) {
     state.graphs.forEach(c => {
       if(c.name == currency.name){
