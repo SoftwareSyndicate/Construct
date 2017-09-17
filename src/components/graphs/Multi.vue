@@ -7,6 +7,8 @@ div.multi-graph
 
 <script>
 import techan from 'techan'
+import { mapState } from 'vuex'
+
 export default {
   name: 'Multi',
   props: {
@@ -37,20 +39,29 @@ export default {
       })
 
       // Draw Plots
-      if(this.config.close){
-        this.drawClose(data)
-      }
-      if(this.config.williams){
-        this.drawWilliams(data)
-      }
-      if(this.config.heikinashi){
-        this.drawHeikinashi(data)
-      }
-
+      log(this.graphs)
+      this.graphs.forEach(currency => {
+        currency.lines.forEach(line => {
+          switch (line.type){
+          case "price":
+            line.active ? this.drawClose(data) : this.drawClose([])
+            break
+          case "candlestick":
+            line.active ? this.drawHeikinashi(data) : this.drawHeikinashi([])
+            break
+          case "williams":
+            line.active ? this.drawWilliams(data) : this.drawWilliams([])
+            break
+          }
+        })
+      })
+      
       // Draw Axis
       this.svg.selectAll("g.x.axis").call(this.xAxis);
       this.svg.selectAll("g.y.axis").call(this.yAxis);
-      this.zoomableInit = this.x.zoomable().clamp(false).copy();
+
+      
+      // this.zoomableInit = this.x.zoomable().clamp(false).copy();
       
     },
     onResize(){
@@ -66,12 +77,9 @@ export default {
         .on("enter", enter)
         .on("out", out)
         .on("move", move);
-
-
     },
     initClose(){
-      this.svg.append("g")
-        .attr("class", "close");      
+      this.svg.append("g").attr("class", "close")
       
       this.close = techan.plot.close()
         .xScale(this.x)
@@ -79,19 +87,17 @@ export default {
       this.closeAccessor = this.close.accessor();      
     },
     drawClose(data){
-      this.x.domain(data.map(this.close.accessor().d));
-      this.y.domain(techan.scale.plot.ohlc(data, this.close.accessor()).domain());
-      this.svg.selectAll("g.close").datum(data).call(this.close);      
+      this.x.domain(data.map(this.close.accessor().d))
+      this.y.domain(techan.scale.plot.ohlc(data, this.close.accessor()).domain())
+      this.svg.selectAll("g.close").datum(data).call(this.close)
     },
     initHeikinashi(){
-      this.svg.append("g")
-        .attr("class", "heikinashi");
-      
+      this.svg.append("g").attr("class", "heikinashi")      
       this.heikinashi = techan.plot.heikinashi()
         .xScale(this.x)
         .yScale(this.y)
-      this.heikinashiAccessor = this.heikinashi.accessor();    
-      this.heikinashiIndicator = techan.indicator.heikinashi();
+      this.heikinashiAccessor = this.heikinashi.accessor();   
+      this.heikinashiIndicator = techan.indicator.heikinashi()
     },
     drawHeikinashi(data){
       let heikinashiData = this.heikinashiIndicator(data);
@@ -111,11 +117,10 @@ export default {
       this.williamsIndicator = techan.indicator.williams()
     },
     drawWilliams(data){
-      var williamsData = techan.indicator.williams()(data);
-      this.x.domain(williamsData.map(this.williams.accessor().d));
-      this.y.domain(techan.scale.plot.williams().domain());
-
-      this.svg.selectAll("g.williams").datum(williamsData).call(this.williams);
+      var williamsData = techan.indicator.williams()(data)
+      this.x.domain(williamsData.map(this.williams.accessor().d))
+      this.y.domain(techan.scale.plot.williams().domain())
+      this.svg.selectAll("g.williams").datum(williamsData).call(this.williams)
     },
 
     initZoom(){
@@ -142,7 +147,6 @@ export default {
       this.yAxis.scale(this.rescaledY);
 
 
-
       if(this.config.close){
         this.close.yScale(this.rescaledY)
       }
@@ -153,7 +157,6 @@ export default {
         this.heikinashi.yScale(this.rescaledY)
       }
       
-
       // Emulates D3 behaviour, required for financetime due to secondary zoomable scale
       this.x.zoomable().domain(d3.event.transform.rescaleX(this.zoomableInit).domain());
       
@@ -211,11 +214,10 @@ export default {
       // this.initZoom()
     }
   },
-  computed(){
+  computed:{
     ...mapState({
       'graphs': state => state.currencies.graphs,
-      'lineTypes': state => state.currencies.line_types,
-    })
+    }),
   },
   watch: {
     graph_data: {
@@ -225,6 +227,14 @@ export default {
         }
       },
       immediate: true,
+    },
+    graphs: {
+      handler: function(newData, oldData) {
+        log("change")
+        this.draw(this.graph_data)
+      },
+      immediate: false,
+      deep: true
     }
   },
   mounted(){

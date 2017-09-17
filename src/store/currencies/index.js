@@ -58,27 +58,27 @@ const state = {
         
       ]
     },
-    {
-      name: "LTC-USD",
-      lines: [
-        {
-          type: 'price',
-          color: 'blue',
-          active: true,
-        },
-        {
-          type: 'candlestick',
-          color: 'blue',
-          active: false,
-        },
-        {
-          type: 'williams',
-          color: 'blue',
-          active: false,
-        },
+    // {
+    //   name: "LTC-USD",
+    //   lines: [
+    //     {
+    //       type: 'price',
+    //       color: 'blue',
+    //       active: true,
+    //     },
+    //     {
+    //       type: 'candlestick',
+    //       color: 'blue',
+    //       active: false,
+    //     },
+    //     {
+    //       type: 'williams',
+    //       color: 'blue',
+    //       active: false,
+    //     },
         
-      ]
-    },
+    //   ]
+    // },
     
   ],
   line_types: ['price', 'candlestick', 'williams']

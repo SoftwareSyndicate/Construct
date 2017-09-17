@@ -51,7 +51,7 @@ export default {
     graphs: {
       handler: function(){
         // log("fck!")
-        log(this.graphs)
+        // log(this.graphs)
       },
       deep: true 
     }
