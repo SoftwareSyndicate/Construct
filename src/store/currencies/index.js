@@ -3,6 +3,7 @@ import * as actions from './actions'
 import mutations from './mutations'
 
 const state = {
+  limit: 100,
   currencies: [],
   sorted_currencies: [],
   currency: {},

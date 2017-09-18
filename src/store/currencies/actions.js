@@ -3,8 +3,7 @@ import Vue from 'vue'
 import APIs from '../apis'
 
 export const fetch_currencies = ({commit, state}) => {
-  let limit = 10
-  Vue.http.get('https://api.coinmarketcap.com/v1/ticker/?limit=' + limit).then(response => {
+  Vue.http.get('https://api.coinmarketcap.com/v1/ticker/?limit=' + state.limit).then(response => {
     let currencies = response.body
     commit(types.RECIEVE_CURRENCIES, {currencies})
 
@@ -27,7 +26,7 @@ export const fetch_currencies = ({commit, state}) => {
 
   // TODO Unhack
   setInterval(()=> {
-    Vue.http.get('https://api.coinmarketcap.com/v1/ticker/?limit=' + limit).then(response => {
+    Vue.http.get('https://api.coinmarketcap.com/v1/ticker/?limit=' + state.limit).then(response => {
       let currencies = response.body
       commit(types.RECIEVE_CURRENCIES, {currencies})
 
