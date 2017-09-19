@@ -73,7 +73,7 @@ export default {
 .currency-list-item
   display flex
   flex-basis 100%
-
+  cursor pointer
   align-items center
   background  white
   border 1px solid rgba(0, 0, 0, .1)
