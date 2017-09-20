@@ -2,10 +2,28 @@ import * as types from './mutation-types'
 import Vue from 'vue'
 import APIs from '../apis'
 
+
+export const watch_all_currencies = ({commit, state}) => {
+  return APIs.CoinMarketCap.watch_currencies(state.limit,  60000, (results) => {
+    commit(types.UPDATE_CURRENCIES, results)          
+  })
+}
+
+export const watch_all_currency_histories =  ({commit, state}) => {
+  let watchers = []
+  state.currencies.forEach(currency => {
+    watchers.push(APIs.CoinMarketCap.watch_currencies(state.limit,  60000, (results) => {
+      currency.history = results
+      commit(types.UPDATE_CURRENCY, currency)          
+    }))
+  })
+  return watchers
+}
+
 export const fetch_currencies = ({commit, state}) => {
   Vue.http.get('https://api.coinmarketcap.com/v1/ticker/?limit=' + state.limit).then(response => {
     let currencies = response.body
-    commit(types.RECIEVE_CURRENCIES, {currencies})
+    commit(types.RECIEVE_CURRENCIES, currencies)
 
     let promises = []
     currencies.forEach(currency => {
@@ -48,15 +66,6 @@ export const fetch_currencies = ({commit, state}) => {
     
   }, 60000)
 }
-
-// export const fetch_currency_history = ({commit, state}, currency) => {
-//   Vue.http.get("https://www.coincap.io/history/1day/" + currency).then(response => {
-//     let data = response.body
-//     commit(types.RECIEVE_CURRENCY_HISTORY, data)
-//   }, error => {
-
-//   });
-// }
 
 // TODO THROW INTO API
 export const fetch_currency_history = ({commit, state}, symbol) => {

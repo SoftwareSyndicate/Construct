@@ -3,7 +3,29 @@ import * as types from './mutation-types'
 
 export default {
   [types.RECIEVE_CURRENCIES] (state, {currencies}) {
-    state.currencies = currencies
+    state.currencies = Object.assign(state.currencies, currencies)
+  },
+  [types.UPDATE_CURRENCIES] (state, currencies) {
+    currencies.forEach(c => {
+      state.currencies.forEach(currency => {
+        let found = false
+        if(c.id == currency.id){
+          found = true
+          currency = Object.assign(currency, c)
+        }
+        if(!found){
+          state.currencies.push(currency)
+        }
+      })
+    })
+    state.currencies = Object.assign(state.currencies, currencies)
+  },
+  [types.UPDATE_CURRENCY] (state, currency) {
+    state.currencies.forEach(c => {
+      if(c.id == currency.id){
+        c = Object.assign(c, currency)
+      }
+    })
   },
   [types.UPDATE_FILTERS] (state, filters) {
     state.filters = Object.assign(state.filters, filters)
@@ -37,58 +59,6 @@ export default {
       },
     }
   },  
-  [types.UPDATE_GRAPHS] (state, graphs) {
-    state.graphs = Object.assign(state.graphs, graphs)
-  },
-  [types.REMOVE_ALL_GRAPHS] (state) {
-    state.graphs = []
-  },
-  [types.ADD_GRAPH] (state, name) {
-    state.graphs.push({
-      name: name + "-USD",
-      lines: [
-        {
-          type: 'price',
-          color: 'blue',
-          active: true,
-        },
-        {
-          type: 'candlestick',
-          color: 'blue',
-          active: false,
-        },
-        {
-          type: 'williams',
-          color: 'blue',
-          active: false,
-        },
-      ]
-    })
-  },
-  [types.UPDATE_GRAPH_CURRENCY] (state, currency) {
-    state.graphs.forEach(c => {
-      if(c.name == currency.name){
-        c = currency
-      }
-    })
-  },
-  [types.TOGGLE_GRAPH_LINE] (state, {currency, line}) {
-    state.graphs.forEach(c => {
-      if(c.name == currency.name){
-        c.lines.forEach(l => {
-          if(l.type == line.type){
-            l.active = !l.active
-          }
-        })
-      }
-    })
-  },
-  [types.ADD_GRAPH_CURRENCY] (state, currency) {
-    state.graphs.push(currency)
-  },
-  [types.REMOVE_GRAPH_CURRENCY] (state, currency) {
-    state.graphs = state.graphs.filter(c => c.name != currency.name)
-  },
   [types.RECIEVE_CURRENCY_HISTORY] (state, currency_history) {
     state.currency_history = currency_history
   },

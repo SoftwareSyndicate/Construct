@@ -7,12 +7,14 @@ div#currency-page
 
         // calendar-graph(:graph_data="currency_history")
 
-    div.tab(v-if="currency_page_tab == 'shapeshift'")
-      div.shapeshift-rates
-        h2 ShapeShift 
-        div.quote(v-for="quote in filtered_shapeshift_rates")
-          p.currency {{quote.pair.split("_")[1]}}
-          p.rate {{quote.rate}}
+
+          
+    // div.tab(v-if="currency_page_tab == 'shapeshift'")
+    //   div.shapeshift-rates
+    //     h2 ShapeShift 
+    //     div.quote(v-for="quote in filtered_shapeshift_rates")
+    //       p.currency {{quote.pair.split("_")[1]}}
+    //       p.rate {{quote.rate}}
       
     
   // div.bottom
@@ -39,18 +41,9 @@ export default {
     MultiGraph,
     CalendarGraph,
   },
-  props: {
-    
-
-  },
-  data () {
+  data(){
     return {
       currency_page_tab: "chart",
-      multiChartConfig: {
-        crosshair: true,
-        close: true,
-        heikinashi: true,
-      }
     }
   },
   methods: {
@@ -60,7 +53,7 @@ export default {
       'set_brand',
     ]),
     ...mapMutations({
-      addGraph: 'ADD_GRAPH',
+      addGraphCurrency: 'ADD_GRAPH_CURRENCY',
       removeAllGraphs: 'REMOVE_ALL_GRAPHS'
     }),
   },
@@ -76,12 +69,12 @@ export default {
     if(this.$route.params.name){
       this.fetch_currency_history(this.$route.params.name)
       this.set_brand(this.$route.params.id)
-      this.addGraph(this.$route.params.name)
+      this.addGraphCurrency(this.$route.params.name)
     } else {
       this.unwatch = this.$watch('currency', ()=>{
         if(this.currency.id){
           this.set_brand(this.$route.params.id)
-          this.addGraph(this.currency.symbol)
+          this.addGraphCurrency(this.currency.symbol)
           _fetch_currency_history()
         }
       })

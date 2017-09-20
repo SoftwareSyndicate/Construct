@@ -17,10 +17,6 @@ export default {
   components: {
     CurrencyList,
   },
-  props: {
-    
-
-  },
   data () {
     return {
 
@@ -30,19 +26,20 @@ export default {
     ...mapActions([
       'fetch_currency_history',
       'set_brand',
-      'set_search',
-      'set_searching',
     ]),
   },
-
   computed: {
     ...mapGetters([
       'sorted_currencies',
     ])
   },
-  mounted(){
+  created(){
     this.set_brand("Construct")
-    this.$store.dispatch("fetch_currencies")
+    this.currency_watcher = this.$store.dispatch("fetch_currencies")
+  },
+  beforeDestroy(){
+    // TODO - Destory interval
+    // window.removeInterval(this.currency_watcher) ???
   }
 }
 </script>

@@ -13,7 +13,6 @@ sync(store, router)
 
 // Install VueResource
 import VueResource from 'vue-resource'
-
 Vue.use(VueResource);
 
 import materialize from 'materialize-css'
@@ -29,7 +28,7 @@ window.log = console.log
 window.moment = moment
 
 // Move to Service Worker?
-store.dispatch("fetch_currencies")
+// store.dispatch("fetch_currencies")
 // store.dispatch("load_user")
 // store.dispatch("load_currencies")
 

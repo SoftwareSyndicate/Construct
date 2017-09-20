@@ -1,5 +1,9 @@
-import ShapeShift from './shapeshift'
+import ShapeShift from './ShapeShift'
+import CoinMarketCap from './CoinMarketCap'
+import CryptoCompare from './CryptoCompare'
 
 export default {
-  ShapeShift: ShapeShift
+  ShapeShift: ShapeShift,
+  CointMarketCap: CoinMarketCap,
+  CryptoCompare: CryptoCompare,
 }

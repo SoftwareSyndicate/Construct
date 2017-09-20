@@ -1,12 +1,12 @@
 <template lang="pug">
 div#graph-builder
   div.row
-    div.button.add(@click="addGraph('LTC')") Add Currency
+    div.button.add(@click="addGraphCurrency('LTC')") Add Currency
   div.row
     ul.collapsible(data-collapsible='expandable' ref="currencyList")
       li(v-for="currency in graphs")
         div.collapsible-header
-          i.material-icons.remove(@click="removeCurrency(currency)") remove_circle_outline
+          i.material-icons.remove(@click="removeGraphCurrency(currency.name)") remove_circle_outline
           | {{currency.name}}
           i.material-icons.open keyboard_arrow_down
           i.material-icons.close keyboard_arrow_up
@@ -14,8 +14,8 @@ div#graph-builder
           div.lines
             div.line(v-for="line in currency.lines")
               p
-                input(type="checkbox" :id="currency.name + '-' + line.type" :checked="line.active")
-                label(:for="currency.name + '-' + line.type" @click="toggleLine({currency, line})") {{line.type}}
+                input(type="checkbox" :id="currency.name + '-' + line.name" :checked="line.active")
+                label(:for="currency.name + '-' + line.name" @click="toggleGraphLine({currency, line})") {{line.type}}
       
 </template>
 
@@ -26,33 +26,23 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'GraphBuilder',
-  data () {
-    return {
-      
-    }
-  },
   methods: {
     ...mapMutations({
-      openNav: 'RIGHT_NAV_OPEN',
-      closeNav: 'RIGHT_NAV_CLOSE',
-      addGraph: 'ADD_GRAPH',
-      updateCurrency: 'UPDATE_GRAPH_CURRENCY',
-      removeCurrency: 'REMOVE_GRAPH_CURRENCY',
-      toggleLine: 'TOGGLE_GRAPH_LINE',
+      addGraphCurrency: 'ADD_GRAPH_CURRENCY',
+      removeGraphCurrency: 'REMOVE_GRAPH_CURRENCY',
+      toggleGraphLine: 'TOGGLE_GRAPH_LINE',
     }),
   },
   computed: {
     ...mapState({
-      'graphs': state => state.currencies.graphs,
+      'graphs': state => state.graphs.graphs,
     }),
   },
-
   watch: {
     graphs: {
       handler: function(){
         log("watch!")
         $(this.$refs.currencyList).collapsible();
-        // log(this.graphs)
       },
       deep: true 
     }

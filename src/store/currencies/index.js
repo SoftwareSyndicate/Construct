@@ -3,11 +3,12 @@ import * as actions from './actions'
 import mutations from './mutations'
 
 const state = {
-  limit: 100,
+  limit: 10,
   currencies: [],
   sorted_currencies: [],
   currency: {},
   currency_history: [],
+  currency_histories: [],
   filters: {
     time_interval: 60 * 60 * 1000,
     time_interval_name: "1h",
@@ -37,30 +38,6 @@ const state = {
   },
   shapeshift_rates: [],
   filtered_shapeshift_rates: [],
-  graphs: [
-    // {
-    //   name: "ETH-USD",
-    //   lines: [
-    //     {
-    //       type: 'price',
-    //       color: 'blue',
-    //       active: true,
-    //     },
-    //     {
-    //       type: 'candlestick',
-    //       color: 'blue',
-    //       active: false,
-    //     },
-    //     {
-    //       type: 'williams',
-    //       color: 'blue',
-    //       active: false,
-    //     },
-        
-    //   ]
-    // },
-  ],
-  line_types: ['price', 'candlestick', 'williams']
 }
 
 export default  {
