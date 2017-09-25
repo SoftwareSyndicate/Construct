@@ -1,7 +1,7 @@
 <template lang="pug">
 div#graph-builder
   div.row
-    div.button.add(@click="addGraphCurrency('LTC')") Add Currency
+    div.button.add(@click="openAddGraphCurrencyModal()") Add Currency
   div.row
     ul.collapsible(data-collapsible='expandable' ref="currencyList")
       li(v-for="currency in graphs")
@@ -15,7 +15,7 @@ div#graph-builder
             div.line(v-for="line in currency.lines")
               p
                 input(type="checkbox" :id="currency.name + '-' + line.name" :checked="line.active")
-                label(:for="currency.name + '-' + line.name" @click="toggleGraphLine({currency, line})") {{line.type}}
+                label(:for="currency.name + '-' + line.name" @click="toggleGraphLine({currency, line})") {{line.name}}
       
 </template>
 
@@ -28,10 +28,12 @@ export default {
   name: 'GraphBuilder',
   methods: {
     ...mapMutations({
-      addGraphCurrency: 'ADD_GRAPH_CURRENCY',
       removeGraphCurrency: 'REMOVE_GRAPH_CURRENCY',
       toggleGraphLine: 'TOGGLE_GRAPH_LINE',
     }),
+    openAddGraphCurrencyModal(){
+      log("TODO")
+    },
   },
   computed: {
     ...mapState({
@@ -42,6 +44,7 @@ export default {
     graphs: {
       handler: function(){
         log("watch!")
+        log(this.graphs)
         $(this.$refs.currencyList).collapsible();
       },
       deep: true 

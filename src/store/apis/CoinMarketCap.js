@@ -13,7 +13,7 @@ export default {
   },
   watch_currencies: (limit, rate, cb) => {
     return setInterval(()=>{
-      this.fetch_currencies(limit).then(results => {
+      this.a.fetch_currencies(limit).then(results => {
         cb(results)
       }).catch(error => {
         cb(error)

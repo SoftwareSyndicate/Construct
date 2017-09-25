@@ -46,11 +46,10 @@ var mutations = {
   [REMOVE_ALL_GRAPHS] (state) {
     state.graphs = []
   },
-  [ADD_GRAPH_CURRENCY] (state, name) {
-    state.graphs.push({
-      name: name + "-USD",
-      lines: Object.assign({}, state.lineTypes)
-    })
+  [ADD_GRAPH_CURRENCY] (state, currency) {
+    let currency_copy = Object.assign({}, currency)
+    currency_copy.lines = state.line_types.slice()
+    state.graphs.push(currency_copy)
   },
   [REMOVE_GRAPH_CURRENCY] (state, name) {
     state.graphs = state.graphs.filter(c => c.name != name)
@@ -66,7 +65,7 @@ var mutations = {
     state.graphs.forEach(c => {
       if(c.name == currency.name){
         c.lines.forEach(l => {
-          if(l.type == line.type){
+          if(l.name == line.name){
             l.active = !l.active
           }
         })
@@ -77,7 +76,28 @@ var mutations = {
 
 // Actions
 var actions = {
-  
+  // CURRENCY HISTORIES
+  fetch_graph_histories: ({commit, state}, currencies) => {
+    currencies.forEach(currency => {  
+      return APIs.CryptoCompare.fetch_currency_history_by_minute(currency.symbol).then(results=> {
+        currency.history = results.Data
+        commit(types.UPDATE_GRAPH_CURRENCY, currency)
+        return results
+      })
+    })
+  },
+
+  watch_graph_histories: ({commit, state}, currencies) => {
+    let watchers = []
+    currencies.forEach(currency => {
+      watchers.push(APIs.CryptoCompare.watch_currency_history_by_minute(currency.symbol,  state.rate, (results) => {
+        currency.history = results.Data
+        commit(types.UPDATE_GRAPH_CURRENCY, currency)
+        return results
+      }))
+    })
+    return watchers
+  }
 }
 
 export default {

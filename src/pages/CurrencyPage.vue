@@ -3,7 +3,7 @@ div#currency-page
   div.top
     div.tab(v-if="currency_page_tab == 'chart'")
       div.chart-container
-        multi-graph(:graph_data="currency_history")
+        // multi-graph(:currencies="graphs")
 
         // calendar-graph(:graph_data="currency_history")
 
@@ -31,9 +31,7 @@ div#currency-page
 <script>
 import MultiGraph from '@/components/graphs/Multi'
 import CalendarGraph from '@/components/graphs/Calendar'
-import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'CurrencyPage',
@@ -48,44 +46,72 @@ export default {
   },
   methods: {
     ...mapActions([
-      'fetch_currency_history',
-      'fetch_currency_history_better',
-      'set_brand',
+      'fetch_graph_histories',
+      'watch_graph_histories',
     ]),
     ...mapMutations({
       addGraphCurrency: 'ADD_GRAPH_CURRENCY',
-      removeAllGraphs: 'REMOVE_ALL_GRAPHS'
+      removeAllGraphs: 'REMOVE_ALL_GRAPHS',
+      setBrand: 'SET_BRAND',
     }),
   },
-
   computed: {
     ...mapGetters([
       'currency',
-      'currency_history',
       'filtered_shapeshift_rates',
+      'graphs',
     ])
   },
-  mounted(){
-    if(this.$route.params.name){
-      this.fetch_currency_history(this.$route.params.name)
-      this.set_brand(this.$route.params.id)
-      this.addGraphCurrency(this.$route.params.name)
-    } else {
-      this.unwatch = this.$watch('currency', ()=>{
-        if(this.currency.id){
-          this.set_brand(this.$route.params.id)
-          this.addGraphCurrency(this.currency.symbol)
-          _fetch_currency_history()
+  created(){
+    this.$store.dispatch("fetch_all_currencies").then(results => {
+      this.setBrand(this.currency.name)
+      this.addGraphCurrency(this.currency)
+    })
+  },
+  watch: {
+    graphs: {
+      handler: function(new_graphs, old_graphs){
+        log("CurrencyPage: watch - graphs")
+        log("graphs: ", this.graphs)
+        
+        // If a currency has been added, destroy watchers, and rewatch all currencies
+        if(new_graphs.length != old_graphs.length){
+          this.currency_history_watchers.forEach(w => {
+            window.clearInterval(w)
+          })
+          this.$store.dispatch("fetch_graph_histories", this.graphs)          
+          this.$store.dispatch("watch_currency_histories", this.graphs).then(results => {
+            this.currency_history_watchers = results
+          })
         }
-      })
-      let _fetch_currency_history = function(){
-        this.fetch_currency_history(this.currency.symbol)
-        this.unwatch()
-      }.bind(this)
+      },
+      deep: true,
     }
   },
+  // mounted(){
+  //   if(this.$route.params.name){
+  //     this.fetch_currency_history(this.$route.params.name)
+      
+  //     this.addGraphCurrency(this.$route.params.name)
+  //   } else {
+  //     this.unwatch = this.$watch('currency', ()=>{
+  //       if(this.currency.id){
+  //         this.set_brand(this.$route.params.id)
+  //         this.addGraphCurrency(this.currency.symbol)
+  //         _fetch_currency_history()
+  //       }
+  //     })
+  //     let _fetch_currency_history = function(){
+  //       this.fetch_currency_history(this.currency.symbol)
+  //       this.unwatch()
+  //     }.bind(this)
+  //   }
+  // },
   beforeDestroy(){
     this.removeAllGraphs()
+    // this.currency_history_watchers.forEach(w => {
+    //   window.clearInterval(w)
+    // })
   },
 }
 </script>

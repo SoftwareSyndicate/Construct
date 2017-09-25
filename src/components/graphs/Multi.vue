@@ -12,7 +12,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Multi',
   props: {
-    graph_data: {
+    currencies: {
       default: ()=>[],
     },
   },
@@ -68,17 +68,18 @@ export default {
       // this.initLines()
     },
     initLines(){
-      d3.selectAll("g.line").remove();      
-      this.graphs.forEach(currency => {
+      d3.selectAll("g.line").remove();
+      log(this.currencies)
+      this.currencies.forEach(currency => {
         currency.lines.forEach(line => {
-          switch (line.type){
-          case "price":
+          switch (line.name){
+          case "Close":
             this.initClose(currency)
             break
-          case "candlestick":
+          case "Candlestick":
             this.initHeikinashi(currency)
             break
-          case "williams":
+          case "Williams":
             this.initWilliams(currency)
             break
           }
@@ -135,16 +136,16 @@ export default {
         }
       })
 
-      this.graphs.forEach(currency => {
+      this.currencies.forEach(currency => {
         currency.lines.forEach(line => {
-          switch (line.type){
-          case "price":
+          switch (line.name){
+          case "Close":
             if(line.active){ this.drawClose(data, line) }
             break
-          case "candlestick":
+          case "Candlestick":
             if(line.active){ this.drawHeikinashi(data, line) }
             break
-          case "williams":
+          case "Williams":
             if(line.active){ this.drawWilliams(data, line) }
             break
           }
@@ -159,6 +160,7 @@ export default {
       
     },
     drawClose(data, currency){
+      log(data)
       this.x.domain(data.map(this.close.accessor().d))
       this.y.domain(techan.scale.plot.ohlc(data, this.close.accessor()).domain())
       this.svg.selectAll("g.close").datum(data).call(this.close)
@@ -182,11 +184,12 @@ export default {
     }),
   },
   watch: {
-    graph_data: {
+    currencies: {
       handler: function(newData, oldData) {
-        if(this.graph_data.length > 0 && this.x){
+        if(this.currencies.length > 0 && this.x){
           this.initLines()
-          this.draw(this.graph_data)
+          // TODO DRAW FOR EACH CURRENCY
+          this.draw(this.currencies)
         }
       },
       immediate: true,
@@ -194,14 +197,15 @@ export default {
     graphs: {
       handler: function(newData, oldData) {
         this.initLines()
-        this.draw(this.graph_data)
+        // TODO DRAW FOR EACH CURRENCY
+        this.draw(this.currencies)
       },
       immediate: false,
       deep: true
     }
   },
   onResize(){
-    this.draw(this.graph_data)
+    this.draw(this.currencies)
   },
   beforeDestroy(){
     // window.removeEventListener('resize', this.onResize)

@@ -1,8 +1,8 @@
 <template lang="pug">
 div#right-nav-desktop
   div.header
-    transition(name="fade" mode="out-in" appear)
-      span {{brand}}
+    // img.icon(:src="'https://files.coinmarketcap.com/static/img/coins/64x64/' + currency.id + '.png'" alt="coin" v-if="brand != 'Construct'")            
+    span.brand {{brand}}
   div.content-container  
     transition(name="slide-right" mode='out-in')          
       currency-filter(v-if="$route.name == 'currencies'")
@@ -36,20 +36,10 @@ export default {
       closeNav: 'RIGHT_NAV_CLOSE'
     }),
   },
-  watch: {
-    open: {
-      handler: function(newData, oldData) {
-        if(this.open){
-          // TODO
-        } else {
-          // TODO
-        }
-      },
-    },
-  },
   computed: {
     ...mapGetters([
-      "brand"
+      "brand",
+      "currency",
     ]),
     ...mapState({
       "open": state => state.right_nav.open,
@@ -94,6 +84,13 @@ export default {
       margin-right .2em
     span
       line-height 1
+      text-transform capitalize
+    .icon
+      margin-right .6em
+      height 32px
+      width 32px
+
+      
 
   .content-container
     height calc(100% - 120px)

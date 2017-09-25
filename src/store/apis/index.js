@@ -4,6 +4,6 @@ import CryptoCompare from './CryptoCompare'
 
 export default {
   ShapeShift: ShapeShift,
-  CointMarketCap: CoinMarketCap,
+  CoinMarketCap: CoinMarketCap,
   CryptoCompare: CryptoCompare,
 }

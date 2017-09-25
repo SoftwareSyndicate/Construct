@@ -8,20 +8,14 @@ div.currency-list
 import CurrencyListItem from '@/components/CurrencyListItem'
 export default {
   name: 'CurrencyList',
-  data () {
-    return {
-
-    }
-  },
   components: {
     CurrencyListItem,
   },
-
   props: {
     currencies: {
       default: () => []
     }
-  }
+  },
 }
 </script>
 

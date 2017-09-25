@@ -46,24 +46,11 @@ export default {
       updating: false
     }
   },
-  watch: {
-    currency: function (newCurrency, oldCurrency) {
-      if(newCurrency.price_usd != oldCurrency.price_usd){
-        this.updating = true
-        setTimeout(()=> {
-          this.updating = false
-        }, 300)
-      }
-    }
-  },
   props: {
     currency: {
       default: () => {}
-    }
+    },
   },
-  computed: {
-
-  }
 }
 </script>
 

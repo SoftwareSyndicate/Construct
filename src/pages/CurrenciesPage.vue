@@ -6,9 +6,7 @@ div#currencies-page
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 import CurrencyList from '@/components/CurrencyList'
 
@@ -23,23 +21,33 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'fetch_currency_history',
-      'set_brand',
-    ]),
+    ...mapMutations({
+      setBrand: 'SET_BRAND',
+    }),
   },
   computed: {
     ...mapGetters([
       'sorted_currencies',
+      'currencies',
     ])
   },
   created(){
-    this.set_brand("Construct")
-    this.currency_watcher = this.$store.dispatch("fetch_currencies")
+    this.setBrand("Construct")
+    this.$store.dispatch("fetch_all_currencies").then(results => {
+      this.$store.dispatch("fetch_currency_histories", this.sorted_currencies)
+      this.$store.dispatch("watch_currency_histories", this.sorted_currencies).then(results => {
+        this.currency_history_watchers = results
+      })
+    })
+    this.$store.dispatch("watch_all_currencies").then(results => {
+      this.currency_watcher = results
+    })
   },
   beforeDestroy(){
-    // TODO - Destory interval
-    // window.removeInterval(this.currency_watcher) ???
+    window.clearInterval(this.currency_watcher)
+    this.currency_history_watchers.forEach(w => {
+      window.clearInterval(w)
+    })
   }
 }
 </script>

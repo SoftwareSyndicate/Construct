@@ -70,6 +70,8 @@ export default {
           this.draw(this.graph_data)            
         }
       },
+      deep: true,
+      immediate: true
     }
   },
   

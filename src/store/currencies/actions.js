@@ -2,19 +2,39 @@ import * as types from './mutation-types'
 import Vue from 'vue'
 import APIs from '../apis'
 
-
-export const watch_all_currencies = ({commit, state}) => {
-  return APIs.CoinMarketCap.watch_currencies(state.limit,  60000, (results) => {
-    commit(types.UPDATE_CURRENCIES, results)          
+// CURRENCY LIST
+export const fetch_all_currencies = ({commit, state}) => {
+  return APIs.CoinMarketCap.fetch_currencies(state.limit).then(results=> {
+    commit(types.UPDATE_CURRENCIES, results)
+    return results
   })
 }
 
-export const watch_all_currency_histories =  ({commit, state}) => {
+export const watch_all_currencies = ({commit, state}) => {
+  return APIs.CoinMarketCap.watch_currencies(state.limit,  state.rate, (results) => {
+    commit(types.UPDATE_CURRENCIES, results)
+    return results
+  })
+}
+
+// CURRENCY HISTORIES
+export const fetch_currency_histories = ({commit, state}, currencies) => {
+  currencies.forEach(currency => {  
+    return APIs.CryptoCompare.fetch_currency_history_by_minute(currency.symbol).then(results=> {
+      Vue.set(currency, 'history', results.Data)
+      commit(types.UPDATE_CURRENCY_HISTORY, currency)
+      return results
+    })
+  })
+}
+
+export const watch_currency_histories =  ({commit, state}, currencies) => {
   let watchers = []
-  state.currencies.forEach(currency => {
-    watchers.push(APIs.CoinMarketCap.watch_currencies(state.limit,  60000, (results) => {
-      currency.history = results
-      commit(types.UPDATE_CURRENCY, currency)          
+  currencies.forEach(currency => {
+    watchers.push(APIs.CryptoCompare.watch_currency_history_by_minute(currency.symbol,  state.rate, (results) => {
+      Vue.set(currency, 'history', results.Data)
+      commit(types.UPDATE_CURRENCY_HISTORY, currency)      
+      return results
     }))
   })
   return watchers

@@ -1,31 +1,35 @@
-import { set } from 'vue'
+import Vue from 'vue'
 import * as types from './mutation-types'
 
 export default {
-  [types.RECIEVE_CURRENCIES] (state, {currencies}) {
-    state.currencies = Object.assign(state.currencies, currencies)
-  },
   [types.UPDATE_CURRENCIES] (state, currencies) {
     currencies.forEach(c => {
-      state.currencies.forEach(currency => {
-        let found = false
-        if(c.id == currency.id){
+      let found = false
+      for(let i = 0; i < state.currencies.length; i++){
+        if(state.currencies[i].id == c.id){
+          Vue.set(state.currencies, i, Object.assign(state.currencies[i], c))
           found = true
-          currency = Object.assign(currency, c)
         }
-        if(!found){
-          state.currencies.push(currency)
-        }
-      })
+      }
+      if(!found){
+        state.currencies.push(c)
+      }
     })
     state.currencies = Object.assign(state.currencies, currencies)
   },
   [types.UPDATE_CURRENCY] (state, currency) {
-    state.currencies.forEach(c => {
-      if(c.id == currency.id){
-        c = Object.assign(c, currency)
+    for(let i = 0; i < state.currencies.length; i++){
+      if(state.currencies[i].id == currency.id){
+        Vue.set(state.currencies, i, Object.assign(state.currencies[i], currency))
       }
-    })
+    }
+  },
+  [types.UPDATE_CURRENCY_HISTORY] (state, currency) {
+    for(let i = 0; i < state.currencies.length; i++){
+      if(state.currencies[i].id == currency.id){
+        Vue.set(state.currencies, i, currency)
+      }
+    }
   },
   [types.UPDATE_FILTERS] (state, filters) {
     state.filters = Object.assign(state.filters, filters)
