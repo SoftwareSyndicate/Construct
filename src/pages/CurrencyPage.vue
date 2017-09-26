@@ -3,6 +3,7 @@ div#currency-page
   div.top
     div.tab(v-if="currency_page_tab == 'chart'")
       div.chart-container
+        h2 Currency Charts comming soon!
         // multi-graph(:currencies="graphs")
 
         // calendar-graph(:graph_data="currency_history")

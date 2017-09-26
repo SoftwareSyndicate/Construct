@@ -66,7 +66,7 @@ export default {
   watch: {
     graph_data: {
       handler: function(newVal, oldVal){
-        if(this.graph_data.length > 0){
+        if(this.graph_data.length > 0 && this.x){
           this.draw(this.graph_data)            
         }
       },
