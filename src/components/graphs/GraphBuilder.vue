@@ -32,7 +32,7 @@ export default {
       toggleGraphLine: 'TOGGLE_GRAPH_LINE',
     }),
     openAddGraphCurrencyModal(){
-      log("TODO")
+
     },
   },
   computed: {
@@ -43,8 +43,6 @@ export default {
   watch: {
     graphs: {
       handler: function(){
-        log("watch!")
-        log(this.graphs)
         $(this.$refs.currencyList).collapsible();
       },
       deep: true 

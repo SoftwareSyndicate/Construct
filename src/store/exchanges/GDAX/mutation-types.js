@@ -1,8 +1,0 @@
-
-// ORDERS
-export const PUSH_ORDER = 'PUSH_ORDER'
-export const START_COLLECTION = 'START_COLLECTION'
-export const STOP_COLLECTION = 'STOP_COLLECTION'
-
-
-

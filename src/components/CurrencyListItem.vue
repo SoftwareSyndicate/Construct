@@ -1,5 +1,6 @@
 <template lang="pug">
-router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.symbol}}" tag="div")
+// router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.symbol}}" tag="div")
+div
   div.currency-list-item(:class="{'updating': updating}")
     div.back
       div.line-container
@@ -18,7 +19,8 @@ router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.sym
         p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%
 
       div.right.desktop
-        p.volume(:class="") ${{parseFloat(currency['24h_volume_usd']).toLocaleString()}}
+        // p.volume(:class="") ${{parseFloat(currency['24h_volume_usd']).toLocaleString()}}
+        p.volume(:class="") ${{parseFloat(currency['market_cap_usd']).toLocaleString()}}
 
         div.percent-changes
           div.change

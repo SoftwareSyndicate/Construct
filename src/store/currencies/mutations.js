@@ -24,13 +24,6 @@ export default {
       }
     }
   },
-  [types.UPDATE_CURRENCY_HISTORY] (state, currency) {
-    for(let i = 0; i < state.currencies.length; i++){
-      if(state.currencies[i].id == currency.id){
-        Vue.set(state.currencies, i, currency)
-      }
-    }
-  },
   [types.UPDATE_FILTERS] (state, filters) {
     state.filters = Object.assign(state.filters, filters)
   },

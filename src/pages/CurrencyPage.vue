@@ -64,16 +64,16 @@ export default {
     ])
   },
   created(){
-    this.$store.dispatch("fetch_all_currencies").then(results => {
-      this.setBrand(this.currency.name)
-      this.addGraphCurrency(this.currency)
-    })
+    // this.$store.dispatch("fetch_all_currencies").then(results => {
+    //   this.setBrand(this.currency.name)
+    //   this.addGraphCurrency(this.currency)
+    // })
   },
   watch: {
     graphs: {
       handler: function(new_graphs, old_graphs){
-        log("CurrencyPage: watch - graphs")
-        log("graphs: ", this.graphs)
+        // log("CurrencyPage: watch - graphs")
+        // log("graphs: ", this.graphs)
         
         // If a currency has been added, destroy watchers, and rewatch all currencies
         if(new_graphs.length != old_graphs.length){
@@ -109,7 +109,7 @@ export default {
   //   }
   // },
   beforeDestroy(){
-    this.removeAllGraphs()
+    // this.removeAllGraphs()
     // this.currency_history_watchers.forEach(w => {
     //   window.clearInterval(w)
     // })

@@ -22,7 +22,7 @@ export const fetch_currency_histories = ({commit, state}, currencies) => {
   currencies.forEach(currency => {  
     return APIs.CryptoCompare.fetch_currency_history_by_minute(currency.symbol).then(results=> {
       Vue.set(currency, 'history', results.Data)
-      commit(types.UPDATE_CURRENCY_HISTORY, currency)
+      commit(types.UPDATE_CURRENCY, currency)
       return results
     })
   })
@@ -33,7 +33,7 @@ export const watch_currency_histories =  ({commit, state}, currencies) => {
   currencies.forEach(currency => {
     watchers.push(APIs.CryptoCompare.watch_currency_history_by_minute(currency.symbol,  state.rate, (results) => {
       Vue.set(currency, 'history', results.Data)
-      commit(types.UPDATE_CURRENCY_HISTORY, currency)      
+      commit(types.UPDATE_CURRENCY, currency)      
       return results
     }))
   })
