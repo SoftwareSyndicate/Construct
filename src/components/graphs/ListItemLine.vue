@@ -118,8 +118,8 @@ export default {
   .line 
     fill none
     stroke darken($purple, 15%)
-    stroke-opacity .1
-    stroke-width: 2px
+    stroke-opacity .3
+    stroke-width: 1px
 
   .area 
     fill $purple

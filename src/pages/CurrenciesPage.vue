@@ -33,6 +33,7 @@ export default {
   },
   created(){
     this.setBrand("Construct")
+    this.$store.dispatch("fetch_fiat_exchange_rates")
     this.$store.dispatch("fetch_all_currencies").then(results => {
       this.$store.dispatch("fetch_currency_histories", this.sorted_currencies)
       this.$store.dispatch("watch_currency_histories", this.sorted_currencies).then(results => {

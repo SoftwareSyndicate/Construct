@@ -3,8 +3,9 @@ import * as actions from './actions'
 import mutations from './mutations'
 
 const state = {
-  limit: 100,
+  limit: 10,
   rate: 1000 * 30,
+  base_fiat: "USD",
   currencies: [],
   sorted_currencies: [],
   currency: {},
@@ -39,6 +40,7 @@ const state = {
   },
   shapeshift_rates: [],
   filtered_shapeshift_rates: [],
+  fiat_exchange_rates: null
 }
 
 export default  {

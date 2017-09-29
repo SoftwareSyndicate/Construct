@@ -72,5 +72,7 @@ export default {
     state.shapeshift_rates = oldState.shapeshift_rates
     state.filtered_shapeshift_rates = oldState.filtered_shapeshift_rates
   },
-
+  [types.UPDATE_FIAT_EXCHANGE_RATES] (state, rates) {
+    state.fiat_exchange_rates = rates
+  },
 }
