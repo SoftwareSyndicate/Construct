@@ -7,14 +7,7 @@ const state = {
 
 // Getters
 var getters = {
-  brand: (state, commit, rootState) => {
-    let id = rootState.route.params.id
-    if(id){
-      return id
-    } else {
-      return "Construct"
-    }
-  },
+  brand: (state, commit, rootState) => state.brand,
   searching: state =>  state.searching,
   search: state =>  state.search,
 }

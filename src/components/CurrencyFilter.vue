@@ -281,7 +281,6 @@ export default {
     font-size 42px
     height 100px
     margin-bottom 20px
-    border-bottom 1px solid rgba(0, 0, 0, .1)
     position relative
     i
       color white
@@ -333,7 +332,7 @@ export default {
    .reset
      width 100%
      position absolute
-     bottom 10px
+     bottom 0px
      .button
        flex-basis 100%
        

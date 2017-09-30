@@ -12,15 +12,15 @@ div
         p.name {{currency.name}}
 
       div.center.desktop
-        p.price(:class="") ${{currency.price_usd}}
+        p.price(:class="") {{exchange(currency.price_usd)}}
         
       div.right.mobile
-        p.price(:class="") ${{currency.price_usd}}
+        p.price(:class="") {{exchange(currency.price_usd)}}
         p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%
 
       div.right.desktop
         // p.volume(:class="") ${{parseFloat(currency['24h_volume_usd']).toLocaleString()}}
-        p.volume(:class="") ${{parseFloat(currency['market_cap_usd']).toLocaleString()}}
+        p.volume(:class="") {{exchange(parseFloat(currency['market_cap_usd']))}}
 
         div.percent-changes
           div.change
@@ -37,7 +37,7 @@ div
 
 <script>
 import ListItemLine from '@/components/graphs/ListItemLine'
-
+import {mapState} from 'vuex'
 export default {
   name: 'CurrencyListItem',
   components: {
@@ -52,6 +52,24 @@ export default {
     currency: {
       default: () => {}
     },
+  },
+  computed: {
+    ...mapState({
+      "fiat_exchange_rates": state => state.currencies.fiat_exchange_rates,
+      "base_fiat": state => state.currencies.base_fiat,
+    })
+  },
+  methods: {
+    exchange(value){
+      if (!value || !this.base_fiat || !this.fiat_exchange_rates) return null
+      if(this.base_fiat != "USD"){
+        let exchanged = value * this.fiat_exchange_rates[this.base_fiat]
+        return exchanged.toLocaleString(undefined, { style: 'currency', currency: this.base_fiat })
+      } else {
+        return value.toLocaleString(undefined, { style: 'currency', currency: this.base_fiat })        
+
+      }
+    }
   },
 }
 </script>

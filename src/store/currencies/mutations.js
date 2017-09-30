@@ -75,4 +75,8 @@ export default {
   [types.UPDATE_FIAT_EXCHANGE_RATES] (state, rates) {
     state.fiat_exchange_rates = rates
   },
+  [types.UPDATE_BASE_FIAT] (state, fiat) {
+    log(fiat)
+    state.base_fiat = fiat
+  },
 }

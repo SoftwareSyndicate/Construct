@@ -11,6 +11,8 @@ export default new Router({
     {path: '/currencies', name: 'currencies', component: Pages.CurrenciesPage},
     {path: '/currencies/:id', name: 'currency', component: Pages.CurrencyPage},
     {path: '/exchanges/:id', name: 'exchange', component: Pages.ExchangePage},
+    // {path: '/users', name: 'users', component: Pages.UsersPagePortfoliosPage},
+    {path: '/profile', name: 'profile', component: Pages.ProfilePage},
     {path: '/portfolios', name: 'portfolios', component: Pages.PortfoliosPage},
     {path: '/portfolios/:id', name: 'portfolio', component: Pages.PortfolioPage},
   ]

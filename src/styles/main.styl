@@ -95,18 +95,20 @@ h1, h2, h3
    padding 1em
 
 input
-  padding-left 1em
+  padding-left .5em !important
   display flex
   flex-grow 1
-  height 30px
+  height 30px !important
   border 1px solid rgba(0, 0, 0, .1)
   font-family 'Roboto', 'Raleway', sans-serif 
   letter-spacing .5px
   border-radius 2px
+  margin 0px !important
 
   &:focus
     outline none
-    border 1px solid $blue
+    border 1px solid $blue !important
+    box-shadow none !important
 
 .button
   background white

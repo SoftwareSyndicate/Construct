@@ -25,6 +25,7 @@ const store = new Vuex.Store({
     navbar: components.Navbar,
     left_nav: components.LeftNav,
     right_nav: components.RightNav,
+    bottom_nav: components.BottomNav,
     create_portfolio_modal: components.CreatePortfolioModal,
   }
 })

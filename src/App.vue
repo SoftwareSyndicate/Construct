@@ -16,12 +16,16 @@ div#app
     transition(name="slide" mode='out-in')      
       router-view
 
+  div.bottom-nav-container
+    bottom-nav
+    
   // Modals 
   create-portfolio-modal
 </template>
 
 <script>
 import Navbar from "@/components/Navbar"
+import BottomNav from "@/components/BottomNav"
 import LeftNav from "@/components/LeftNav"
 import RightNavMobile from "@/components/RightNavMobile"
 import RightNavDesktop from "@/components/RightNavDesktop"
@@ -33,21 +37,15 @@ export default {
   components: {
     Navbar,
     LeftNav,
+    BottomNav,
     RightNavMobile,
     RightNavDesktop,
     CreatePortfolioModal,
   },
   name: 'app',
-  methods:{
-    
-  },
-  mounted(){
+  created(){
     console.log("Welcome to the Construct")
   },
-  computed: {
-    
-  },
-
 }
 </script>
 
@@ -56,6 +54,7 @@ export default {
 
 mobile-navbar-height = 60px
 desktop-navbar-height = 80px
+bottom-nav-height = 60px
 
 #app
   height 100%
@@ -82,14 +81,30 @@ desktop-navbar-height = 80px
     background white
     border-left 1px solid rgba(0, 0, 0, .1)
     box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
+    height 100vh
+
+  .bottom-nav-container
+    position fixed
+    width 100%
+    bottom 0px
+    left 0px
+    border-top 1px solid rgba(0, 0, 0, .1)
+    box-shadow 0px -1px 1px 0px rgba(0, 0, 0, .1)
+    background white
+    z-index 999
+    height 60px
+    
+    @media screen and (min-width: 600px)
+      width 75%
     
   .router-view-container
     flex-basis 100%
-    height "calc(100vh - %s)" % mobile-navbar-height  
+    height "calc(100vh - %s)" % (mobile-navbar-height)  
     padding-top mobile-navbar-height
+    overflow scroll
     
     @media screen and (min-width: 600px)
-      height 100vh
+      height "calc(100vh - %s)" % bottom-nav-height      
       padding-top 0px
       flex-basis 75%
       overflow scroll
