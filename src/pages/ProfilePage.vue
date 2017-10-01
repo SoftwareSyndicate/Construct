@@ -8,6 +8,9 @@ div#profile-page
       span.label Last Name
       input(:value="last_name" @input="onLastNameChange")
     div.field
+      span.label Email
+      input(:value="email" @input="onEmailChange")
+    div.field
       span.label Base Fiat
       select#base-fiat-select
         option(:value="base_fiat" selected) {{base_fiat}}
@@ -34,6 +37,7 @@ export default {
       updateBaseFiat: 'UPDATE_BASE_FIAT',
       updateFirstName: 'UPDATE_FIRST_NAME',
       updateLastName: 'UPDATE_LAST_NAME',
+      updateEmail: 'UPDATE_EMAIL',
     }),
     onFirstNameChange(e){
       this.updateFirstName(e.target.value)
@@ -41,20 +45,21 @@ export default {
     onLastNameChange(e){
       this.updateLastName(e.target.value)
     },
+    onEmailChange(e){
+      this.updateEmail(e.target.value)
+    },
     onBaseFiatChange(){
       let fiat = $('#base-fiat-select').val()
       this.updateBaseFiat(fiat)
     }
   },
   computed: {
-    ...mapGetters([
-
-    ]),
     ...mapState({
       "fiat_exchange_rates": state => state.currencies.fiat_exchange_rates,
       "base_fiat": state => state.user.base_fiat,
       "first_name": state => state.user.first_name,
       "last_name": state => state.user.last_name,
+      "email": state => state.user.email,
     })
   },
   created(){

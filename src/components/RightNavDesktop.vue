@@ -7,6 +7,7 @@ div#right-nav-desktop
     transition(name="slide-down" mode='out-in')          
       currency-filter(v-if="$route.name == 'currencies'")
       graph-builder(v-if="$route.name == 'currency'")
+      profile-pane(v-if="$route.name == 'profile'")
     
     
 </template>
@@ -18,12 +19,14 @@ import { mapMutations } from 'vuex'
 import { mapState } from 'vuex'
 import CurrencyFilter from "@/components/CurrencyFilter"
 import GraphBuilder from "@/components/graphs/GraphBuilder"
+import ProfilePane from "@/components/ProfilePane"
 
 export default {
   name: 'RightNavDesktop',
   components: {
     CurrencyFilter,
     GraphBuilder,
+    ProfilePane,
   },
   data () {
     return {
