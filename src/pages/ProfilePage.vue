@@ -3,17 +3,16 @@ div#profile-page
   div.profile-form
     div.field
       span.label First Name
-      input(v-model="firstName")
+      input(:value="first_name" @input="onFirstNameChange")
     div.field
       span.label Last Name
-      input(v-model="lastName")
+      input(:value="last_name" @input="onLastNameChange")
     div.field
       span.label Base Fiat
       select#base-fiat-select
         option(:value="base_fiat" selected) {{base_fiat}}
         option(:value="name" v-for="rate, name in fiat_exchange_rates" :selected="name == base_fiat") {{name}}
-    div.field
-      div.button.save(@click="save") Save
+        option(value="USD") USD
 </template>
 
 <script>
@@ -26,18 +25,23 @@ export default {
   },
   data () {
     return {
-      firstName: "",
-      lastName: "",
-      selected_fiat: "",
+
     }
   },
   methods: {
     ...mapMutations({
       setBrand: 'SET_BRAND',
-      updateBaseFiat: 'UPDATE_BASE_FIAT'
+      updateBaseFiat: 'UPDATE_BASE_FIAT',
+      updateFirstName: 'UPDATE_FIRST_NAME',
+      updateLastName: 'UPDATE_LAST_NAME',
     }),
-    save(){
-      log("save")
+    onFirstNameChange(e){
+      this.updateFirstName(e.target.value)
+    },
+    onLastNameChange(e){
+      this.updateLastName(e.target.value)
+    },
+    onBaseFiatChange(){
       let fiat = $('#base-fiat-select').val()
       this.updateBaseFiat(fiat)
     }
@@ -48,13 +52,15 @@ export default {
     ]),
     ...mapState({
       "fiat_exchange_rates": state => state.currencies.fiat_exchange_rates,
-      "base_fiat": state => state.currencies.base_fiat,
+      "base_fiat": state => state.user.base_fiat,
+      "first_name": state => state.user.first_name,
+      "last_name": state => state.user.last_name,
     })
   },
   created(){
     this.setBrand("Profile")
     this.$store.dispatch("fetch_fiat_exchange_rates").then(results => {
-      this.fiat_select = $('#base-fiat-select').material_select()
+      this.fiat_select = $('#base-fiat-select').material_select(this.onBaseFiatChange)
     })
   },
   mounted(){
@@ -70,17 +76,20 @@ export default {
   display flex
   flex-basis 100%
   padding 1em
-  align-items center
+  align-items baseline
   justify-content center
-    
+  @media screen and (min-width: 600px)
+    align-items center
   .profile-form
     background white
     display flex
-    flex-basis 50%  
+    flex-basis 90%  
     padding 1em
     border 1px solid rgba(0, 0, 0, .1)
     flex-wrap wrap
-
+    @media screen and (min-width: 600px)    
+      flex-basis 50%
+      
     .field
       flex-basis 100%  
       display flex

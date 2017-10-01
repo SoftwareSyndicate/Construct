@@ -1,7 +1,8 @@
 // State
 const state = {
-  first_name: "",
-  last_name: "",
+  first_name: "Tyler",
+  last_name: "Durden",
+  base_fiat: "USD"
 }
 
 // Getters
@@ -12,15 +13,19 @@ var getters = {
 
 // Mutations
 var mutations = {
-  ["SET_FIRST_NAME"] (state, first_name) {
+  ["UPDATE_FIRST_NAME"] (state, first_name) {
     state.first_name = first_name
   },
-  ["SET_LAST_NAME"] (state, last_name) {
+  ["UPDATE_LAST_NAME"] (state, last_name) {
     state.last_name = last_name
+  },
+  ["UPDATE_BASE_FIAT"] (state, base_fiat) {
+    state.base_fiat = base_fiat
   },
   ["LOAD_USER"] (state, oldState) {
     state.first_name = oldState.first_name
     state.last_name = oldState.last_name
+    state.base_fiat = oldState.base_fiat
   },
 }
 

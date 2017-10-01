@@ -29,13 +29,13 @@ window.moment = moment
 
 // Move to Service Worker?
 // store.dispatch("fetch_currencies")
-// store.dispatch("load_user")
+store.dispatch("load_user")
 // store.dispatch("load_currencies")
 
-// window.onbeforeunload = function(event) {
-//   store.dispatch("save_user")
-//   store.dispatch("save_currencies")
-// };
+window.onbeforeunload = function(event) {
+  store.dispatch("save_user")
+  // store.dispatch("save_currencies")
+};
 
 new Vue({
   el: '#app',

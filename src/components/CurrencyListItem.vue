@@ -56,18 +56,17 @@ export default {
   computed: {
     ...mapState({
       "fiat_exchange_rates": state => state.currencies.fiat_exchange_rates,
-      "base_fiat": state => state.currencies.base_fiat,
+      "base_fiat": state => state.user.base_fiat,
     })
   },
   methods: {
     exchange(value){
-      if (!value || !this.base_fiat || !this.fiat_exchange_rates) return null
+      if (!value || !this.base_fiat || !this.fiat_exchange_rates) return value
       if(this.base_fiat != "USD"){
         let exchanged = value * this.fiat_exchange_rates[this.base_fiat]
         return exchanged.toLocaleString(undefined, { style: 'currency', currency: this.base_fiat })
       } else {
-        return value.toLocaleString(undefined, { style: 'currency', currency: this.base_fiat })        
-
+        return parseFloat(value).toLocaleString(undefined, { style: 'currency', currency: this.base_fiat })        
       }
     }
   },
