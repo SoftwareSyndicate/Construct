@@ -2,7 +2,8 @@
 const state = {
   first_name: "Tyler",
   last_name: "Durden",
-  base_fiat: "USD"
+  base_fiat: "USD",
+  transition: null,
 }
 
 // Getters

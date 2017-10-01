@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Pages from '@/pages'
+import store from '../store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   // base: '/Construct/',
   routes: [
     {path: '*', redirect: '/currencies'},
@@ -15,5 +16,21 @@ export default new Router({
     {path: '/profile', name: 'profile', component: Pages.ProfilePage},
     {path: '/portfolios', name: 'portfolios', component: Pages.PortfoliosPage},
     {path: '/portfolios/:id', name: 'portfolio', component: Pages.PortfolioPage},
-  ]
+  ],
 })
+
+
+router.beforeEach((to, from, next) => {
+  let currentUser = store.state.user.currentUser
+  if(from.name == "currencies"){
+    store.state.user.transition = "slide-left"
+  } 
+  if(from.name == "profile"){
+    store.state.user.transition = "slide-right"
+  }
+
+  next()
+})
+
+
+export default router

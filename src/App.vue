@@ -13,7 +13,7 @@ div#app
     right-nav-desktop
 
   div.router-view-container
-    transition(name="slide" mode='out-in')      
+    transition(:name="transitionType" mode='out-in')      
       router-view
 
   div.bottom-nav-container
@@ -30,8 +30,8 @@ import LeftNav from "@/components/LeftNav"
 import RightNavMobile from "@/components/RightNavMobile"
 import RightNavDesktop from "@/components/RightNavDesktop"
 import CreatePortfolioModal from "@/components/CreatePortfolioModal"
-import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
+import { mapState } from 'vuex'
+
   
 export default {
   components: {
@@ -43,6 +43,11 @@ export default {
     CreatePortfolioModal,
   },
   name: 'app',
+  computed: {
+    ...mapState({
+      "transitionType": state => state.user.transition
+    })
+  },
   created(){
     console.log("Welcome to the Construct")
   },

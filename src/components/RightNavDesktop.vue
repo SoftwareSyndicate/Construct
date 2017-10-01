@@ -4,7 +4,7 @@ div#right-nav-desktop
     // img.icon(:src="'https://files.coinmarketcap.com/static/img/coins/64x64/' + currency.id + '.png'" alt="coin" v-if="brand != 'Construct'")            
     span.brand {{brand}}
   div.content-container  
-    transition(name="slide-right" mode='out-in')          
+    transition(name="slide-down" mode='out-in')          
       currency-filter(v-if="$route.name == 'currencies'")
       graph-builder(v-if="$route.name == 'currency'")
     
