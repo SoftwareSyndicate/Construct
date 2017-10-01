@@ -22,7 +22,11 @@ export default {
           link: "currencies"
         },
         // {
-        //   icon: "insert_chart",
+        //   icon: "description",
+        //   link: "news"
+        // },
+        // {
+        //   icon: "pie_chart",
         //   link: "portfolios"
         // },
         {

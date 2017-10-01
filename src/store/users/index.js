@@ -3,6 +3,7 @@ const state = {
   first_name: "Tyler",
   last_name: "Durden",
   base_fiat: "USD",
+  email: "",
   transition: null,
 }
 
@@ -20,12 +21,16 @@ var mutations = {
   ["UPDATE_LAST_NAME"] (state, last_name) {
     state.last_name = last_name
   },
+  ["UPDATE_EMAIL"] (state, email) {
+    state.email = email
+  },
   ["UPDATE_BASE_FIAT"] (state, base_fiat) {
     state.base_fiat = base_fiat
   },
   ["LOAD_USER"] (state, oldState) {
     state.first_name = oldState.first_name
     state.last_name = oldState.last_name
+    state.email = oldState.email
     state.base_fiat = oldState.base_fiat
   },
 }

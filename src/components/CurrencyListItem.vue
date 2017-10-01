@@ -66,7 +66,7 @@ export default {
         let exchanged = value * this.fiat_exchange_rates[this.base_fiat]
         return exchanged.toLocaleString(undefined, { style: 'currency', currency: this.base_fiat })
       } else {
-        return parseFloat(value).toLocaleString(undefined, { style: 'currency', currency: this.base_fiat })        
+        return "$" + value.toLocaleString()
       }
     }
   },

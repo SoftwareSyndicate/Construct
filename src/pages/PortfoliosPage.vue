@@ -14,8 +14,7 @@ import TimeSeries from '@/components/graphs/TimeSeries'
 import LineGraph from '@/components/graphs/Line'
 import Doughnut from '@/components/graphs/Doughnut'
 
-import { mapGetters } from 'vuex'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'PortfoliosPage',
@@ -34,12 +33,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'fetch_currency_history',
-      'set_brand',
-    ]),
-  },
+    ...mapMutations({
+      setBrand: 'SET_BRAND'
+    })
 
+  },
   computed: {
     ...mapGetters([
       'portfolios',
@@ -49,7 +47,7 @@ export default {
     ])
   },
   mounted(){
-    this.set_brand("Portfolios")
+    this.setBrand("Portfolios")
   },
 }
 </script>

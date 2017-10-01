@@ -126,48 +126,51 @@ input
   &:active
     background rgba(0, 0, 0, .15)
 
+// TRANSITIONS
+$transition-time = .3s
+$transition-slide-length = 500px
 // slide-right
 .slide-right-enter-active 
-  transition: all .3s ease
+  transition: all $transition-time ease
 
 .slide-right-leave-active 
-  transition: all .3s ease
+  transition: all $transition-time ease
 
 .slide-right-enter
   transform translateX(-400px)
   opacity 0
   @media screen and (min-width: 600px)
-    transform translateX(-400px)  
+    transform translateX(-$transition-slide-length)  
 
 .slide-right-leave-to
   transform translateX(400px)
   opacity 0
   @media screen and (min-width: 600px)
-    transform translateX(400px)  
+    transform translateX($transition-slide-length)
 // slide-left
 .slide-left-enter-active 
-  transition: all .3s ease
+  transition: all $transition-time ease
 
 .slide-left-leave-active 
-  transition: all .3s ease
+  transition: all $transition-time  ease
 
 .slide-left-enter 
   transform translateX(400px)    
   opacity 0
   @media screen and (min-width: 600px)
-    transform translateX(400px)  
+    transform translateX($transition-slide-length)
 .slide-left-leave-to  
   transform translateX(-400px)
   opacity 0
   @media screen and (min-width: 600px)  
-    transform translateX(-400px)
+    transform translateX(-$transition-slide-length)
 
 // slide-down
 .slide-down-enter-active 
-  transition: all .3s ease;
+  transition: all .5s ease;
 
 .slide-down-leave-active 
-  transition: all .3s ease;
+  transition: all .5s ease;
 
 .slide-down-enter 
   transform translateY(400px)

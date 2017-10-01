@@ -5,6 +5,7 @@ import CurrencyPage from './CurrencyPage'
 import ProfilePage from './ProfilePage'
 import PortfoliosPage from './PortfoliosPage'
 import PortfolioPage from './PortfolioPage'
+import CoinSheetPage from './CoinSheetPage'
 
 export default {
   ExchangePage,
@@ -13,4 +14,5 @@ export default {
   ProfilePage,
   PortfoliosPage,
   PortfolioPage,
+  CoinSheetPage,
 }
