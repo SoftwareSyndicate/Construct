@@ -3,7 +3,7 @@ const state = {
   first_name: "Tyler",
   last_name: "Durden",
   base_fiat: "USD",
-  email: "",
+  email: "fight@club.com",
   transition: null,
 }
 
