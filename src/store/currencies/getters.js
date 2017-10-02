@@ -22,7 +22,13 @@ export const sorted_currencies = (state, commit, rootState) => {
 
   // Name
   if(state.filters.name.length > 0){
-    sorted = sorted.filter(c => c.id.includes(state.filters.name.toLowerCase()))
+    sorted = sorted.filter(c => {
+      if(c.id.includes(state.filters.name.toLowerCase()) || c.symbol.toLowerCase().includes(state.filters.name.toLowerCase())){
+        return true
+      } else {
+        return false
+      }
+    })
   }
   
   // Price Range
