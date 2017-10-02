@@ -1,9 +1,7 @@
 <template lang="pug">
 div#currency-page
-  div.top
-    div.tab(v-if="currency_page_tab == 'chart'")
-      div.chart-container
-        h2 Currency Charts comming soon!
+  div.chart-container
+    h2 Currency Charts comming soon!
         // multi-graph(:currencies="graphs")
 
         // calendar-graph(:graph_data="currency_history")
@@ -58,16 +56,20 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'currencies',
       'currency',
       'filtered_shapeshift_rates',
       'graphs',
     ])
   },
   created(){
-    // this.$store.dispatch("fetch_all_currencies").then(results => {
-    //   this.setBrand(this.currency.name)
-    //   this.addGraphCurrency(this.currency)
-    // })
+    if(!this.currencies.length){
+      this.$store.dispatch("fetch_all_currencies").then(results => {
+        // this.setBrand(this.currency.name)
+      })
+    } else {
+      this.setBrand(this.currency.name)
+    }
   },
   watch: {
     graphs: {
@@ -127,6 +129,7 @@ export default {
   flex-basis 100%
   height 100%
   overflow hidden
+  padding 1em
 
   .chart-container
     display flex
