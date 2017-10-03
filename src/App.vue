@@ -1,5 +1,6 @@
 <template lang="pug">
 div#app
+  
   div.navbar-container.mobile
     navbar
 
@@ -9,12 +10,12 @@ div#app
   div.right-nav-mobile-container.mobile
     right-nav-mobile
     
-  div.right-nav-desktop-container.desktop
-    right-nav-desktop
-
   div.router-view-container
     transition(:name="transitionType" mode='out-in')      
       router-view
+
+  div.right-nav-desktop-container.desktop
+    right-nav-desktop
 
   div.bottom-nav-container
     bottom-nav
@@ -64,11 +65,6 @@ bottom-nav-height = 60px
 #app
   height 100%
   display flex
-  width 100vw
-  overflow scroll
-  
-  @media screen and (min-width: 600px)
-    flex-direction row-reverse
     
   .navbar-container
     display flex
@@ -80,13 +76,6 @@ bottom-nav-height = 60px
 
     @media screen and (min-width: 600px)  
       height desktop-navbar-height
-
-  .right-nav-desktop-container
-    flex-basis 25%
-    background white
-    border-left 1px solid rgba(0, 0, 0, .1)
-    box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
-    height 100vh
 
   .bottom-nav-container
     position fixed
@@ -109,11 +98,17 @@ bottom-nav-height = 60px
     overflow scroll
     
     @media screen and (min-width: 600px)
-      height "calc(100vh - %s)" % bottom-nav-height      
+
       padding-top 0px
       flex-basis 75%
       overflow scroll
       
+  .right-nav-desktop-container
+    flex-basis 25%
+    background white
+    border-left 1px solid rgba(0, 0, 0, .1)
+    box-shadow 0px 1px 1px 1px rgba(0, 0, 0, .1)
+
     .page
        display flex
        flex-basis 100%

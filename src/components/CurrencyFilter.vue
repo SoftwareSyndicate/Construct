@@ -16,21 +16,21 @@ div#currency-filter
       label
         input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch" ref="reverseSwitch" v-model="filters.reverse")
         span.lever
-  div.row.range
-    span Price
-    div(ref="priceRange")
-  div.row.range.market-cap
-    span Mkt Cap
-    div(ref="marketCapRange")
-  div.row.range
-    span 1hr % Change
-    div(ref="percentChange1hrRange")
-  div.row.range
-    span 24hr % Change
-    div(ref="percentChange24hrRange")
-  div.row.range
-    span 7day % Change
-    div(ref="percentChange7dayRange")
+  // div.row.range
+  //   span Price
+  //   div(ref="priceRange")
+  // div.row.range.market-cap
+  //   span Mkt Cap
+  //   div(ref="marketCapRange")
+  // div.row.range
+  //   span 1hr % Change
+  //   div(ref="percentChange1hrRange")
+  // div.row.range
+  //   span 24hr % Change
+  //   div(ref="percentChange24hrRange")
+  // div.row.range
+  //   span 7day % Change
+  //   div(ref="percentChange7dayRange")
 
   div.row.reset.desktop
     div.button(@click="reset()") Reset

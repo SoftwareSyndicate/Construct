@@ -51,14 +51,7 @@ export default {
   },
 
   mounted(){
-    $('#right-nav-button').sideNav({
-      menuWidth: 300, 
-      edge: 'right', 
-      closeOnClick: true, 
-      draggable: true,
-      onOpen: (el) => { this.openNav() }, 
-      onClose: (el) => { this.closeNav() },
-    })
+    
   }
 }
 </script>
