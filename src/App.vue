@@ -93,12 +93,12 @@ bottom-nav-height = 60px
     
   .router-view-container
     flex-basis 100%
-    height "calc(100vh - %s)" % (mobile-navbar-height)  
+    height 100vh
     padding-top mobile-navbar-height
     overflow scroll
-    
+    padding-bottom bottom-nav-height
+         
     @media screen and (min-width: 600px)
-
       padding-top 0px
       flex-basis 75%
       overflow scroll

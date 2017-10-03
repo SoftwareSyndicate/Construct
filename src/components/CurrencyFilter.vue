@@ -156,108 +156,108 @@ export default {
     $(this.$refs.orderBySelect).on('change', this.updateOrderBy)
 
     // Price Range
-    this.price_range = noUiSlider.create(this.$refs.priceRange, {
-      start: [0, 5000],
-      connect: true,
-      // step: 1,
-      orientation: 'horizontal',
-      range: {
-        'min': 0,
-        '30%': [  1, 5 ],
-        '80%': [  500, 500 ],
-        'max': 5000
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
+    // this.price_range = noUiSlider.create(this.$refs.priceRange, {
+    //   start: [0, 5000],
+    //   connect: true,
+    //   // step: 1,
+    //   orientation: 'horizontal',
+    //   range: {
+    //     'min': 0,
+    //     '30%': [  1, 5 ],
+    //     '80%': [  500, 500 ],
+    //     'max': 5000
+    //   },
+    //   pips: {
+		//     mode: 'range',
+		//     density: 3
+	  //   },
+    //   format: wNumb({
+    //     decimals: 0
+    //   })
+    // });
     
-    this.price_range.on('change', this.updatePriceRange)
+    // this.price_range.on('change', this.updatePriceRange)
 
-    // Market Cap Range
-    this.market_cap_range = noUiSlider.create(this.$refs.marketCapRange, {
-      start: [0, 100000000000],
-      connect: true,
-      // step: 1,
-      orientation: 'horizontal',
-      range: {
-        'min': 0,
-        'max': 100000000000
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
+    // // Market Cap Range
+    // this.market_cap_range = noUiSlider.create(this.$refs.marketCapRange, {
+    //   start: [0, 100000000000],
+    //   connect: true,
+    //   // step: 1,
+    //   orientation: 'horizontal',
+    //   range: {
+    //     'min': 0,
+    //     'max': 100000000000
+    //   },
+    //   pips: {
+		//     mode: 'range',
+		//     density: 3
+	  //   },
+    //   format: wNumb({
+    //     decimals: 0
+    //   })
+    // });
     
-    this.market_cap_range.on('change', this.updateMarketCapRange)
+    // this.market_cap_range.on('change', this.updateMarketCapRange)
 
-    // Percent Change 1hr Range
-    this.percent_change_1hr_range = noUiSlider.create(this.$refs.percentChange1hrRange, {
-      start: [-100, 100],
-      connect: true,
-      orientation: 'horizontal',
-      range: {
-        'min': -100,
-        'max': 100
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
+    // // Percent Change 1hr Range
+    // this.percent_change_1hr_range = noUiSlider.create(this.$refs.percentChange1hrRange, {
+    //   start: [-100, 100],
+    //   connect: true,
+    //   orientation: 'horizontal',
+    //   range: {
+    //     'min': -100,
+    //     'max': 100
+    //   },
+    //   pips: {
+		//     mode: 'range',
+		//     density: 3
+	  //   },
+    //   format: wNumb({
+    //     decimals: 0
+    //   })
+    // });
     
-    this.percent_change_1hr_range.on('change', this.updatePercentChange1hrRange)
+    // this.percent_change_1hr_range.on('change', this.updatePercentChange1hrRange)
     
-    // Percent Change 24hr Range
-    this.percent_change_24hr_range = noUiSlider.create(this.$refs.percentChange24hrRange, {
-      start: [-100, 100],
-      connect: true,
-      orientation: 'horizontal',
-      range: {
-        'min': -100,
-        'max': 100
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
+    // // Percent Change 24hr Range
+    // this.percent_change_24hr_range = noUiSlider.create(this.$refs.percentChange24hrRange, {
+    //   start: [-100, 100],
+    //   connect: true,
+    //   orientation: 'horizontal',
+    //   range: {
+    //     'min': -100,
+    //     'max': 100
+    //   },
+    //   pips: {
+		//     mode: 'range',
+		//     density: 3
+	  //   },
+    //   format: wNumb({
+    //     decimals: 0
+    //   })
+    // });
     
-    this.percent_change_24hr_range.on('change', this.updatePercentChange24hrRange)
+    // this.percent_change_24hr_range.on('change', this.updatePercentChange24hrRange)
 
-    // Percent Change 7day Range
-    this.percent_change_7day_range = noUiSlider.create(this.$refs.percentChange7dayRange, {
-      start: [-100, 100],
-      connect: true,
-      orientation: 'horizontal',
-      range: {
-        'min': -100,
-        'max': 100
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
+    // // Percent Change 7day Range
+    // this.percent_change_7day_range = noUiSlider.create(this.$refs.percentChange7dayRange, {
+    //   start: [-100, 100],
+    //   connect: true,
+    //   orientation: 'horizontal',
+    //   range: {
+    //     'min': -100,
+    //     'max': 100
+    //   },
+    //   pips: {
+		//     mode: 'range',
+		//     density: 3
+	  //   },
+    //   format: wNumb({
+    //     decimals: 0
+    //   })
+    // });
     
-    this.percent_change_7day_range.on('change', this.updatePercentChange7dayRange)
+    // this.percent_change_7day_range.on('change', this.updatePercentChange7dayRange)
     
   },
   beforeDestroy(){
