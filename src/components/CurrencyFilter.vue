@@ -1,37 +1,45 @@
 <template lang="pug">
 div#currency-filter
-  div.row
+  div.row.name
     span Name
-    div.input-field
-      input(:value="filters.name" @input="updateSearch")
+    input(:value="filters.name" @input="updateSearch" placeholder="Name or Symbol")
 
-  div.row
+  div.row.order-by
     span Order By
-    div.input-field
-      select#order-by-select(:value="filters.order_by" ref="orderBySelect" v-model="filters.order_by") 
-        option(v-for="type in order_by_types" :value="type.value") {{type.name}}
-  div.row
+    select#order-by-select(:value="filters.order_by" ref="orderBySelect" v-model="filters.order_by") 
+      option(v-for="type in order_by_types" :value="type.value") {{type.name}}
+  div.row.reverse
     span Reverse
     div.switch
       label
         input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch" ref="reverseSwitch" v-model="filters.reverse")
         span.lever
-  // div.row.range
-  //   span Price
-  //   div(ref="priceRange")
-  // div.row.range.market-cap
-  //   span Mkt Cap
-  //   div(ref="marketCapRange")
-  // div.row.range
-  //   span 1hr % Change
-  //   div(ref="percentChange1hrRange")
-  // div.row.range
-  //   span 24hr % Change
-  //   div(ref="percentChange24hrRange")
-  // div.row.range
-  //   span 7day % Change
-  //   div(ref="percentChange7dayRange")
+          
+  div.row.range.price
+    span Price Range
+    input(:value="filters.price_range_min" @input="updatePriceRangeMin" type="number" placeholder="min")
+    input(:value="filters.price_range_max" @input="updatePriceRangeMax" type="number" placeholder="max")
+    
+  div.row.range.market-cap
+    span Mkt Cap
+    input(:value="filters.market_cap_range_min" @input="updateMarketCapRangeMin" type="number" placeholder="min")
+    input(:value="filters.market_cap_range_max" @input="updateMarketCapRangeMax" type="number" placeholder="max")
+    
+  div.row.range
+    span 1hr % Change
+    input(:value="filters.percent_change_1hr_range_min" @input="updatePercentChange1hrMin" type="number" placeholder="min")
+    input(:value="filters.percent_change_1hr_range_max" @input="updatePercentChange1hrMax" type="number" placeholder="min")
+    
+  div.row.range
+    span 24hr % Change
+    input(:value="filters.market_cap_range_min" @input="updatePriceRangeMin" type="number" placeholder="min")
+    input(:value="filters.price_range_max" @input="updatePriceRangeMax" type="number" placeholder="max")
 
+  div.row.range
+    span 7day % Change
+    input(:value="filters.market_cap_range_min" @input="updatePriceRangeMin" type="number" placeholder="min")
+    input(:value="filters.price_range_max" @input="updatePriceRangeMax" type="number" placeholder="max")
+    
   div.row.reset.desktop
     div.button(@click="reset()") Reset
 </template>
@@ -105,31 +113,37 @@ export default {
     updateSearch(e){
       this.updateFilters({name: e.target.value})
     },
-    updatePriceRange(e){
-      let low = this.price_range.get()[0]
-      let high = this.price_range.get()[1]
-      this.updateFilters({price_range: {low: low, high: high}})
+    updatePriceRangeMin(e){
+      this.updateFilters({price_range_min: parseFloat(e.target.value)})
     },
-    updateMarketCapRange(e){
-      let low = this.market_cap_range.get()[0]
-      let high = this.market_cap_range.get()[1]
-      this.updateFilters({market_cap_range: {low: low, high: high}})
+    updatePriceRangeMax(e){
+      this.updateFilters({price_range_max: parseFloat(e.target.value)})
     },
-    updatePercentChange1hrRange(e){
-      let low = this.percent_change_1hr_range.get()[0]
-      let high = this.percent_change_1hr_range.get()[1]
-      this.updateFilters({percent_change_1hr_range: {low: low, high: high}})
+    updateMarketCapRangeMin(e){
+      this.updateFilters({market_cap_range_min: parseFloat(e.target.value)})
     },
-    updatePercentChange24hrRange(e){
-      let low = this.percent_change_24hr_range.get()[0]
-      let high = this.percent_change_24hr_range.get()[1]
-      this.updateFilters({percent_change_24hr_range: {low: low, high: high}})
+    updateMarketCapRangeMax(e){
+      this.updateFilters({market_cap_range_max: parseFloat(e.target.value)})
     },
-    updatePercentChange7dayRange(e){
-      let low = this.percent_change_7day_range.get()[0]
-      let high = this.percent_change_7day_range.get()[1]
-      this.updateFilters({percent_change_7day_range: {low: low, high: high}})
+    updatePercentChange1hrMin(e){
+      this.updateFilters({percent_change_1hr_range_min: parseFloat(e.target.value)})
     },
+    updatePercentChange1hrMax(e){
+      this.updateFilters({percent_change_1hr_range_max: parseFloat(e.target.value)})
+    },
+    updatePercentChange24hrMin(e){
+      this.updateFilters({percent_change_24hr_range_min: parseFloat(e.target.value)})
+    },
+    updatePercentChange24hrMax(e){
+      this.updateFilters({percent_change_24hr_range_max: parseFloat(e.target.value)})
+    },
+    updatePercentChange1dayMin(e){
+      this.updateFilters({percent_change_1day_range_min: parseFloat(e.target.value)})
+    },
+    updatePercentChange1dayMax(e){
+      this.updateFilters({percent_change_1day_range_max: parseFloat(e.target.value)})
+    },
+    
     initFilters(){
       this.$nextTick(()=>{
         $(this.$refs.orderBySelect).material_select()
@@ -273,6 +287,7 @@ export default {
 #currency-filter
   height 100%
   position relative
+  padding 0 1.2em
   .header
     display flex
     align-items center
@@ -288,41 +303,46 @@ export default {
     span
       line-height 1
   .row
-    padding 0 2em
     justify-content space-between
-    height 40px
-    margin-bottom .5em
+    margin-bottom 1.5em
 
     span
       font-size 1.2em
-      flex-basis 50%
-    &.range
-      margin-bottom 2.5em
-      flex-wrap wrap
+      flex-basis 30%
+      flex-grow 1
 
-      .noUi-target
+    &.order-by
+      .select-wrapper
+        display flex
+        flex-grow 1
+        align-items center
+
+        .caret
+          font-size 12px
+          margin-right 10px
+    &.range
+      margin-bottom 1.5em
+      flex-wrap wrap
+        
+      span
         flex-basis 100%
-      @media screen and (min-width: 600px)  
-        flex-wrap no-wrap
-        margin-bottom 3.5em
+        margin-bottom .5em
+      input
+        flex-basis 40%
+        flex-grow 0
+        min-width 0px
+
+        &:last-child
+          margin-left auto !important
+        
     ul
       li
         span
           color $purple !important
           
-    .noUi-target
-      width 50% !important
-    .noUi-value
-      top 20px
-    .noUi-pips
-      height 0px
-
-  .market-cap
-    .noUi-value
-      left 80% !important
-      
   .input-field
     flex-grow 1
+    margin 0px
     input
       font-size 1.2em
 

@@ -63,6 +63,7 @@ export default {
   position relative
   display flex
   flex-wrap wrap
+  overflow hidden
   .header
     display flex
     align-items center

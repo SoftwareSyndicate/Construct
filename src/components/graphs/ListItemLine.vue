@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     draw(data){
-      
       // format the data
       data.forEach(function(d) {
         d.date = new Date(d.time)
@@ -67,7 +66,7 @@ export default {
     graph_data: {
       handler: function(newVal, oldVal){
         if(this.graph_data.length > 0 && this.x){
-          this.draw(this.graph_data)            
+          this.draw(this.graph_data)
         }
       },
       deep: true,
@@ -77,24 +76,25 @@ export default {
   
   mounted(){
     // Init Dom
-    this.el = this.$refs.chart_container
-    this.margin = {top: 0, right: 0, bottom: 0, left: 0}
-    this.width = this.el.clientWidth
-    this.height = this.el.clientHeight
+    this.$nextTick(()=> {
+      this.el = this.$refs.chart_container
+      this.margin = {top: 0, right: 0, bottom: 0, left: 0}
+      this.width = this.el.clientWidth
+      this.height = this.el.clientHeight
 
-    // set the ranges
-    this.x = d3.scaleTime().range([0, this.width]);
-    this.y = d3.scaleLinear().range([this.height, 0]);
-    
-    this.svg = d3.select(this.$refs.graph)
-      .append("g")
-      .attr("transform",
-            "translate(" + this.margin.left + "," + this.margin.top + ")");
+      // set the ranges
+      this.x = d3.scaleTime().range([0, this.width]);
+      this.y = d3.scaleLinear().range([this.height, 0]);
+      
+      this.svg = d3.select(this.$refs.graph)
+        .append("g")
+        .attr("transform",
+              "translate(" + this.margin.left + "," + this.margin.top + ")");
 
-    if(this.graph_data.length > 0){
-      this.draw(this.graph_data)            
-    }
-
+      if(this.graph_data.length > 0){
+        this.draw(this.graph_data)            
+      }
+    })
   }
 }
   </script>
@@ -114,7 +114,10 @@ export default {
     align-items center
     height 100%
   svg
-    height 100% !important       
+    height 100% !important
+    g
+      width 100% !important
+      height 100% !important
   .line 
     fill none
     stroke darken($purple, 15%)

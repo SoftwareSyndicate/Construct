@@ -89,6 +89,17 @@ export default {
 
   @media screen and (min-width: 600px)  
     height 100px
+
+  &:hover
+    .back
+      transition: all 1s
+      z-index 4
+      .line
+        transition: all .8s
+        stroke-opacity .7
+      .area
+        transition: all .8s
+        fill-opacity .4
   
   .back
     padding-top .3em

@@ -26,72 +26,53 @@ export const sorted_currencies = (state, commit, rootState) => {
   }
   
   // Price Range
-  if(state.filters.price_range.low){
-    let low = state.filters.price_range.low
-    let high = state.filters.price_range.high
-    sorted = sorted.filter(c => {
-      if(parseFloat(c.price_usd) > low && parseFloat(c.price_usd) < high){
-        return true
-      } else {
-        return false
-      }
-    })
-  }
+  sorted = sorted.filter(c => {
+    if(parseFloat(c.price_usd) > state.filters.price_range_min && parseFloat(c.price_usd) < state.filters.price_range_max){
+      return true
+    } else {
+      return false
+    }
+  })
+
   
   // Market Cap Range
-  if(state.filters.market_cap_range.low){
-    let low = state.filters.market_cap_range.low
-    let high = state.filters.market_cap_range.high
-    sorted = sorted.filter(c => {
-      if(parseFloat(c.market_cap_usd) > low && parseFloat(c.market_cap_usd) < high){
-        return true
-      } else {
-        return false
-      }
-    })
-  }
+  sorted = sorted.filter(c => {
+    if(parseFloat(c.market_cap_usd) > state.filters.market_cap_range_min && parseFloat(c.market_cap_usd) < state.filters.market_cap_range_max){
+      return true
+    } else {
+      return false
+    }
+  })
+
 
   // 1Hr %
-  if(state.filters.percent_change_1hr_range.low){
-    let low = state.filters.percent_change_1hr_range.low
-    let high = state.filters.percent_change_1hr_range.high
+  sorted = sorted.filter(c => {
+    if(parseFloat(c.percent_change_1h) > state.filters.percent_change_1hr_range_min && parseFloat(c.percent_change_1h) < state.filters.percent_change_1hr_range_max){
+      return true
+    } else {
+      return false
+    }
+  })
 
-    sorted = sorted.filter(c => {
-      if(parseFloat(c.percent_change_1h) > low && parseFloat(c.percent_change_1h) < high){
-        return true
-      } else {
-        return false
-      }
-    })
-  }
   
   // 24Hr %
-  if(state.filters.percent_change_24hr_range.low){
-    let low = state.filters.percent_change_24hr_range.low
-    let high = state.filters.percent_change_24hr_range.high
+  sorted = sorted.filter(c => {
+    if(parseFloat(c.percent_change_24h) > state.filters.percent_change_24hr_range_min && parseFloat(c.percent_change_24h) < state.filters.percent_change_24hr_range_max){
+      return true
+    } else {
+      return false
+    }
+  })
 
-    sorted = sorted.filter(c => {
-      if(parseFloat(c.percent_change_24h) > low && parseFloat(c.percent_change_24h) < high){
-        return true
-      } else {
-        return false
-      }
-    })
-  }
   
   // 7 Day %
-  if(state.filters.percent_change_7day_range.low){
-    let low = state.filters.percent_change_7day_range.low
-    let high = state.filters.percent_change_7day_range.high
-
-    sorted = sorted.filter(c => {
-      if(parseFloat(c.percent_change_7d) > low && parseFloat(c.percent_change_7d) < high){
-        return true
-      } else {
-        return false
-      }
-    })
-  }
+  sorted = sorted.filter(c => {
+    if(parseFloat(c.percent_change_7d) > state.filters.percent_change_7day_range_min && parseFloat(c.percent_change_7d) < state.filters.percent_change_7day_range_max){
+      return true
+    } else {
+      return false
+    }
+  })
   
   return sorted
 }
