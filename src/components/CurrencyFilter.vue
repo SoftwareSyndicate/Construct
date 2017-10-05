@@ -27,18 +27,18 @@ div#currency-filter
     
   div.row.range
     span 1hr % Change
-    input(:value="filters.percent_change_1hr_range_min" @input="updatePercentChange1hrMin" type="number" placeholder="min")
-    input(:value="filters.percent_change_1hr_range_max" @input="updatePercentChange1hrMax" type="number" placeholder="min")
+    input(:value="filters.percent_change_1hr_range_min" @input="updatePercentChange1hrMin" type="number" placeholder="min" step="0.1")
+    input(:value="filters.percent_change_1hr_range_max" @input="updatePercentChange1hrMax" type="number" placeholder="min" step="0.1")
     
   div.row.range
     span 24hr % Change
-    input(:value="filters.market_cap_range_min" @input="updatePriceRangeMin" type="number" placeholder="min")
-    input(:value="filters.price_range_max" @input="updatePriceRangeMax" type="number" placeholder="max")
+    input(:value="filters.percent_change_24hr_range_min" @input="updatePercentChange24hrMin" type="number" placeholder="min" step="0.1")
+    input(:value="filters.percent_change_24hr_range_max" @input="updatePercentChange24hrMax" type="number" placeholder="min" step="0.1")
 
   div.row.range
     span 7day % Change
-    input(:value="filters.market_cap_range_min" @input="updatePriceRangeMin" type="number" placeholder="min")
-    input(:value="filters.price_range_max" @input="updatePriceRangeMax" type="number" placeholder="max")
+    input(:value="filters.percent_change_7day_range_min" @input="updatePercentChange7dayMin" type="number" placeholder="min" step="0.1")
+    input(:value="filters.percent_change_7day_range_max" @input="updatePercentChange7dayMax" type="number" placeholder="min" step="0.1")
     
   div.row.reset.desktop
     div.button(@click="reset()") Reset
