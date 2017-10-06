@@ -15,20 +15,48 @@ export default {
   components: {
     CurrencyList,
   },
-  data () {
-    return {
-
+  watch: {
+    auto_update: {
+      handler: function(newData, oldData){
+        if(this.auto_update){
+          this.watchAll()
+        } else {
+          this.unWatchAll()
+        }
+      },
+      deep: true
     }
+
   },
   methods: {
     ...mapMutations({
       setBrand: 'SET_BRAND',
     }),
+    watchAll(){
+      this.$store.dispatch("watch_all_currencies").then(results => {
+        this.currency_watcher = results
+      })
+
+      this.$store.dispatch("watch_currency_histories", this.sorted_currencies).then(results => {
+        this.currency_history_watchers = results
+      })
+    },
+    unWatchAll(){
+      if(this.currency_watcher){
+        window.clearInterval(this.currency_watcher)
+      }
+      if(this.currency_history_watchers){
+        this.currency_history_watchers.forEach(w => {
+          window.clearInterval(w)
+        })
+      }
+    }
   },
   computed: {
     ...mapGetters([
       'sorted_currencies',
       'currencies',
+      'auto_update',
     ])
   },
   created(){
@@ -36,19 +64,13 @@ export default {
     this.$store.dispatch("fetch_fiat_exchange_rates")
     this.$store.dispatch("fetch_all_currencies").then(results => {
       this.$store.dispatch("fetch_currency_histories", this.sorted_currencies)
-      this.$store.dispatch("watch_currency_histories", this.sorted_currencies).then(results => {
-        this.currency_history_watchers = results
-      })
-    })
-    this.$store.dispatch("watch_all_currencies").then(results => {
-      this.currency_watcher = results
+      if(this.auto_update){
+        this.watchAll()
+      }
     })
   },
   beforeDestroy(){
-    window.clearInterval(this.currency_watcher)
-    this.currency_history_watchers.forEach(w => {
-      window.clearInterval(w)
-    })
+    this.unWatchAll()
   }
 }
 </script>

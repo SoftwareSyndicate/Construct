@@ -69,7 +69,7 @@ export default {
     align-items center
     justify-content center
     font-family 'Cinzel', serif
-    font-size 42px
+    font-size 48px
     height 100px
     margin-bottom 20px
     border-bottom 1px solid rgba(0, 0, 0, .1)

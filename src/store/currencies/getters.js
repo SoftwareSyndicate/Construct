@@ -1,6 +1,7 @@
 // Orders
 export const currencies = (state) => state.currencies
 export const currency_history = (state) => state.currency_history
+export const auto_update = (state) => state.filters.auto_update
 
 export const sorted_currencies = (state, commit, rootState) => {
   // Order By

@@ -15,6 +15,7 @@ const state = {
     time_interval_name: "1h",
     order_by: "market_cap_usd",
     reverse: false,
+    auto_update: true,
     name: "",
     price_range_min: 0,
     price_range_max: 10000,

@@ -76,6 +76,7 @@ export default {
 #right-nav-mobile
   height 100%
   padding-bottom 0px
+  z-index 9999
   .currency-filter-container
     height 100%
     align-items center
