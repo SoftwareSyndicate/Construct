@@ -28,9 +28,9 @@ window.moment = moment
 Vue.config.productionTip = false
 
 // Move to Service Worker?
-store.dispatch("load_user")
+store.dispatch("users/load_user")
 window.onbeforeunload = function(event) {
-  store.dispatch("save_user")
+  store.dispatch("users/save_user")
 };
 
 new Vue({

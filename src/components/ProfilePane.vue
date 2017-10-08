@@ -21,10 +21,10 @@ export default {
   computed: {
     ...mapState({
       "fiat_exchange_rates": state => state.currencies.fiat_exchange_rates,
-      "base_fiat": state => state.user.base_fiat,
-      "first_name": state => state.user.first_name,
-      "last_name": state => state.user.last_name,
-      "email": state => state.user.email,
+      "base_fiat": state => state.users.base_fiat,
+      "first_name": state => state.users.first_name,
+      "last_name": state => state.users.last_name,
+      "email": state => state.users.email,
     })
   },
 }

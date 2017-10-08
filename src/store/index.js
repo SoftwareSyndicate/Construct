@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import user from './users'
+import users from './users'
 import portfolios from './portfolios'
 import currencies from './currencies'
 import graphs from './graphs'
@@ -13,7 +13,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    user: user,
+    users: users,
     portfolios: portfolios,
     currencies: currencies,
     graphs: graphs,

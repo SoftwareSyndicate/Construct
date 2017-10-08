@@ -1,5 +1,5 @@
 <template lang="pug">
-router-link(:to="{name: 'currency', params: {id: currency.id, name: currency.symbol}}" tag="div")
+router-link(:to="{name: 'currency', params: {name: currency.name, symbol: currency.symbol}}" tag="div")
   div.currency-list-item(:class="{'updating': updating}")
     div.back
       div.line-container
@@ -55,7 +55,7 @@ export default {
   computed: {
     ...mapState({
       "fiat_exchange_rates": state => state.currencies.fiat_exchange_rates,
-      "base_fiat": state => state.user.base_fiat,
+      "base_fiat": state => state.users.base_fiat,
     })
   },
   methods: {

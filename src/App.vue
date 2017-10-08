@@ -46,7 +46,7 @@ export default {
   name: 'app',
   computed: {
     ...mapState({
-      "transitionType": state => state.user.transition
+      "transitionType": state => state.users.transition
     })
   },
   created(){

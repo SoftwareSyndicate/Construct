@@ -79,9 +79,9 @@ export const sorted_currencies = (state, commit, rootState) => {
 }
 
 export const currency = (state, commit, rootState) => {
-  let id = rootState.route.params.id
-  if(id && state.currencies.length > 0){
-    return state.currencies.filter(c => c.id == id)[0]
+  let symbol = rootState.route.params.symbol
+  if(symbol && state.currencies.length > 0){
+    return state.currencies.filter(c => c.symbol == symbol)[0]
   } else {
     return {}
   }
