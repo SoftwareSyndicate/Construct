@@ -10,31 +10,20 @@ const TOGGLE_GRAPH_LINE = 'TOGGLE_GRAPH_LINE'
 // State
 const state = {
   graphs: [],
+  chart_config: {
+    line_types: []
+  },
   line_types: [
-    {
-      name: "Close",
-      active: true,
-      color: null,
-      axis: null
-    },
-    {
-      name: "Candlestick",
-      active: false,
-      color: null,
-      axis: null
-    },
-    {
-      name: "Williams",
-      active: true,
-      color: null,
-      axis: null
-    },
+    "Close",
+    "Candlestick",
+    "Williams",
   ]
 }
 
 // Getters
 var getters = {
   graphs: state =>  state.graphs,
+  chart_config: state =>  state.chart_config,
   line_types: state =>  state.line_types,
 }
 

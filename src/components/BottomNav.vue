@@ -25,10 +25,10 @@ export default {
         //   icon: "description",
         //   link: "news"
         // },
-        {
-          icon: "pie_chart",
-          link: "portfolios"
-        },
+        // {
+        //   icon: "pie_chart",
+        //   link: "portfolios"
+        // },
         {
           icon: "person",
           link: "profile"

@@ -50,6 +50,26 @@ export default {
           .data([data])
           .attr("class", "area")
           .attr("d", this.area);
+        
+        // this.overlay = this.svg.append("rect")
+        //   .attr("class", "overlay")
+        //   .attr("id", "graph-overlay")
+        //   .attr("width", this.width)
+        //   .attr("height", this.height)
+        //   .on("mouseover", () => {
+        //     this.clicksFocus.style("display", null)
+        //     this.tooltip.style("opacity", 1)
+        //     this.conversionsFocus.style("display", null)
+        //     this.hovering = true
+        //   })
+        //   .on("mouseout", () => {
+        //     this.clicksFocus.style("display", "none")
+        //     this.conversionsFocus.style("display", "none")
+        //     this.tooltip.style("opacity", 0)
+        //     this.hovering = false
+        //   })
+        //   .on("mousemove", this.onMouseMove.bind(this))
+        
       } else {
         this.svg = d3.select(this.$refs.graph).transition()
         this.svg.select(".line") 
@@ -59,6 +79,25 @@ export default {
           .duration(500)
           .attr("d", this.area(data));
       }
+    },
+    onMouseMove(){
+      let el = document.getElementById('graph-overlay')
+      var bisectDate = d3.bisector((d) => { return d.date; }).left
+      var x0 = this.x0.invert(d3.mouse(el)[0]),
+          i = bisectDate(this.chartData, x0, 1),
+          d0 = this.chartData[i - 1],
+          d1 = this.chartData[i],
+          d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+
+      this.clicks = d.clicks.toLocaleString()
+      this.conversions = d.conversions.toLocaleString()
+      this.date = d.date.toLocaleString()
+      this.clicksFocus.attr("transform", "translate(" + this.x0(d.date) + "," + this.y0(d.clicks) + ")");
+      this.conversionsFocus.attr("transform", "translate(" + this.x0(d.date) + "," + this.y1(d.conversions) + ")");
+
+      this.$refs.tooltip.style.left = this.x0(d.date) + 70 + "px"
+      this.$refs.tooltip.style.top = d3.mouse(el)[1] + "px"
+      
     },
   },
   
