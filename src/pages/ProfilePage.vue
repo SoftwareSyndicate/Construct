@@ -105,8 +105,11 @@ export default {
         flex-basis 30%
 
       .select-wrapper
+        display flex
         flex-basis 70%
 
+        .caret
+          margin-right 1em
         ul
           max-height 200px
 

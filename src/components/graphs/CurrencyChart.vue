@@ -37,6 +37,7 @@ export default {
       series: {
 
       },
+      d: null
     }
   },
   watch: {
@@ -92,12 +93,6 @@ export default {
       // this.scales['y']['right'] = d3.scaleLinear().rangeRound([this.height, 0])
     },
     draw(data){
-
-      // Format Data
-      // Set scales domains to min and max of data set
-      // this.scales['x']['bottom'].domain(d3.extent(data, (d) => { return d.date }))
-      // this.scales['y']['left'].domain(d3.extent(data, (d) => { return d.close }))
-
 	    this.bisectDate = d3.bisector((d) => { return d.date }).left
 	    this.formatValue = d3.format(",.2f")
       this.formatCurrency = (d) =>  { return "$" + this.formatValue(d) }
@@ -195,7 +190,7 @@ export default {
 		    .attr("class", "line")
 		    .attr("d", this.series.close);
 		  
-	    this.svg.append("rect")
+	    this.rect = this.svg.append("rect")
 		    .attr("id","rect")
 		    .attr("width", this.width)
 		    .attr("height", this.height)
@@ -224,8 +219,6 @@ export default {
 		  var d0 = this.formatedData[i - 1]
 		  var d1 = this.formatedData[i]
 
-      // TODO DEBUG THIS
-
       if(!d1){
         return d0
       }
@@ -234,33 +227,27 @@ export default {
 	  },
 	  
 	  mousemove() {
-		  var transform = d3.zoomTransform(this);
-		  let xt = transform.rescaleX(this.scales.x.bottom)
-      let yt = transform.rescaleY(this.scales.y.left)
+		  var t = d3.zoomTransform(this);
+		  let xt = t.rescaleX(this.scales.x.bottom)
+      let yt = t.rescaleY(this.scales.y.left)
 
-		  var d = this.mouseDate(xt)
-      
+		  let d = this.mouseDate(xt)
 		  this.focus.select("circle.y")
-			  .attr('cx', () => {
-					return transform.applyX(this.scales.x.bottom(d.date));
-				})
-			  .attr('cy', () => {
-					return transform.applyY(this.scales.y.left(d.close));
-				})
+			  .attr('cx', () => { return t.applyX(this.scales.x.bottom(d.date))})
+			  .attr('cy', () => {	return t.applyY(this.scales.y.left(d.close))})
       
 		  this.focus.select("text")
 			  .text(this.formatCurrency(d.close))
-			  .attr('x', () => {
-					return transform.applyX(this.scales.x.bottom(d.date))+10;
-			  })
-			  .attr('y', () => {
-					return transform.applyY(this.scales.y.left(d.close));
-			  })
+			  .attr('x', () => { return t.applyX(this.scales.x.bottom(d.date)) + 10 })
+			  .attr('y', () => { return t.applyY(this.scales.y.left(d.close))})
 	  },
 
 	  zoomed() {
+      // Rescale Axes
 	    this.axes_elements.x.bottom.call(this.axes.x.bottom.scale(d3.event.transform.rescaleX(this.scales.x.bottom)));
 	    this.axes_elements.y.left.call(this.axes.y.left.scale(d3.event.transform.rescaleY(this.scales.y.left)));
+
+      // Rescale Series
 	    let t = d3.event.transform
       let xt = t.rescaleX(this.scales.x.bottom)
       let yt = t.rescaleY(this.scales.y.left)
@@ -270,16 +257,16 @@ export default {
               .x((d) => { return xt(d.date)})
 							.y((d) => { return yt(d.close)}))
 
-		  var d = this.mouseDate(this.scales.x.bottom)
+      let d = this.mouseDate(xt)
 		  this.focus.select("circle.y")
 			  .classed("zoomed", true)
 			  .attr("id","one")
-			  .attr('cx', () => {return t.applyX(this.scales.x.bottom(d.date)) })
-			  .attr('cy', () => {return t.applyY(this.scales.y.left(d.close)) })
+			  .attr('cx', () => {return t.applyX(this.scales.x.bottom(d.date))})
+			  .attr('cy', () => {return t.applyY(this.scales.y.left(d.close))})
 		  this.focus.select("text")
 			  .text(this.formatCurrency(d.close))
-			  .attr('x', () => { return t.applyX(this.scales.x.bottom(d.date))+10})
-			  .attr('y', () => { return t.applyY(this.scales.y.left(d.close)) })
+			  .attr('x', () => { return t.applyX(this.scales.x.bottom(d.date)) + 10 })
+			  .attr('y', () => { return t.applyY(this.scales.y.left(d.close))})
 	  },
 	  
 	  resetted() {

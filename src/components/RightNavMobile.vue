@@ -87,13 +87,14 @@ export default {
       display flex
       align-items center
       flex-basis 100%
-      background $blue
+      background lighten($purple, 15%)
       padding 1em
       margin-bottom 10px
       height 60px
       h3 
         color white
         font-size 2em
+        font-weight 400
       i
        margin-left auto
        color white

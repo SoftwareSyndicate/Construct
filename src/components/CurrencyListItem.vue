@@ -6,20 +6,27 @@ router-link(:to="{name: 'currency', params: {name: currency.name, symbol: curren
         list-item-line(:graph_data="currency.history")
     div.front
       div.left
+        span.rank.desktop {{currency.rank}}
         img.icon.mobile(:src="'https://files.coinmarketcap.com/static/img/coins/64x64/' + currency.id + '.png'")
         img.icon.desktop(:src="'https://files.coinmarketcap.com/static/img/coins/128x128/' + currency.id + '.png'")        
-        p.name {{currency.name}}
+        span.name {{currency.name}}
 
       div.center.desktop
-        p.price(:class="") {{exchange(currency.price_usd)}}
-        
+        .info
+          span.price(:class="") {{exchange(currency.price_usd)}}
+          span.label PRICE
+        .info
+          span.volume(:class="") {{exchange(parseFloat(currency['market_cap_usd']))}}
+          span.label VOLUME
+        .info
+          span.volume-24hr(:class="") {{exchange(parseFloat(currency['24h_volume_usd']))}}
+          span.label 24HR VOLUME
       div.right.mobile
         p.price(:class="") {{exchange(currency.price_usd)}}
         p.percent-change(:class="{'up': currency.percent_change_24h > 0, 'down': currency.percent_change_24h < 0}") {{currency.percent_change_24h}}%
 
       div.right.desktop
-        // p.volume(:class="") ${{parseFloat(currency['24h_volume_usd']).toLocaleString()}}
-        p.volume(:class="") {{exchange(parseFloat(currency['market_cap_usd']))}}
+        // p.volume(:class="") {{exchange(parseFloat(currency['market_cap_usd']))}}
 
         div.percent-changes
           div.change
@@ -60,7 +67,7 @@ export default {
   },
   methods: {
     exchange(value){
-      if (!value || !this.base_fiat || !this.fiat_exchange_rates) return value
+      if (!value || !this.base_fiat || !this.fiat_exchange_rates) return "$" + value.toLocaleString()
       if(this.base_fiat != "USD"){
         let exchanged = value * this.fiat_exchange_rates[this.base_fiat]
         return exchanged.toLocaleString(undefined, { style: 'currency', currency: this.base_fiat })
@@ -128,7 +135,15 @@ export default {
     display flex
     align-items center
     flex-basis 50%
-
+    
+    @media screen and (min-width: 600px)  
+      flex-basis 35%
+      
+    .rank
+      font-size 2.5em
+      font-weigth 400
+      margin-right .6em
+      
     .icon
       font-size 30px
       margin-right .6em
@@ -143,13 +158,40 @@ export default {
 
     .name
       font-size 1.5em
+      font-weigth 400
       
       @media screen and (min-width: 600px)  
         font-size 2em
 
   .center
+    display flex
+    flex-grow 1
+    justify-content space-between
+    margin-right 3em
+    .info
+      display flex
+      align-items center
+      flex-wrap wrap
+      text-align center
+      position relative
+      span
+        flex-basis 100%
+
+        &:last-child
+          margin-top 1em
+
+    .label
+      font-size .8em
+      position absolute
+      bottom -20px
+      width 100%
     .price
-      font-size 1.4rem
+      font-size 1.6rem
+    .volume
+      font-size 1.3rem
+    .volume-24hr
+      font-size 1.3rem
+
       
   .right
     margin-left auto
