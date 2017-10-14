@@ -127,6 +127,11 @@ input
   &:active
     background rgba(0, 0, 0, .15)
 
+ .switch label input[type=checkbox]:checked + .lever
+  background-color lighten($purple, 35%) !important
+  &:after
+    background-color $purple !important
+
 // TRANSITIONS
 $transition-time = .3s
 $transition-slide-length = 500px

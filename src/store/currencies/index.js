@@ -3,7 +3,7 @@ import * as actions from './actions'
 import mutations from './mutations'
 
 const state = {
-  limit: CONFIG.limit,
+  limit: 100, //CONFIG.limit,
   rate: 1000 * 30,
   currencies: [],
   sorted_currencies: [],

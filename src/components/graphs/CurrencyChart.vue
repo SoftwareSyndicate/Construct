@@ -76,8 +76,6 @@ export default {
 	      .attr("id","group")
         .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
-      // Scales
-      // this.generateScales()
       
       // Close Line  -> TODO Dynamically Generate
       // this.closeLine = d3.line()
@@ -87,9 +85,9 @@ export default {
     },
     generateScales(){
       // TODO - Dynamically Generate 
-      this.scales['x']['bottom'] = d3.scaleTime().range([0, this.width])
+      this.scales.x.bottom = d3.scaleTime().range([0, this.width])
       // this.scales['x']['top'] = d3.scaleTime().rangeRound([0, this.width])
-      this.scales['y']['left'] = d3.scaleLinear().range([this.height, 0])
+      this.scales.y.left = d3.scaleLinear().range([this.height, 0])
       // this.scales['y']['right'] = d3.scaleLinear().rangeRound([this.height, 0])
     },
     draw(data){
@@ -99,8 +97,7 @@ export default {
 
 
       // Init Scales
-      this.scales.x.bottom = d3.scaleTime().range([0, this.width])
-      this.scales.y.left = d3.scaleLinear().range([this.height, 0])
+      this.generateScales()
 
       this.series.close = d3.line()
 	        .defined((d) => { return d.price != 0 })

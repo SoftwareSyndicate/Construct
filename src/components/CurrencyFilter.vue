@@ -158,11 +158,6 @@ export default {
     initFilters(){
       this.$nextTick(()=>{
         $(this.$refs.orderBySelect).material_select()
-        this.price_range.reset()
-        this.market_cap_range.reset()
-        this.percent_change_1hr_range.reset()
-        this.percent_change_24hr_range.reset()
-        this.percent_change_7day_range.reset()      
       })
     },
     reset(){

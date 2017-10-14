@@ -7,8 +7,8 @@ router-link(:to="{name: 'currency', params: {name: currency.name, symbol: curren
     div.front
       div.left
         span.rank.desktop {{currency.rank}}
-        img.icon.mobile(:src="'https://files.coinmarketcap.com/static/img/coins/64x64/' + currency.id + '.png'")
-        img.icon.desktop(:src="'https://files.coinmarketcap.com/static/img/coins/128x128/' + currency.id + '.png'")        
+        // img.icon.mobile(:src="'https://files.coinmarketcap.com/static/img/coins/64x64/' + currency.id + '.png'")
+        img.icon(:src="'https://files.coinmarketcap.com/static/img/coins/128x128/' + currency.id + '.png'")        
         span.name {{currency.name}}
 
       div.center.desktop
@@ -141,24 +141,22 @@ export default {
       
     .rank
       font-size 2.5em
-      font-weigth 400
       margin-right .6em
       
     .icon
       font-size 30px
       margin-right .6em
       min-width 30px
-
-      &.mobile
-        height 32px
-        width 32px
-      &.desktop
+      height 32px
+      width 32px
+      
+      @media screen and (min-width: 600px)  
         height 64px
         width 64px
 
     .name
       font-size 1.5em
-      font-weigth 400
+      line-height 1em
       
       @media screen and (min-width: 600px)  
         font-size 2em
@@ -169,6 +167,7 @@ export default {
     justify-content space-between
     margin-right 3em
     .info
+      flex-basis 33%
       display flex
       align-items center
       flex-wrap wrap

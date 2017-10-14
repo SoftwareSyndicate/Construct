@@ -13,6 +13,7 @@
     "chart.js": "^2.6.0",
     "cryptocoins-icons": "^2.5.0",
     "d3": "^4.10.0",
+    "lozad": "^1.0.8",
     "materialize-css": "^0.100.2",
     "moment": "^2.18.1",
     "nouislider": "^10.1.0",
