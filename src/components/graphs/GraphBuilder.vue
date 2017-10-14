@@ -1,10 +1,11 @@
 <template lang="pug">
 div#graph-builder
-        div.lines
-          div.line(v-for="line in lineTypes")
-            p
-              input(type="checkbox" :id="line" :checked="line.active")
-              label(:for="line" @click="toggleGraphLine(line)") {{line}}
+  h3 Graph Builder comming soon!
+  // div.lines
+  //   div.line(v-for="line in lineTypes")
+  //     p
+  //       input(type="checkbox" :id="line" :checked="line.active")
+  //       label(:for="line" @click="toggleGraphLine(line)") {{line}}
       
 </template>
 
