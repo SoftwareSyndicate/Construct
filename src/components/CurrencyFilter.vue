@@ -205,8 +205,10 @@ export default {
       line-height 1
   .row
     justify-content space-between
-    margin-bottom 1.5em
-
+    margin-bottom 1em
+    @media screen and (min-width: 600px)
+      margin-bottom 1.5em
+      
     span
       font-size 1.2em
       flex-basis 30%

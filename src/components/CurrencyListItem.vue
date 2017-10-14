@@ -137,7 +137,7 @@ export default {
     flex-basis 50%
     
     @media screen and (min-width: 600px)  
-      flex-basis 35%
+      flex-basis 30%
       
     .rank
       font-size 2.5em
@@ -167,7 +167,7 @@ export default {
     justify-content space-between
     margin-right 3em
     .info
-      flex-basis 33%
+      flex-grow 1
       display flex
       align-items center
       flex-wrap wrap
