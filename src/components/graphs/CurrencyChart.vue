@@ -99,11 +99,8 @@ export default {
 
 
       // Init Scales
-      this.scales.x.bottom = d3.scaleTime()
-		      .range([0, this.width])
-
-      this.scales.y.left = d3.scaleLinear()
-		      .range([this.height, 0])
+      this.scales.x.bottom = d3.scaleTime().range([0, this.width])
+      this.scales.y.left = d3.scaleLinear().range([this.height, 0])
 
       this.series.close = d3.line()
 	        .defined((d) => { return d.price != 0 })
@@ -227,7 +224,7 @@ export default {
 	  },
 	  
 	  mousemove() {
-		  var t = d3.zoomTransform(this);
+		  var t = d3.zoomTransform(this)
 		  let xt = t.rescaleX(this.scales.x.bottom)
       let yt = t.rescaleY(this.scales.y.left)
 
