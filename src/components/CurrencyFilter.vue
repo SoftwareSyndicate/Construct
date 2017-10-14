@@ -1,37 +1,57 @@
 <template lang="pug">
 div#currency-filter
-  div.row
+  div.row.name
     span Name
-    div.input-field
-      input(:value="filters.name" @input="updateSearch")
+    input(:value="filters.name" @input="updateSearch" placeholder="Name or Symbol")
 
-  div.row
+  div.row.order-by
     span Order By
-    div.input-field
-      select#order-by-select(:value="filters.order_by" ref="orderBySelect" v-model="filters.order_by") 
-        option(v-for="type in order_by_types" :value="type.value") {{type.name}}
-  div.row
+    select#order-by-select(:value="filters.order_by" ref="orderBySelect" v-model="filters.order_by") 
+      option(v-for="type in order_by_types" :value="type.value") {{type.name}}
+
+  div.row.auto-update
+    span Auto-Update
+    div.switch
+      label
+        input(type="checkbox" @change="updateAutoUpdate" :value="filters.auto_update" id="auto-update-switch" ref="autoUpdateSwitch" v-model="filters.auto_update")
+        span.lever
+          
+  div.row.reverse
     span Reverse
     div.switch
       label
         input(type="checkbox" @change="updateReverse" :value="filters.reverse" id="reverse-switch" ref="reverseSwitch" v-model="filters.reverse")
         span.lever
-  div.row.range
-    span Price
-    div(ref="priceRange")
+  div.row.range.price
+    span Price Range
+    input(:value="filters.price_range_min" @input="updatePriceRangeMin" type="number" placeholder="min")
+    i.material-icons settings_ethernet
+    input(:value="filters.price_range_max" @input="updatePriceRangeMax" type="number" placeholder="max")
+    
   div.row.range.market-cap
     span Mkt Cap
-    div(ref="marketCapRange")
+    input(:value="filters.market_cap_range_min" @input="updateMarketCapRangeMin" type="number" placeholder="min")
+    i.material-icons settings_ethernet    
+    input(:value="filters.market_cap_range_max" @input="updateMarketCapRangeMax" type="number" placeholder="max")
+    
   div.row.range
     span 1hr % Change
-    div(ref="percentChange1hrRange")
+    input(:value="filters.percent_change_1hr_range_min" @input="updatePercentChange1hrMin" type="number" placeholder="min" step="0.1")
+    i.material-icons settings_ethernet
+    input(:value="filters.percent_change_1hr_range_max" @input="updatePercentChange1hrMax" type="number" placeholder="min" step="0.1")
+    
   div.row.range
     span 24hr % Change
-    div(ref="percentChange24hrRange")
+    input(:value="filters.percent_change_24hr_range_min" @input="updatePercentChange24hrMin" type="number" placeholder="min" step="0.1")
+    i.material-icons settings_ethernet
+    input(:value="filters.percent_change_24hr_range_max" @input="updatePercentChange24hrMax" type="number" placeholder="min" step="0.1")
+
   div.row.range
     span 7day % Change
-    div(ref="percentChange7dayRange")
-
+    input(:value="filters.percent_change_7day_range_min" @input="updatePercentChange7dayMin" type="number" placeholder="min" step="0.1")
+    i.material-icons settings_ethernet
+    input(:value="filters.percent_change_7day_range_max" @input="updatePercentChange7dayMax" type="number" placeholder="min" step="0.1")
+    
   div.row.reset.desktop
     div.button(@click="reset()") Reset
 </template>
@@ -93,51 +113,51 @@ export default {
       resetFilters: "RESET_FILTERS",
     }),
     updateOrderBy(e){
-      setTimeout(()=> {
-        this.updateFilters({order_by: e.currentTarget.value})
-      }, 200)
+      this.updateFilters({order_by: e.currentTarget.value})
     },
     updateReverse(e){
-      setTimeout(()=> {
-        this.updateFilters({reverse: this.$refs.reverseSwitch.checked})
-      }, 300)
+      this.updateFilters({reverse: this.$refs.reverseSwitch.checked})
+    },
+    updateAutoUpdate(e){
+      this.updateFilters({auto_update: this.$refs.autoUpdateSwitch.checked})
     },
     updateSearch(e){
       this.updateFilters({name: e.target.value})
     },
-    updatePriceRange(e){
-      let low = this.price_range.get()[0]
-      let high = this.price_range.get()[1]
-      this.updateFilters({price_range: {low: low, high: high}})
+    updatePriceRangeMin(e){
+      this.updateFilters({price_range_min: parseFloat(e.target.value)})
     },
-    updateMarketCapRange(e){
-      let low = this.market_cap_range.get()[0]
-      let high = this.market_cap_range.get()[1]
-      this.updateFilters({market_cap_range: {low: low, high: high}})
+    updatePriceRangeMax(e){
+      this.updateFilters({price_range_max: parseFloat(e.target.value)})
     },
-    updatePercentChange1hrRange(e){
-      let low = this.percent_change_1hr_range.get()[0]
-      let high = this.percent_change_1hr_range.get()[1]
-      this.updateFilters({percent_change_1hr_range: {low: low, high: high}})
+    updateMarketCapRangeMin(e){
+      this.updateFilters({market_cap_range_min: parseFloat(e.target.value)})
     },
-    updatePercentChange24hrRange(e){
-      let low = this.percent_change_24hr_range.get()[0]
-      let high = this.percent_change_24hr_range.get()[1]
-      this.updateFilters({percent_change_24hr_range: {low: low, high: high}})
+    updateMarketCapRangeMax(e){
+      this.updateFilters({market_cap_range_max: parseFloat(e.target.value)})
     },
-    updatePercentChange7dayRange(e){
-      let low = this.percent_change_7day_range.get()[0]
-      let high = this.percent_change_7day_range.get()[1]
-      this.updateFilters({percent_change_7day_range: {low: low, high: high}})
+    updatePercentChange1hrMin(e){
+      this.updateFilters({percent_change_1hr_range_min: parseFloat(e.target.value)})
     },
+    updatePercentChange1hrMax(e){
+      this.updateFilters({percent_change_1hr_range_max: parseFloat(e.target.value)})
+    },
+    updatePercentChange24hrMin(e){
+      this.updateFilters({percent_change_24hr_range_min: parseFloat(e.target.value)})
+    },
+    updatePercentChange24hrMax(e){
+      this.updateFilters({percent_change_24hr_range_max: parseFloat(e.target.value)})
+    },
+    updatePercentChange7dayMin(e){
+      this.updateFilters({percent_change_7day_range_min: parseFloat(e.target.value)})
+    },
+    updatePercentChange7dayMax(e){
+      this.updateFilters({percent_change_7day_range_max: parseFloat(e.target.value)})
+    },
+    
     initFilters(){
       this.$nextTick(()=>{
         $(this.$refs.orderBySelect).material_select()
-        this.price_range.reset()
-        this.market_cap_range.reset()
-        this.percent_change_1hr_range.reset()
-        this.percent_change_24hr_range.reset()
-        this.percent_change_7day_range.reset()      
       })
     },
     reset(){
@@ -154,111 +174,6 @@ export default {
   mounted(){
     $(this.$refs.orderBySelect).material_select()
     $(this.$refs.orderBySelect).on('change', this.updateOrderBy)
-
-    // Price Range
-    this.price_range = noUiSlider.create(this.$refs.priceRange, {
-      start: [0, 5000],
-      connect: true,
-      // step: 1,
-      orientation: 'horizontal',
-      range: {
-        'min': 0,
-        '30%': [  1, 5 ],
-        '80%': [  500, 500 ],
-        'max': 5000
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
-    
-    this.price_range.on('change', this.updatePriceRange)
-
-    // Market Cap Range
-    this.market_cap_range = noUiSlider.create(this.$refs.marketCapRange, {
-      start: [0, 100000000000],
-      connect: true,
-      // step: 1,
-      orientation: 'horizontal',
-      range: {
-        'min': 0,
-        'max': 100000000000
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
-    
-    this.market_cap_range.on('change', this.updateMarketCapRange)
-
-    // Percent Change 1hr Range
-    this.percent_change_1hr_range = noUiSlider.create(this.$refs.percentChange1hrRange, {
-      start: [-100, 100],
-      connect: true,
-      orientation: 'horizontal',
-      range: {
-        'min': -100,
-        'max': 100
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
-    
-    this.percent_change_1hr_range.on('change', this.updatePercentChange1hrRange)
-    
-    // Percent Change 24hr Range
-    this.percent_change_24hr_range = noUiSlider.create(this.$refs.percentChange24hrRange, {
-      start: [-100, 100],
-      connect: true,
-      orientation: 'horizontal',
-      range: {
-        'min': -100,
-        'max': 100
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
-    
-    this.percent_change_24hr_range.on('change', this.updatePercentChange24hrRange)
-
-    // Percent Change 7day Range
-    this.percent_change_7day_range = noUiSlider.create(this.$refs.percentChange7dayRange, {
-      start: [-100, 100],
-      connect: true,
-      orientation: 'horizontal',
-      range: {
-        'min': -100,
-        'max': 100
-      },
-      pips: {
-		    mode: 'range',
-		    density: 3
-	    },
-      format: wNumb({
-        decimals: 0
-      })
-    });
-    
-    this.percent_change_7day_range.on('change', this.updatePercentChange7dayRange)
-    
   },
   beforeDestroy(){
     $('select').material_select('destroy');
@@ -273,6 +188,7 @@ export default {
 #currency-filter
   height 100%
   position relative
+  padding 0 1.2em
   .header
     display flex
     align-items center
@@ -288,41 +204,46 @@ export default {
     span
       line-height 1
   .row
-    padding 0 2em
     justify-content space-between
-    height 40px
-    margin-bottom .5em
+    margin-bottom 1.5em
 
     span
       font-size 1.2em
-      flex-basis 50%
-    &.range
-      margin-bottom 2.5em
-      flex-wrap wrap
+      flex-basis 30%
+      flex-grow 1
 
-      .noUi-target
+    &.order-by
+      .select-wrapper
+        display flex
+        flex-grow 1
+        align-items center
+
+        .caret
+          font-size 12px
+          margin-right 10px
+    &.range
+      margin-bottom 1.5em
+      flex-wrap wrap
+        
+      span
         flex-basis 100%
-      @media screen and (min-width: 600px)  
-        flex-wrap no-wrap
-        margin-bottom 3.5em
+        margin-bottom .5em
+      input
+        flex-basis 40%
+        flex-grow 0
+        min-width 0px
+
+      i
+        color rgba(0, 0, 0, .3)
+        
     ul
       li
         span
           color $purple !important
           
-    .noUi-target
-      width 50% !important
-    .noUi-value
-      top 20px
-    .noUi-pips
-      height 0px
-
-  .market-cap
-    .noUi-value
-      left 80% !important
-      
   .input-field
     flex-grow 1
+    margin 0px
     input
       font-size 1.2em
 
@@ -330,9 +251,6 @@ export default {
      padding-left .5em !important
 
    .reset
-     width 100%
-     position absolute
-     bottom 0px
      .button
        flex-basis 100%
        

@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     draw(data){
-      
       // format the data
       data.forEach(function(d) {
         d.date = new Date(d.time)
@@ -51,6 +50,26 @@ export default {
           .data([data])
           .attr("class", "area")
           .attr("d", this.area);
+        
+        // this.overlay = this.svg.append("rect")
+        //   .attr("class", "overlay")
+        //   .attr("id", "graph-overlay")
+        //   .attr("width", this.width)
+        //   .attr("height", this.height)
+        //   .on("mouseover", () => {
+        //     this.clicksFocus.style("display", null)
+        //     this.tooltip.style("opacity", 1)
+        //     this.conversionsFocus.style("display", null)
+        //     this.hovering = true
+        //   })
+        //   .on("mouseout", () => {
+        //     this.clicksFocus.style("display", "none")
+        //     this.conversionsFocus.style("display", "none")
+        //     this.tooltip.style("opacity", 0)
+        //     this.hovering = false
+        //   })
+        //   .on("mousemove", this.onMouseMove.bind(this))
+        
       } else {
         this.svg = d3.select(this.$refs.graph).transition()
         this.svg.select(".line") 
@@ -61,13 +80,32 @@ export default {
           .attr("d", this.area(data));
       }
     },
+    onMouseMove(){
+      let el = document.getElementById('graph-overlay')
+      var bisectDate = d3.bisector((d) => { return d.date; }).left
+      var x0 = this.x0.invert(d3.mouse(el)[0]),
+          i = bisectDate(this.chartData, x0, 1),
+          d0 = this.chartData[i - 1],
+          d1 = this.chartData[i],
+          d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+
+      this.clicks = d.clicks.toLocaleString()
+      this.conversions = d.conversions.toLocaleString()
+      this.date = d.date.toLocaleString()
+      this.clicksFocus.attr("transform", "translate(" + this.x0(d.date) + "," + this.y0(d.clicks) + ")");
+      this.conversionsFocus.attr("transform", "translate(" + this.x0(d.date) + "," + this.y1(d.conversions) + ")");
+
+      this.$refs.tooltip.style.left = this.x0(d.date) + 70 + "px"
+      this.$refs.tooltip.style.top = d3.mouse(el)[1] + "px"
+      
+    },
   },
   
   watch: {
     graph_data: {
       handler: function(newVal, oldVal){
         if(this.graph_data.length > 0 && this.x){
-          this.draw(this.graph_data)            
+          this.draw(this.graph_data)
         }
       },
       deep: true,
@@ -77,24 +115,25 @@ export default {
   
   mounted(){
     // Init Dom
-    this.el = this.$refs.chart_container
-    this.margin = {top: 0, right: 0, bottom: 0, left: 0}
-    this.width = this.el.clientWidth
-    this.height = this.el.clientHeight
+    this.$nextTick(()=> {
+      this.el = this.$refs.chart_container
+      this.margin = {top: 0, right: 0, bottom: 0, left: 0}
+      this.width = this.el.clientWidth
+      this.height = this.el.clientHeight
 
-    // set the ranges
-    this.x = d3.scaleTime().range([0, this.width]);
-    this.y = d3.scaleLinear().range([this.height, 0]);
-    
-    this.svg = d3.select(this.$refs.graph)
-      .append("g")
-      .attr("transform",
-            "translate(" + this.margin.left + "," + this.margin.top + ")");
+      // set the ranges
+      this.x = d3.scaleTime().range([0, this.width]);
+      this.y = d3.scaleLinear().range([this.height, 0]);
+      
+      this.svg = d3.select(this.$refs.graph)
+        .append("g")
+        .attr("transform",
+              "translate(" + this.margin.left + "," + this.margin.top + ")");
 
-    if(this.graph_data.length > 0){
-      this.draw(this.graph_data)            
-    }
-
+      if(this.graph_data.length > 0){
+        this.draw(this.graph_data)            
+      }
+    })
   }
 }
   </script>
@@ -114,7 +153,10 @@ export default {
     align-items center
     height 100%
   svg
-    height 100% !important       
+    height 100% !important
+    g
+      width 100% !important
+      height 100% !important
   .line 
     fill none
     stroke darken($purple, 15%)

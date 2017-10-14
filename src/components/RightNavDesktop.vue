@@ -51,14 +51,7 @@ export default {
   },
 
   mounted(){
-    $('#right-nav-button').sideNav({
-      menuWidth: 300, 
-      edge: 'right', 
-      closeOnClick: true, 
-      draggable: true,
-      onOpen: (el) => { this.openNav() }, 
-      onClose: (el) => { this.closeNav() },
-    })
+    
   }
 }
 </script>
@@ -70,12 +63,13 @@ export default {
   position relative
   display flex
   flex-wrap wrap
+  overflow hidden
   .header
     display flex
     align-items center
     justify-content center
     font-family 'Cinzel', serif
-    font-size 42px
+    font-size 48px
     height 100px
     margin-bottom 20px
     border-bottom 1px solid rgba(0, 0, 0, .1)

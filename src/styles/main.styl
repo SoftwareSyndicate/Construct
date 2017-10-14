@@ -99,11 +99,12 @@ input
   display flex
   flex-grow 1
   height 30px !important
-  border 1px solid rgba(0, 0, 0, .1)
+  border 1px solid rgba(0, 0, 0, .1) !important
   font-family 'Roboto', 'Raleway', sans-serif 
   letter-spacing .5px
   border-radius 2px
   margin 0px !important
+  width unset !important
 
   &:focus
     outline none
@@ -125,6 +126,11 @@ input
     background rgba(0, 0, 0, .05)
   &:active
     background rgba(0, 0, 0, .15)
+
+ .switch label input[type=checkbox]:checked + .lever
+  background-color lighten($purple, 35%) !important
+  &:after
+    background-color $purple !important
 
 // TRANSITIONS
 $transition-time = .3s

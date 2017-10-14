@@ -34,10 +34,10 @@ export default {
   methods: {
     ...mapMutations({
       setBrand: 'SET_BRAND',
-      updateBaseFiat: 'UPDATE_BASE_FIAT',
-      updateFirstName: 'UPDATE_FIRST_NAME',
-      updateLastName: 'UPDATE_LAST_NAME',
-      updateEmail: 'UPDATE_EMAIL',
+      updateBaseFiat: 'users/UPDATE_BASE_FIAT',
+      updateFirstName: 'users/UPDATE_FIRST_NAME',
+      updateLastName: 'users/UPDATE_LAST_NAME',
+      updateEmail: 'users/UPDATE_EMAIL',
     }),
     onFirstNameChange(e){
       this.updateFirstName(e.target.value)
@@ -56,10 +56,10 @@ export default {
   computed: {
     ...mapState({
       "fiat_exchange_rates": state => state.currencies.fiat_exchange_rates,
-      "base_fiat": state => state.user.base_fiat,
-      "first_name": state => state.user.first_name,
-      "last_name": state => state.user.last_name,
-      "email": state => state.user.email,
+      "base_fiat": state => state.users.base_fiat,
+      "first_name": state => state.users.first_name,
+      "last_name": state => state.users.last_name,
+      "email": state => state.users.email,
     })
   },
   created(){
@@ -105,7 +105,13 @@ export default {
         flex-basis 30%
 
       .select-wrapper
+        display flex
         flex-basis 70%
+
+        .caret
+          margin-right 1em
+        ul
+          max-height 200px
 
       input
         flex-basis 70%

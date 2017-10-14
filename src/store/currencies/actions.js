@@ -17,7 +17,7 @@ export const watch_all_currencies = ({commit, state}) => {
   })
 }
 
-// CURRENCY HISTORIES
+// Fetch CURRENCY HISTORIES
 export const fetch_currency_histories = ({commit, state}, currencies) => {
   currencies.forEach(currency => {  
     return APIs.CryptoCompare.fetch_currency_history_by_minute(currency.symbol).then(results=> {
@@ -28,6 +28,7 @@ export const fetch_currency_histories = ({commit, state}, currencies) => {
   })
 }
 
+// Watch CURRENCY HISTORIES
 export const watch_currency_histories =  ({commit, state}, currencies) => {
   let watchers = []
   currencies.forEach(currency => {

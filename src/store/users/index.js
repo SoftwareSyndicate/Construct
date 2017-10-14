@@ -3,7 +3,8 @@ const state = {
   first_name: "Tyler",
   last_name: "Durden",
   base_fiat: "USD",
-  email: "fight@club.com",
+  base_currency: "USD",
+  email: "",
   transition: null,
 }
 
@@ -11,6 +12,7 @@ const state = {
 var getters = {
   first_name: state =>  state.first_name,
   last_name: state =>  state.last_name,
+  base_currency: state => state.base_currency,
 }
 
 // Mutations
@@ -26,6 +28,9 @@ var mutations = {
   },
   ["UPDATE_BASE_FIAT"] (state, base_fiat) {
     state.base_fiat = base_fiat
+  },
+  ["UPDATE_BASE_CURRENCY"] (state, base_currency) {
+    state.base_currency = base_currency
   },
   ["LOAD_USER"] (state, oldState) {
     state.first_name = oldState.first_name
@@ -50,6 +55,7 @@ var actions = {
 }
 
 export default {
+  namespaced: true,
   state,
   getters,
   mutations,

@@ -6,11 +6,11 @@ import store from '../store'
 Vue.use(Router)
 
 const router = new Router({
-  // base: '/Construct/',
+  base: '/',
   routes: [
     {path: '*', redirect: '/currencies'},
     {path: '/currencies', name: 'currencies', component: Pages.CurrenciesPage},
-    {path: '/currencies/:id', name: 'currency', component: Pages.CurrencyPage},
+    {path: '/currencies/:symbol', name: 'currency', component: Pages.CurrencyPage},
     {path: '/exchanges/:id', name: 'exchange', component: Pages.ExchangePage},
     // {path: '/users', name: 'users', component: Pages.UsersPagePortfoliosPage},
     {path: '/profile', name: 'profile', component: Pages.ProfilePage},
@@ -22,14 +22,14 @@ const router = new Router({
 
 
 router.beforeEach((to, from, next) => {
-  let currentUser = store.state.user.currentUser
+  store.state.users.transition = "slide-right"
   if(from.name == "currencies"){
-    store.state.user.transition = "slide-left"
+    store.state.users.transition = "slide-left"
   } 
   if(from.name == "profile"){
-    store.state.user.transition = "slide-right"
+    store.state.users.transition = "slide-right"
   }
-
+  
   next()
 })
 

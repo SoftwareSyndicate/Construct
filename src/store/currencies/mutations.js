@@ -33,27 +33,18 @@ export default {
       time_interval_name: "1h",
       order_by: "market_cap_usd",
       reverse: false,
+      auto_update: true,
       name: "",
-      price_range: {
-        high: null,
-        low: null,
-      },
-      market_cap_range: {
-        high: null,
-        low: null,
-      },
-      percent_change_1hr_range: {
-        high: null,
-        low: null,
-      },
-      percent_change_24hr_range: {
-        high: null,
-        low: null,
-      },
-      percent_change_7day_range: {
-        high: null,
-        low: null,
-      },
+      price_range_min: 0,
+      price_range_max: 10000,
+      market_cap_range_min: 0,
+      market_cap_range_max: 100000000000,
+      percent_change_1hr_range_min: -100,
+      percent_change_1hr_range_max: 100,
+      percent_change_24hr_range_min: -100,
+      percent_change_24hr_range_max: 100,
+      percent_change_7day_range_min: -100,
+      percent_change_7day_range_max: 100,
     }
   },  
   [types.RECIEVE_CURRENCY_HISTORY] (state, currency_history) {

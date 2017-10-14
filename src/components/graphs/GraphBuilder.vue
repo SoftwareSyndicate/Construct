@@ -1,21 +1,11 @@
 <template lang="pug">
 div#graph-builder
-  div.row
-    div.button.add(@click="openAddGraphCurrencyModal()") Add Currency
-  div.row
-    ul.collapsible(data-collapsible='expandable' ref="currencyList")
-      li(v-for="currency in graphs")
-        div.collapsible-header
-          i.material-icons.remove(@click="removeGraphCurrency(currency.name)") remove_circle_outline
-          | {{currency.name}}
-          i.material-icons.open keyboard_arrow_down
-          i.material-icons.close keyboard_arrow_up
-        div.collapsible-body
-          div.lines
-            div.line(v-for="line in currency.lines")
-              p
-                input(type="checkbox" :id="currency.name + '-' + line.name" :checked="line.active")
-                label(:for="currency.name + '-' + line.name" @click="toggleGraphLine({currency, line})") {{line.name}}
+  h3 Graph Builder comming soon!
+  // div.lines
+  //   div.line(v-for="line in lineTypes")
+  //     p
+  //       input(type="checkbox" :id="line" :checked="line.active")
+  //       label(:for="line" @click="toggleGraphLine(line)") {{line}}
       
 </template>
 
@@ -28,8 +18,7 @@ export default {
   name: 'GraphBuilder',
   methods: {
     ...mapMutations({
-      removeGraphCurrency: 'REMOVE_GRAPH_CURRENCY',
-      toggleGraphLine: 'TOGGLE_GRAPH_LINE',
+      
     }),
     openAddGraphCurrencyModal(){
 
@@ -37,7 +26,8 @@ export default {
   },
   computed: {
     ...mapState({
-      'graphs': state => state.graphs.graphs,
+      'chartConfig': state => state.graphs.chart_config,
+      'lineTypes': state => state.graphs.line_types,
     }),
   },
   watch: {

@@ -1,7 +1,7 @@
 <template lang="pug">
   
 div#bottom-nav
-  router-link.nav-item(:to="item.link" v-for="item in nav_items" :key="item.link")
+  router-link.nav-item(:to="{name: item.link}" v-for="item in nav_items" :key="item.link")
     i.material-icons {{item.icon}}
 
 </template>
