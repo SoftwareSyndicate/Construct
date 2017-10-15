@@ -13,7 +13,6 @@ div#portfolios-page
 import TimeSeries from '@/components/graphs/TimeSeries'
 import LineGraph from '@/components/graphs/Line'
 import Doughnut from '@/components/graphs/Doughnut'
-
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
@@ -35,8 +34,12 @@ export default {
   methods: {
     ...mapMutations({
       setBrand: 'SET_BRAND'
-    })
+    }),
 
+    generateArbitrage(){
+
+
+    }
   },
   computed: {
     ...mapGetters([

@@ -1,4 +1,4 @@
-
+import ArbitragePage from './ArbitragePage'
 import ExchangePage from './ExchangePage'
 import CurrenciesPage from './CurrenciesPage'
 import CurrencyPage from './CurrencyPage'
@@ -8,6 +8,7 @@ import PortfolioPage from './PortfolioPage'
 import CoinSheetPage from './CoinSheetPage'
 
 export default {
+  ArbitragePage,
   ExchangePage,
   CurrenciesPage,
   CurrencyPage,

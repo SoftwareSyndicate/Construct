@@ -21,6 +21,11 @@ export default {
           icon: "view_list",
           link: "currencies"
         },
+        {
+          icon: "swap_calls",
+          link: "arbitrage"
+        },
+        
         // {
         //   icon: "description",
         //   link: "news"
