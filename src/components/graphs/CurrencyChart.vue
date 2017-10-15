@@ -225,15 +225,15 @@ export default {
 		  let xt = t.rescaleX(this.scales.x.bottom)
       let yt = t.rescaleY(this.scales.y.left)
 
-		  let d = this.mouseDate(xt)
-		  this.focus.select("circle.y")
-			  .attr('cx', () => { return t.applyX(this.scales.x.bottom(d.date))})
-			  .attr('cy', () => {	return t.applyY(this.scales.y.left(d.close))})
+		  // let d = this.mouseDate(xt)
+		  // this.focus.select("circle.y")
+			//   .attr('cx', () => { return t.applyX(this.scales.x.bottom(d.date))})
+			//   .attr('cy', () => {	return t.applyY(this.scales.y.left(d.close))})
       
-		  this.focus.select("text")
-			  .text(this.formatCurrency(d.close))
-			  .attr('x', () => { return t.applyX(this.scales.x.bottom(d.date)) + 10 })
-			  .attr('y', () => { return t.applyY(this.scales.y.left(d.close))})
+		  // this.focus.select("text")
+			//   .text(this.formatCurrency(d.close))
+			//   .attr('x', () => { return t.applyX(this.scales.x.bottom(d.date)) + 10 })
+			//   .attr('y', () => { return t.applyY(this.scales.y.left(d.close))})
 	  },
 
 	  zoomed() {
@@ -251,16 +251,16 @@ export default {
               .x((d) => { return xt(d.date)})
 							.y((d) => { return yt(d.close)}))
 
-      let d = this.mouseDate(xt)
-		  this.focus.select("circle.y")
-			  .classed("zoomed", true)
-			  .attr("id","one")
-			  .attr('cx', () => {return t.applyX(this.scales.x.bottom(d.date))})
-			  .attr('cy', () => {return t.applyY(this.scales.y.left(d.close))})
-		  this.focus.select("text")
-			  .text(this.formatCurrency(d.close))
-			  .attr('x', () => { return t.applyX(this.scales.x.bottom(d.date)) + 10 })
-			  .attr('y', () => { return t.applyY(this.scales.y.left(d.close))})
+      // let d = this.mouseDate(xt)
+		  // this.focus.select("circle.y")
+			//   .classed("zoomed", true)
+			//   .attr("id","one")
+			//   .attr('cx', () => {return t.applyX(this.scales.x.bottom(d.date))})
+			//   .attr('cy', () => {return t.applyY(this.scales.y.left(d.close))})
+		  // this.focus.select("text")
+			//   .text(this.formatCurrency(d.close))
+			//   .attr('x', () => { return t.applyX(this.scales.x.bottom(d.date)) + 10 })
+			//   .attr('y', () => { return t.applyY(this.scales.y.left(d.close))})
 	  },
 	  
 	  resetted() {
