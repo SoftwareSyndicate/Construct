@@ -11,6 +11,7 @@ const router = new Router({
     {path: '*', redirect: '/currencies'},
     {path: '/currencies', name: 'currencies', component: Pages.CurrenciesPage},
     {path: '/currencies/:symbol', name: 'currency', component: Pages.CurrencyPage},
+    {path: '/arbitrage', name: 'arbitrage', component: Pages.ArbitragePage},
     {path: '/exchanges/:id', name: 'exchange', component: Pages.ExchangePage},
     // {path: '/users', name: 'users', component: Pages.UsersPagePortfoliosPage},
     {path: '/profile', name: 'profile', component: Pages.ProfilePage},
