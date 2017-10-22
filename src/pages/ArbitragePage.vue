@@ -6,32 +6,36 @@ div#portfolios-page
       .info.name
         span Name
       .info.ed-price
-        span ED Price
+        span ED Ask
       .info.liq-price
-        span Liq Price
+        span ED Bid
       .info.diff-percent
-        span Diff %
+        span Liq Ask
+      .info.diff-percent
+        span Liq Bid
       .info.ed-vol
         span ED Vol
       .info.liq-vol
         span Liq Vol
       .info.vol-price
-        span Vol * Price
-    .pair(v-for="pair in pairs")
+        span Arb
+    .pair(v-for="pair in arb_pairs")
       .info.name
-        span {{pair.name}}
+        span {{pair.base}}
       .info.ed-price
-        span {{pair.ed.price}}
+        span {{pair.exchanges.ed.ask}}
+      .info.ed-price
+        span {{pair.exchanges.ed.bid}}
+      .info.ed-price
+        span {{pair.exchanges.liq.ask}}
       .info.liq-price
-        span {{pair.liq.price}}
-      .info.diff-percent(:class="{'up': pair.diff > 0, 'down': pair.diff < 0}")
-        span {{pair.diff}}
+        span {{pair.exchanges.liq.bid}}
       .info.ed-vol
-        span {{pair.ed.volume}}
+        span {{pair.exchanges.ed.volume}}
       .info.ed-vol
-        span {{pair.liq.volume}}
-      .info.vol-price
-        span {{pair.potential}}
+        span {{pair.exchanges.liq.volume}}
+      .info.arb
+        span {{pair.arb}}
         
 </template>
 
@@ -41,6 +45,7 @@ import LineGraph from '@/components/graphs/Line'
 import Doughnut from '@/components/graphs/Doughnut'
 import APIs from '../store/apis'
 import { mapActions, mapMutations, mapGetters } from 'vuex'
+import Vue from 'vue'
 
 export default {
   name: 'PortfoliosPage',
@@ -49,93 +54,104 @@ export default {
     LineGraph,
     Doughnut
   },
-  props: {
-    
-
-  },
   data () {
     return {
       pairs: [],
       ed_pairs: null,
-      liq_pairs: null
+      liq_pairs: null,
+      matched_pairs: ["ICN", "EDG", "TRST", "WINGS", "GUP", "TAAS", "LUN", "TKN", "BAT", "BNT", "MGO", "MYST", "SNGLS", "PTOY", "CFI", "SNT", "MCO", "STORJ", "ADX", "EOS", "PAY", "OMG", "CVC", "DGD", "OAX", "DNT", "STX", "ZRX", "TNT", "AE", "VEN", "BMC", "MANA", "PRO", "KNC", "SALT", "IND", "TRX", "ENG"]
     }
   },
   methods: {
     ...mapMutations({
       setBrand: 'SET_BRAND'
     }),
+    generatePairs(){
+      this.matched_pairs.forEach(mp => {
+        this.pairs.push({
+          base: mp,
+          counter: "ETH",
+          arb: null,
+          exchanges: {
+            ed: {},
+            liq: {}
+          },
+        })
+      })
+    },
+    update_pair_exchange(pair){
+      for(let i = 0; i < this.pairs.length; i++){
+        if(this.pairs[i].base == pair.base){
+          found = true
+          let updated = Object.assign({}, this.pairs[i], pair)
+          Vue.set(this.pairs, i, updated)
+        }
+      }
+    },
     generateArbitrage(){
       let promises = []
-      let ed = []
-      let liq = []
-      let all_ed = null
-
-
+      
       // Get Ticker info from EtherDelta
       promises.push(APIs.EtherDelta.fetch_all_tickers().then(results => {
-        all_ed = results
         for(let k in results){
-          ed.push(k.split('_')[1].toLowerCase())
+          let base = k.split('_')[1].toUpperCase()
+          for(let i = 0; i < this.pairs.length; i++){
+            if(this.pairs[i].base == base){
+              this.pairs.address = results[k].tokenAddr
+              this.pairs[i].exchanges.ed = {
+                ask:  parseFloat(results[k].ask),
+                bid:  parseFloat(results[k].bid),
+                last:  parseFloat(results[k].last),
+                quote_volume:  parseFloat(results[k].quoteVolume),
+                volume:  parseFloat(results[k].baseVolume),
+              }
+            }
+          }
         }
+
+        log(this.pairs)
+      }, error => {
+        this.generateArbitrage()
       }))
 
       // Get Ticker info from Liqui
-      promises.push(APIs.Liqui.fetch_all_tickers().then(results => {
-        for(let k in results.pairs){
-          if(k.split('_')[1] == 'eth'){
-            liq.push(k.split('_')[0])
+      this.pairs.forEach(pair => {
+        promises.push(APIs.Liqui.fetch_ticker(pair.base.toLowerCase() + "_eth").then(results => {
+          for(let k in results){
+            let base = k.split('_')[0].toUpperCase()
+            for(let i = 0; i < this.pairs.length; i++){
+              if(this.pairs[i].base == base){
+                this.pairs.address = results[k].tokenAddr
+                this.pairs[i].exchanges.liq = {
+                  ask:  parseFloat(results[k].sell),
+                  bid: parseFloat(results[k].buy),
+                  last:  parseFloat(results[k].last),
+                  low:  parseFloat(results[k].low),
+                  high:  parseFloat(results[k].high),
+                  volume:  parseFloat(results[k].vol).toFixed(2),
+                  quote_volume:  parseFloat(results[k].vol_cur).toFixed(2),
+                  avg:  parseFloat(results[k].avg),
+                }
+              }
+            }
           }
-        }
-      }))
+        }))        
+      })
 
       Promise.all(promises).then(()=> {
-        this.pairs = []
-        let matching = ed.filter(p => {
-          if(liq.indexOf(p) > -1){
-            return true
+        this.pairs.forEach(pair => {
+          if(pair.exchanges.ed.ask < pair.exchanges.liq.bid){
+            let diff = ((pair.exchanges.ed.ask - pair.exchanges.liq.bid) / pair.exchanges.liq.bid) * 100
+            pair.arb = "Buy ED - " + diff.toFixed(3)
+          } else if(pair.exchanges.liq.ask < pair.exchanges.ed.bid){
+            let diff = ((pair.exchanges.liq.ask - pair.exchanges.ed.bid) / pair.exchanges.ed.bid) * 100
+            pair.arb = "Buy Liq - " + diff.toFixed(3)
           } else {
-            return false
+            pair.arb = "None"
           }
+          
         })
 
-        let promises = []
-        matching.map(pair => {
-          promises.push(APIs.Liqui.fetch_ticker(pair + "_eth").then(results => {
-            let ed_last = parseFloat(all_ed["ETH_" + pair.toUpperCase()].last)
-            let liq_last = parseFloat(results[pair + "_eth"].last)
-            let dif = ((ed_last - liq_last) / ((ed_last + liq_last) / 2)) * 100
-            this.pairs.push({
-              name: pair.toUpperCase(),
-              diff: dif.toFixed(2),
-              potential: parseFloat(all_ed["ETH_" + pair.toUpperCase()].quoteVolume * ed_last).toFixed(2),
-              ed: {
-                price: ed_last,
-                volume: parseFloat(all_ed["ETH_" + pair.toUpperCase()].quoteVolume).toFixed(2),
-                
-              },
-              liq: {
-                price: liq_last,
-                volume: parseFloat(results[pair + "_eth"].vol).toFixed(2),
-              }
-
-            })
-          }))
-
-          Promise.all(promises).then(()=> {
-            this.pairs = this.pairs.sort((a,b)=>{
-              if (a.name < b.name) {
-                return -1;
-              }
-              if (a.name > b.name) {
-                return 1;
-              }
-
-              return 0;
-            })
-          })
-        })
-
-        
       })
     }
   },
@@ -145,9 +161,30 @@ export default {
       'currency',
       'currency_history',
       'filtered_shapeshift_rates',
-    ])
+    ]),
+    arb_pairs(){
+      let arb_pairs = this.pairs.sort((a,b) => {
+        if(a.base < b.base){
+          return - 1
+        } else if(a.base > b.base){
+          return 1
+        }
+        return 0
+      })
+
+      return arb_pairs
+      // return this.pairs.filter(p => {
+      //   if(p.markets.ed && p.markets.liq){
+      //     return true
+      //   } else {
+      //     return false
+      //   }
+      // })
+      
+    }
   },
   created(){
+    this.generatePairs()
     this.generateArbitrage()
     setInterval(()=> {
       this.generateArbitrage()
@@ -155,66 +192,6 @@ export default {
   },
   mounted(){
     this.setBrand("Portfolios")
-//     let ed = []
-//     let liq = []
-//     let all_ed = null
-// c    APIs.EtherDelta.fetch_all_tickers().then(results => {
-//       all_ed = results
-//       for(let k in results){
-//         ed.push(k.split('_')[1].toLowerCase())
-//       }
-
-//       APIs.Liqui.fetch_all_tickers().then(results => {
-//         log(results)
-//         for(let k in results.pairs){
-//           if(k.split('_')[1] == 'eth'){
-//             liq.push(k.split('_')[0])
-//           }
-//         }
-
-//         let matching = ed.filter(p => {
-//           if(liq.indexOf(p) > -1){
-//             return true
-//           } else {
-//             return false
-//           }
-//         })
-        
-//         matching.map(pair => {
-//           APIs.Liqui.fetch_ticker(pair + "_eth").then(results => {
-//             let ed_last = parseFloat(all_ed["ETH_" + pair.toUpperCase()].last)
-//             let liq_last = parseFloat(results[pair + "_eth"].last)
-//             let dif = ((ed_last - liq_last) / ((ed_last + liq_last) / 2)) * 100
-//             log(pair)
-//             log("Liqui price" + ": ", liq_last)
-//             log("Ether Delta price" + ": ", ed_last)
-//             log("Diff: ", dif)
-//             log("Liqui Vol: ", parseFloat(results[pair + "_eth"].vol))
-//             log("Ether Delta Vol: ", parseFloat(all_ed["ETH_" + pair.toUpperCase()].quoteVolume))
-//             log("Vol * Price: ", parseFloat(all_ed["ETH_" + pair.toUpperCase()].quoteVolume * ed_last))
-//             log("\n\n")
-
-//             this.pairs.push({
-//               name: pair.toUpperCase(),
-//               diff: dif.toFixed(2),
-//               potential: parseFloat(all_ed["ETH_" + pair.toUpperCase()].quoteVolume * ed_last).toFixed(2),
-//               ed: {
-//                 price: ed_last,
-//                 volume: parseFloat(all_ed["ETH_" + pair.toUpperCase()].quoteVolume).toFixed(2),
-                
-//               },
-//               liq: {
-//                 price: liq_last,
-//                 volume: parseFloat(results[pair + "_eth"].vol).toFixed(2),
-//               }
-
-//             })
-//           })
-//         })
-//       })
-//     })
-
-
   },
 }
 </script>

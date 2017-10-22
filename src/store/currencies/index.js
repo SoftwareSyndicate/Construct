@@ -20,7 +20,7 @@ const state = {
     price_range_min: 0,
     price_range_max: 10000,
     market_cap_range_min: 0,
-    market_cap_range_max: 100000000000,
+    market_cap_range_max: 1000000000000,
     percent_change_1hr_range_min: -100,
     percent_change_1hr_range_max: 100,
     percent_change_24hr_range_min: -100,
