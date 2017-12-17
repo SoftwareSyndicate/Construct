@@ -9,7 +9,7 @@ const router = new Router({
   base: '/',
   routes: [
     {path: '*', redirect: '/currencies'},
-    {path: '/currencies', name: 'currencies', component: Pages.CurrenciesPage},
+    {path: '/currencies', name: 'currencies', component: Pages.CurrenciesPage, position: 0},
     {path: '/currencies/:symbol', name: 'currency', component: Pages.CurrencyPage},
     {path: '/arbitrage', name: 'arbitrage', component: Pages.ArbitragePage},
     {path: '/exchanges/:id', name: 'exchange', component: Pages.ExchangePage},
@@ -18,6 +18,7 @@ const router = new Router({
     {path: '/portfolios', name: 'portfolios', component: Pages.PortfoliosPage},
     {path: '/portfolios/:id', name: 'portfolio', component: Pages.PortfolioPage},
     {path: '/news', name: 'news', component: Pages.CoinSheetPage},
+    {path: '/rumors', name: 'rumors', component: Pages.RumorsPage},
   ],
 })
 

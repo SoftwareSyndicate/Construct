@@ -35,6 +35,10 @@ export default {
         //   link: "portfolios"
         // },
         {
+          icon: "forum",
+          link: "rumors"
+        },
+        {
           icon: "person",
           link: "profile"
         },

@@ -4,6 +4,7 @@ import CryptoCompare from './CryptoCompare'
 import Fixer from './Fixer'
 import EtherDelta from './EtherDelta'
 import Liqui from './Liqui'
+import Chan from './4chan'
 
 export default {
   // ShapeShift: ShapeShift,
@@ -12,4 +13,5 @@ export default {
   Fixer: Fixer,
   EtherDelta: EtherDelta,
   Liqui: Liqui,
+  Chan: Chan,
 }

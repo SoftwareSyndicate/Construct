@@ -6,6 +6,7 @@ import ProfilePage from './ProfilePage'
 import PortfoliosPage from './PortfoliosPage'
 import PortfolioPage from './PortfolioPage'
 import CoinSheetPage from './CoinSheetPage'
+import RumorsPage from './RumorsPage'
 
 export default {
   ArbitragePage,
@@ -16,4 +17,5 @@ export default {
   PortfoliosPage,
   PortfolioPage,
   CoinSheetPage,
+  RumorsPage,
 }
