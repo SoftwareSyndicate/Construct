@@ -1,0 +1,14 @@
+{
+  "name": "Construct",
+  "short_name": "Construct",
+  "display": "standalone",
+  "background_color": "white",
+  "description": "Crypto Analysis",
+  "background_color": "white",
+  "theme_color": "white",
+  "icons": [{
+    "src": "logo.png",
+    "sizes": "48x48 72x72 96x96 128x128 256x256 384x384 512x512",
+    "type": "image/png"
+  }]
+}
