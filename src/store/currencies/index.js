@@ -18,7 +18,7 @@ const state = {
     auto_update: true,
     name: "",
     price_range_min: 0,
-    price_range_max: 10000,
+    price_range_max: 100000,
     market_cap_range_min: 0,
     market_cap_range_max: 10000000000000,
     percent_change_1hr_range_min: -100,
